@@ -1,0 +1,17 @@
+@import '../../../styles/constants.scss';
+
+.authorization {
+  width: 420px;
+  margin: auto auto;
+  background-color: $grey;
+
+  .auth-nav {
+    display: flex;
+    justify-content: space-between;
+
+    .btn-active {
+      background-color: $pink;
+      color: white;
+    }
+  }
+}

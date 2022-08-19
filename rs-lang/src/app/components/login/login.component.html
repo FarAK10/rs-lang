@@ -7,12 +7,14 @@
       <mat-error *ngIf="email?.errors?.['email']">Please enter valid email</mat-error>
     </mat-form-field>
     <mat-form-field class="input-field" color="accent">
-      <input matInput placeholder="Password" formControlName="password">
+      <input type="password" matInput placeholder="Password" formControlName="password">
       <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">Min length of the password should be 8 symbols
+      </mat-error>
     </mat-form-field>
     <div class="center">
       <button class="submit-btn" mat-raised-button color="accent" type="submit">Submit</button>
-      <span class="span-text">New to our platForm?<a class="sign-up-link" routerLink="register"> Sign Up!</a></span>
+      <span class="span-text">New to our platForm?<a class="sign-up-link" routerLink="/register"> Sign Up!</a></span>
     </div>
   </form>
 </div>

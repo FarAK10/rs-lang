@@ -1,9 +1,11 @@
 <section class="authorization">
   <div class="auth-nav">
-    <button mat-button>LogIn</button>
-    <button mat-button>Registration</button>
+    <button [ngClass]="{'btn-active':isLogin}" [disabled]="isLogin" (click)="isActive()" mat-stroked-button
+      color="accent" routerLink="/login">
+      Login
+    </button>
+    <button [ngClass]="{'btn-active':!isLogin}" [disabled]="!isLogin" (click)="isActive()" mat-stroked-button
+      color="accent" routerLink="/register">Registration</button>
   </div>
-  <app-login></app-login>
-  <app-register></app-register>
-
+  <router-outlet></router-outlet>
 </section>

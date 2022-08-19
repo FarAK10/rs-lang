@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AutorizationComponent implements OnInit {
   constructor() {}
+  isLogin = true;
 
   ngOnInit(): void {}
+
+  isActive() {
+    this.isLogin = !this.isLogin;
+  }
 }

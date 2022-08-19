@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import HeaderInterceptor from './services/header.interceptor';
 
 const formsModules = [
   MatButtonModule,
@@ -34,9 +36,16 @@ const formsModules = [
     MatButtonModule,
     AuthModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ...formsModules,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

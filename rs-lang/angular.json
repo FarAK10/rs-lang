@@ -98,7 +98,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ionicons/dist/scss/ionicons.scss"
             ],
             "scripts": []
           }
@@ -117,8 +118,6 @@
   },
   "cli": {
     "analytics": "48a3bed9-6e4e-41e1-ae80-8d6ac29abff5",
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }
