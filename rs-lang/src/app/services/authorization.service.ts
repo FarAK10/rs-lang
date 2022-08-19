@@ -10,6 +10,9 @@ export class AuthorizationService {
 
   createUser(newUSer: INewUser) {
     this.apiService.post('users', newUSer).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
       error: (err) => {
         if (err.status === 417) {
           alert('use with such email already exists');

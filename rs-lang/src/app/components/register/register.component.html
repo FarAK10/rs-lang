@@ -14,13 +14,14 @@
     </mat-form-field>
 
     <mat-form-field class="input-field" color="accent">
-      <input type="password" matInput placeholder="Password" formControlName="password">
+      <input type="password" matInput placeholder="Password" formControlName="password" autocomplete="on">
       <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
       <mat-error *ngIf="password?.errors?.['minlength']">Min length of password is 8 symbols</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field" color="accent">
-      <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
+      <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword"
+        autocomplete="on">
       <mat-error *ngIf="confirmPassword?.errors?.['required']">Confirming Password is required</mat-error>
       <mat-error *ngIf="confirmPassword?.errors?.['minlength']">Min length of password is 8 symbols</mat-error>
     </mat-form-field>
@@ -28,7 +29,8 @@
     <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">Passwords should match</mat-error>
 
     <div class="center">
-      <button [disabled]="signUpForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit">Sign
+      <button [disabled]="!signUpForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit"
+        (click)="submit()">Sign
         Up!</button>
       <span class="span-text">You have already an account?<a class="sign-up-link" routerLink="/login"> Log
           In!</a></span>
