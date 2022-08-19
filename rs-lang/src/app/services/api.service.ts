@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { INewUser } from '../interfaces/interfaces';
+import { ICurrentUser, INewUser } from '../interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,13 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   constructor(private http: HttpClient) {}
-  baseUrl = 'https://app-rs-lang.herokuapp.com';
+  // baseUrl = 'https://app-rs-lang.herokuapp.com';
+  baseUrl = 'http://localhost:8088';
 
   post<T>(url: string, body: T): Observable<T> {
     return this.http.post<T>(this.generateUrl(url), body);
   }
 
-  generateUrl(url: string) {
+  generateUrl(url: string): string {
     return `${this.baseUrl}/${url}`;
   }
 }

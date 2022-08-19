@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,9 +17,16 @@ export class LoginComponent implements OnInit {
       Validators.minLength(8),
     ]),
   });
-  constructor() {}
 
-  ngOnInit(): void {}
+  resoursesLoaded = true;
+
+  constructor(private authorizationService: AuthorizationService) {}
+
+  ngOnInit(): void {
+    this.authorizationService.resorsesLoaded$.subscribe((value) => {
+      this.resoursesLoaded = value;
+    });
+  }
 
   get email() {
     return this.loginForm.get('email');
@@ -26,5 +34,16 @@ export class LoginComponent implements OnInit {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  signIn() {
+    const emailValue = this.email?.value as string;
+    const passwordValue = this.email?.value as string;
+    const newUSer = {
+      email: emailValue,
+      password: passwordValue,
+    };
+    this.resoursesLoaded = false;
+    this.authorizationService.singIn(newUSer);
   }
 }

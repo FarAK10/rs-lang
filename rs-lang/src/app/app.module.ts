@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AutorizationComponent } from './components/autorization/autorization.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthModule } from './routings/auth/auth.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +20,7 @@ const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({

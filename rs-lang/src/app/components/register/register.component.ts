@@ -63,9 +63,15 @@ export class RegisterComponent implements OnInit {
 
   showPassword = false;
 
+  resoursesLoaded = true;
+
   constructor(private authoriationService: AuthorizationService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authoriationService.resorsesLoaded$.subscribe((value) => {
+      this.resoursesLoaded = value;
+    });
+  }
 
   get name() {
     return this.signUpForm.get('name');
@@ -92,6 +98,7 @@ export class RegisterComponent implements OnInit {
       name: nameValue,
       password: passwordValue,
     };
+    this.resoursesLoaded = false;
     this.authoriationService.createUser(newUSer);
   }
 }

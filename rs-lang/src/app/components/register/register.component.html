@@ -32,8 +32,8 @@
       <button [disabled]="!signUpForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit"
         (click)="submit()">Sign
         Up!</button>
-      <span class="span-text">You have already an account?<a class="sign-up-link" routerLink="/login"> Log
-          In!</a></span>
     </div>
   </form>
 </div>
+<mat-progress-spinner ngClass="spinner" *ngIf="!resoursesLoaded" class="example-margin" color="accent"
+  mode="indeterminate" [value]="50">
