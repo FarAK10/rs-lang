@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import HeaderInterceptor from './services/header.interceptor';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
 
 const formsModules = [
   MatButtonModule,
@@ -29,6 +30,7 @@ const formsModules = [
     AutorizationComponent,
     LoginComponent,
     RegisterComponent,
+    TutorialComponent,
   ],
 
   imports: [
