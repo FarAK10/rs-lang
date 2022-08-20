@@ -1,0 +1,27 @@
+.rss{
+    display: flex;
+    text-decoration: none;
+    background-image: url(../../../src/icons/rs__logo.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 4rem;
+    height: 4rem;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.authors{
+    display: flex;
+    gap: 1rem;
+    font-size: 1rem;
+    text-decoration-color: black;
+}
+mat-toolbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: #ff4081;
+
+}
