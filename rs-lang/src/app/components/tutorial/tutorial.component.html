@@ -1,0 +1,13 @@
+<div class="level">
+    <div class="container">
+        <h2 class="level__header"><span class="level__header-en">Would you please </span>выбрать уровень сложности?</h2>
+        <div class="level__cards">
+            <div *ngFor="let level of levels" class="level__card" [ngStyle]="{background: 'linear-gradient(30deg, white 15%, ' + level.color + ')'}" [class.active] = "level.id === 1 && mouseOver === false">
+                <span><span class="level__card-title">{{ level.title }}</span><span class="level__card-digit">{{ level.digit }}</span></span>
+            </div>
+        </div>
+        <div class="info">
+    
+        </div>
+    </div>
+</div>

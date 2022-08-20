@@ -1,2 +1,61 @@
 @import './constants.scss';
 
+.level {
+    width: 100%;
+    .level__header {
+        text-align: center;
+        font-size: 36px;
+        font-family: "Sensei Medium";
+        color: $pink;
+    }
+    .container {
+        margin: auto;
+        max-width: 1200px;
+        padding: 70px;
+        .level__cards {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            .level__card {
+                width: 100px;
+                height: 70px;
+                border-radius: 25px;
+                border-bottom-left-radius: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 10px;
+                font-size: 24px;
+                font-weight: 700;
+                box-shadow: 0 0 5px rgb(164, 163, 163);
+                font-family: "Post Human";
+                cursor: pointer;
+                transition: all .2s ease;
+                .level__card-title {
+                    font-size: 0px;
+                    opacity: 0;
+                    transition: all .2s ease;
+                }
+                .level__card-digit {
+                    transition: all .2s ease;
+                }
+            }
+
+            .level__card:hover,
+            .level__card.active {
+                width: 300px;
+                .level__card-title {
+                    letter-spacing: 0;
+                    font-size: 24px;
+                    opacity: 1;
+                    letter-spacing: +2px;
+                }
+                .level__card-digit {
+                    opacity: 0;
+                    font-size: 0px;
+                }
+            }
+        }
+    }
+}
