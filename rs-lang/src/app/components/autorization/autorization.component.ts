@@ -11,7 +11,7 @@ export class AutorizationComponent implements OnInit {
   isLogin = true;
 
   ngOnInit(): void {
-    if (this.location.path() === '/login') {
+    if (this.location.path() === '/login' || this.location.path() === '') {
       this.isLogin = true;
     } else {
       this.isLogin = false;
