@@ -91,8 +91,8 @@ export class RegisterComponent implements OnInit {
 
   submit(): void {
     const emailValue = this.email?.value as string;
-    const passwordValue = this.email?.value as string;
-    const nameValue = this.email?.value as string;
+    const passwordValue = this.password?.value as string;
+    const nameValue = this.name?.value as string;
     const newUSer = {
       email: emailValue,
       name: nameValue,

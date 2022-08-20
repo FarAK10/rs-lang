@@ -5,11 +5,12 @@ import { ApiService } from './api.service';
 import { map } from 'rxjs';
 import { of } from 'rxjs';
 import { Icon } from 'ionicons/dist/types/components/icon/icon';
+import { LocalStorageService } from './local-storage.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorizationService {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private localStorageService: LocalStorageService) {}
 
   currentUser!: ICurrentUser;
 
@@ -21,7 +22,6 @@ export class AuthorizationService {
       .pipe(switchMap(() => of(this.singIn(newUSer))))
       .subscribe({
         next: () => {
-          console.log('created');
           this.resorsesLoaded$.next(true);
         },
         error: (err) => {
@@ -44,10 +44,11 @@ export class AuthorizationService {
       .subscribe(
         (res: ICurrentUser) => {
           this.currentUser = res;
+          this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
           this.resorsesLoaded$.next(true);
         },
         (err) => {
-          alert('token is expired');
+          alert('incorrect password or token is experid');
           this.resorsesLoaded$.next(true);
         },
       );
