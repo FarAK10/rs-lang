@@ -1,0 +1,178 @@
+@import './constants.scss';
+
+.level {
+    width: 100%;
+    position: relative;
+
+    .container {
+        margin: auto;
+        max-width: 1200px;
+        padding: 70px;
+        z-index: 0;
+
+        .level__content {
+            display: flex;
+            z-index: 0;
+
+            .level__cards {
+                margin-top: 35px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                width: 50%;
+                z-index: 0;
+
+                .level__card {
+                    width: 100px;
+                    height: 70px;
+                    border-radius: 25px;
+                    border-bottom-left-radius: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding-top: 10px;
+                    font-size: 24px;
+                    font-weight: 700;
+                    box-shadow: 0 0 5px rgb(164, 163, 163);
+                    font-family: "Post Human";
+                    cursor: pointer;
+                    transition: all .2s ease;
+
+                    .level__card-title {
+                        font-size: 0px;
+                        opacity: 0;
+                        transition: all .2s ease;
+                    }
+
+                    .level__card-digit {
+                        transition: all .2s ease;
+                    }
+                }
+
+                .level__card:hover,
+                .level__card.active {
+                    width: 300px;
+
+                    .level__card-title {
+                        letter-spacing: 0;
+                        font-size: 24px;
+                        opacity: 1;
+                        letter-spacing: +2px;
+                    }
+
+                    .level__card-digit {
+                        opacity: 0;
+                        font-size: 0px;
+                    }
+                }
+            }
+
+            .info {
+                margin-top: 35px;
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 0;
+
+                .info__header {
+                    @include font(36px, $pink, "Post Human", 700);
+                    letter-spacing: +2px;
+                    z-index: 1;
+                }
+
+                .info__title {
+                    width: 100%;
+                    padding: 15px;
+                    text-align: center;
+                    @include font(36px, $pink, "Sensei Medium", 500);
+                    border-top: 5px dotted $black;
+                    border-bottom: 5px dotted $black;
+                    z-index: +10;
+                }
+
+                .info__words {
+                    margin-top: 35px;
+                    align-self: end;
+                    @include font(24px, $black, "Sensei Medium", 500);
+
+                    .info__words-digits {
+                        @include font(28px, $pink, "Sensei Medium", 500);
+                        border-bottom: 5px solid $pink;
+                    }
+                }
+
+                .info__text {
+                    margin-top: 70px;
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    box-shadow: 0 0 10px gray;
+
+                    .info__text-desc {
+                        @include font(28px, $black, "Sensei Medium", 500, 35px);
+                        text-align: center;
+                    }
+
+                    .info__text-skills {
+                        margin-top: 25px;
+                        text-align: justify;
+                        @include font(26px, $pink, "Sensei Medium", 100, 35px);
+                    }
+                }
+            }
+        }
+    }
+
+    .level__header {
+        text-align: center;
+        @include font(36px, $black, "Sensei Medium");
+        color: $pink;
+        z-index: 1;
+    }
+
+    .image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        z-index: -1;
+    }
+
+    .image2 {
+        position: absolute;
+        bottom: 55px;
+        left: 50%;
+        transform: translate(-100%);
+        width: 200px;
+        z-index: -1;
+    }
+
+    .image3 {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        width: 200px;
+        z-index: -1;
+
+        @media (max-width: 1450px) {
+            width: 150px;
+        }
+
+        @media (max-width: 1350px) {
+            width: 100px;
+        }
+
+        @media (max-width: 1250px) {
+            display: none;
+        }
+    }
+
+    .picture {
+        width: 100%;
+        height: 100%;
+    }
+}
