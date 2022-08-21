@@ -154,6 +154,15 @@
         transform: translate(0, -50%);
         width: 200px;
         z-index: -1;
+        @media (max-width: 1450px) {
+            width: 150px;
+        }
+        @media (max-width: 1350px) {
+            width: 100px;
+        }
+        @media (max-width: 1250px) {
+            display: none;
+        }
     }
     .picture {
         width: 100%;
