@@ -82,12 +82,12 @@ export class RegisterComponent implements OnInit {
     const emailValue = this.email?.value as string;
     const passwordValue = this.password?.value as string;
     const nameValue = this.name?.value as string;
-    const newUSer = {
+    const newUser = {
       email: emailValue,
       name: nameValue,
       password: passwordValue,
     };
     this.resoursesLoaded = false;
-    this.authorizationService.createUser(newUSer);
+    this.authorizationService.register(newUser);
   }
 }

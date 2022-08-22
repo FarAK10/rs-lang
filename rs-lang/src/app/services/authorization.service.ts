@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, switchMap, Observable } from 'rxjs';
 import { ICurrentUser, INewUser } from '../interfaces/interfaces';
 import { ApiService } from './api.service';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { ERROR_CODES } from '../shared/enums';
@@ -16,21 +16,19 @@ export class AuthorizationService {
 
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
 
-  createUser(newUser: INewUser): void {
-    this.apiService
-      .post('users', newUser)
-      .pipe(switchMap(() => of(this.singIn(newUser))))
-      .subscribe({
-        next: () => {
+  register(newUser: INewUser): void {
+    this.apiService.post('users', newUser).subscribe({
+      next: () => {
+        this.singIn(newUser);
+        this.resoursesLoaded$.next(true);
+      },
+      error: (err) => {
+        if (err.status === ERROR_CODES.userExists) {
           this.resoursesLoaded$.next(true);
-        },
-        error: (err) => {
-          if (err.status === ERROR_CODES.userExists) {
-            this.resoursesLoaded$.next(true);
-            alert('user with such email already exists');
-          }
-        },
-      });
+          alert('user with such email already exists');
+        }
+      },
+    });
   }
 
   singIn(newUser: INewUser): void {
@@ -55,10 +53,6 @@ export class AuthorizationService {
   }
 
   getToken(): string {
-    return this.currentUser.token;
-  }
-
-  ha() {
-    console.log('haa');
+    return this.currentUser?.token;
   }
 }

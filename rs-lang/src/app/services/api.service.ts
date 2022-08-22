@@ -12,6 +12,7 @@ export class ApiService {
   baseUrl = 'http://localhost:8088';
 
   post<T>(url: string, body: T): Observable<T> {
+    console.log('post');
     return this.http.post<T>(this.generateUrl(url), body);
   }
 

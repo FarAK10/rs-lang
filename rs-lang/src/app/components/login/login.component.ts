@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
       password: passwordValue,
     };
     this.resoursesLoaded = false;
-    this.authorizationService.ha();
     this.authorizationService.singIn(newUser);
   }
 }
