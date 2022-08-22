@@ -1,0 +1,23 @@
+<div class="form-container mat-elevation-z5">
+  <h1>Login</h1>
+  <form [formGroup]="loginForm">
+    <mat-form-field class="input-field" color="accent">
+      <input matInput placeholder="Email address" formControlName="email">
+      <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">Please enter valid email</mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-field" color="accent">
+      <input type="password" matInput placeholder="Password" formControlName="password" autocomplete="on">
+      <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">Min length of the password should be 8 symbols
+      </mat-error>
+    </mat-form-field>
+    <div class="center">
+      <button [disabled]="!loginForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit"
+        (click)="signIn()">Submit</button>
+    </div>
+  </form>
+</div>
+<mat-progress-spinner ngClass="spinner" *ngIf="!resoursesLoaded" class="example-margin" color="accent"
+  mode="indeterminate" [value]="50">
+</mat-progress-spinner>
