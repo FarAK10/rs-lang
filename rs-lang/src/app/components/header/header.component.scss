@@ -1,8 +1,9 @@
+@import '../../../styles/constants.scss';
 .example-spacer {
     flex: 1 1 auto;
 }
 mat-toolbar{
-    background-color:#F78CB6;
+    background-color:$lightPink;
 }
 mat-icon:hover{
     color: white;

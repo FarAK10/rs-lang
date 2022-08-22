@@ -1,7 +1,9 @@
+@import '../../../styles/constants.scss';
+
 .rss{
     display: flex;
     text-decoration: none;
-    background-image: url(../../../src/assets/icons/rs__logo.svg);
+    background-image: url(../../../assets/icons/rs__logo.svg);
     background-repeat: no-repeat;
     background-position: center;
     width: 4rem;
@@ -26,6 +28,6 @@ mat-toolbar{
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    background-color: #F78CB6;
+    background-color: $lightPink;
 
 }
