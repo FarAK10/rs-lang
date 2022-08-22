@@ -1,9 +1,9 @@
 mat-sidenav-container{
-    height: 90%;
+    height: 100%;
     width: 100%;
 }
-mat-sidenav, mat-sidenav-content{
-    padding: 1rem;
+mat-sidenav{
+    padding: 2rem 1rem 0 1rem;
 }
 mat-sidenav{
     background-color: whitesmoke;
@@ -20,8 +20,36 @@ li{
     justify-content: flex-start;
     text-decoration: none;
     padding-bottom: 1rem;
+    :hover{
+        color: #ff4081;
+        transition: all 0.2s ease-in-out;
+    }
 }
+
 a{
     text-decoration: none;
     color: black;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+}
+
+a:after {
+	content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.4s; 
+}
+
+a:hover:after {
+    width: 100%;
+    left: 0;
+    background-color: #ff4081;
+    transition: width 0.4s;
 }

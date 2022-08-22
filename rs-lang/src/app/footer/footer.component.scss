@@ -1,7 +1,7 @@
 .rss{
     display: flex;
     text-decoration: none;
-    background-image: url(../../../src/icons/rs__logo.svg);
+    background-image: url(../../../src/assets/icons/rs__logo.svg);
     background-repeat: no-repeat;
     background-position: center;
     width: 4rem;
@@ -16,12 +16,16 @@ a{
     gap: 1rem;
     font-size: 1rem;
     text-decoration-color: black;
+    :hover{
+        color: white;
+        transition: all 0.2s ease-in-out;
+    }
 }
 mat-toolbar{
     width: 100%;
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    background-color: #ff4081;
+    background-color: #F78CB6;
 
 }
