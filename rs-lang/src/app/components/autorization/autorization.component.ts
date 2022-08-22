@@ -8,16 +8,6 @@ import { flatMap } from 'rxjs';
 })
 export class AutorizationComponent implements OnInit {
   constructor(private location: Location) {}
-  isLogin = true;
 
-  ngOnInit(): void {
-    if (this.location.path() === '/login' || this.location.path() === '') {
-      this.isLogin = true;
-    } else {
-      this.isLogin = false;
-    }
-  }
-  isActive() {
-    this.isLogin = !this.isLogin;
-  }
+  ngOnInit(): void {}
 }

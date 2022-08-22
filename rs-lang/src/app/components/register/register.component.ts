@@ -12,19 +12,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { INewUser } from 'src/app/interfaces/interfaces';
 import { AuthorizationService } from 'src/app/services/authorization.service';
-
-export function passwordMatchValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
-    if (password && confirmPassword && password !== confirmPassword) {
-      return {
-        passwordsDontMatch: true,
-      };
-    }
-    return null;
-  };
-}
+import { passwordMatchValidator } from 'src/app/shared/functions';
 
 @Component({
   selector: 'app-register',
@@ -65,10 +53,11 @@ export class RegisterComponent implements OnInit {
 
   resoursesLoaded = true;
 
-  constructor(private authoriationService: AuthorizationService) {}
+  constructor(private authorizationService: AuthorizationService) {}
 
   ngOnInit(): void {
-    this.authoriationService.resorsesLoaded$.subscribe((value) => {
+    this.authorizationService.resoursesLoaded$.subscribe((value) => {
+      console.log('true');
       this.resoursesLoaded = value;
     });
   }
@@ -99,6 +88,6 @@ export class RegisterComponent implements OnInit {
       password: passwordValue,
     };
     this.resoursesLoaded = false;
-    this.authoriationService.createUser(newUSer);
+    this.authorizationService.createUser(newUSer);
   }
 }

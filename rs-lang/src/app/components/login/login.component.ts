@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private authorizationService: AuthorizationService) {}
 
   ngOnInit(): void {
-    this.authorizationService.resorsesLoaded$.subscribe((value) => {
+    this.authorizationService.resoursesLoaded$.subscribe((value) => {
       this.resoursesLoaded = value;
     });
   }
@@ -39,11 +39,12 @@ export class LoginComponent implements OnInit {
   signIn() {
     const emailValue = this.email?.value as string;
     const passwordValue = this.password?.value as string;
-    const newUSer = {
+    const newUser = {
       email: emailValue,
       password: passwordValue,
     };
     this.resoursesLoaded = false;
-    this.authorizationService.singIn(newUSer);
+    this.authorizationService.ha();
+    this.authorizationService.singIn(newUser);
   }
 }

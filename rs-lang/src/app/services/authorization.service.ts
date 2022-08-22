@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, switchMap, Observable } from 'rxjs';
 import { ICurrentUser, INewUser } from '../interfaces/interfaces';
 import { ApiService } from './api.service';
 import { map } from 'rxjs';
 import { of } from 'rxjs';
-import { Icon } from 'ionicons/dist/types/components/icon/icon';
 import { LocalStorageService } from './local-storage.service';
+import { ERROR_CODES } from '../shared/enums';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,20 +14,20 @@ export class AuthorizationService {
 
   currentUser!: ICurrentUser;
 
-  resorsesLoaded$ = new BehaviorSubject<boolean>(true);
+  resoursesLoaded$ = new BehaviorSubject<boolean>(true);
 
-  createUser(newUSer: INewUser): void {
+  createUser(newUser: INewUser): void {
     this.apiService
-      .post('users', newUSer)
-      .pipe(switchMap(() => of(this.singIn(newUSer))))
+      .post('users', newUser)
+      .pipe(switchMap(() => of(this.singIn(newUser))))
       .subscribe({
         next: () => {
-          this.resorsesLoaded$.next(true);
+          this.resoursesLoaded$.next(true);
         },
         error: (err) => {
-          if (err.status === 417) {
-            this.resorsesLoaded$.next(true);
-            alert('use with such email already exists');
+          if (err.status === ERROR_CODES.userExists) {
+            this.resoursesLoaded$.next(true);
+            alert('user with such email already exists');
           }
         },
       });
@@ -45,12 +45,20 @@ export class AuthorizationService {
         (res: ICurrentUser) => {
           this.currentUser = res;
           this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
-          this.resorsesLoaded$.next(true);
+          this.resoursesLoaded$.next(true);
         },
         (err) => {
           alert('incorrect password or token is experid');
-          this.resorsesLoaded$.next(true);
+          this.resoursesLoaded$.next(true);
         },
       );
+  }
+
+  getToken(): string {
+    return this.currentUser.token;
+  }
+
+  ha() {
+    console.log('haa');
   }
 }

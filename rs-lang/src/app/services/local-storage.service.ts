@@ -9,4 +9,7 @@ export class LocalStorageService {
   setLocalStorage(key: string, value: string): void {
     localStorage.setItem(key, value);
   }
+  getLocalStorage(key: string) {
+    return localStorage.getItem(key);
+  }
 }

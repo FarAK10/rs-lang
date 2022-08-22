@@ -1,11 +1,11 @@
 <section class="authorization">
   <div class="auth-nav">
-    <button [ngClass]="{'btn-active':isLogin}" [disabled]="isLogin" (click)="isActive()" mat-stroked-button
-      color="accent" routerLink="/login">
+    <button routerLinkActive="btn-active" [routerLinkActiveOptions]="{exact:true}" mat-stroked-button color="accent"
+      routerLink="/login">
       Login
     </button>
-    <button [ngClass]="{'btn-active':!isLogin}" [disabled]="!isLogin" (click)="isActive()" mat-stroked-button
-      color="accent" routerLink="/register">Registration</button>
+    <button routerLinkActive="btn-active" mat-stroked-button color="accent" routerLink="/register"
+      [routerLinkActiveOptions]="{exact:true}">Registration</button>
   </div>
   <router-outlet></router-outlet>
 </section>
