@@ -1,13 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface Level {
-  id?: number
-  digit: string,
-  title: string
-  text: string,
-  words: number,
-  color: string
-}
+import { Level } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-tutorial',

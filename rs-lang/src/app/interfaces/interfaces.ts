@@ -11,3 +11,12 @@ export interface ICurrentUser {
   userId: string;
   name: string;
 }
+
+export interface Level {
+  id?: number
+  digit: string,
+  title: string
+  text: string,
+  words: number,
+  color: string
+}
