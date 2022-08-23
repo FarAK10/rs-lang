@@ -1,0 +1,94 @@
+@import '../../../../styles/constants.scss';
+
+.home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    background-image: 
+        url(../../../../assets/icons/Vector.svg), 
+        url(../../../../assets/icons/Bloobs.svg), 
+        url(../../../../assets/icons/Bloobs_right.svg),
+        url(../../../../assets/icons/Bloobs.svg),
+        url(../../../../assets/icons/Bloobs_right_down.svg);
+    background-position: 
+        right 0 top 0, 
+        left 0 top 20rem, 
+        right 0 top 80rem, 
+        left 0 top 110rem,
+        right 0 top 154rem;
+    background-repeat: no-repeat;
+
+}
+.introduction{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2%;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    gap: 1rem;
+}
+h1{
+    color: $darkBlue;
+    font-size: 4rem;
+    font-weight: 500;
+}
+.title{
+    color: $darkBlue;
+    font-size: 1.2rem;
+    font-weight: 500;
+
+}
+.text{
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+
+h2{
+    color: $darkBlue;
+    font-size: 3rem;
+    font-weight: 500;
+    padding-bottom: 4rem;
+    margin: 0;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 20rem;
+    min-width: 18rem;
+    min-height: 21rem;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    box-shadow: $darkBlue 0 0 1rem;
+}
+h3{
+    font-weight: 500;
+}
+mat-icon{
+    font-size: 3rem;
+    color: $lightPink;
+    width: 100%;
+    height: 100%;
+}
+.description{
+    padding: 1rem;
+    text-align: center;
+    margin: 0;
+}
+
+.video{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

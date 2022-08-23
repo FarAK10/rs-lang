@@ -1,0 +1,33 @@
+@import '../../../../styles/constants.scss';
+
+.rss{
+    display: flex;
+    text-decoration: none;
+    background-image: url(../../../../assets/icons/rs__logo.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 4rem;
+    height: 4rem;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.authors{
+    display: flex;
+    gap: 1rem;
+    font-size: 1rem;
+    text-decoration-color: black;
+    :hover{
+        color: white;
+        transition: all 0.2s ease-in-out;
+    }
+}
+mat-toolbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: $lightPink;
+
+}
