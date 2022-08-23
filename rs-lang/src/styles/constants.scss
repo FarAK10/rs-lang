@@ -1,3 +1,17 @@
+@import './fonts.scss';
+
+$pink: #ff4081;
+$grey: rgb(240, 240, 240);
+$black: #000000;
 $lightPink: #F78CB6;
 $darkBlue: #56597A;
+
+@mixin font($size: 24px, $color: #000000, $family: 'Areal', $weight: 300, $height: 20px) {
+  font-size: $size;
+  font-weight: $weight;
+  font-family: $family;
+  color: $color;
+  line-height: $height;
+}
 $pink: #ff4081;
+$grey: rgb(240, 240, 240);
