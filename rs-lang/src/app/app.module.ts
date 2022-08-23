@@ -5,23 +5,25 @@ import { CustomModule } from 'src/app/modules/custom/materials.module'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './components/header/header.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { LayoutComponent } from './components/layout/layout/layout.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 import { SidebarService } from './services/sidebar.service';
-import { HomeComponent } from './components/home/home.component';
-import { CardComponent } from './components/card/card.component';
-import { TeamCardComponent } from './components/team-card/team-card.component';
+import { HomeComponent } from './components/layout/home/home.component';
+import { CardComponent } from './components/layout/card/card.component';
+import { TeamCardComponent } from './components/layout/team-card/team-card.component';
+import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidebarComponent,
+    LayoutComponent,
     FooterComponent,
     HomeComponent,
     CardComponent,
     TeamCardComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

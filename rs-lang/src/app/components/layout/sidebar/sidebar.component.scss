@@ -1,13 +1,4 @@
-@import '../../../styles/constants.scss';
-mat-sidenav-container{
-    // height: 100%;
-    width: 100%;
-}
-mat-sidenav{
-    padding: 2rem 1rem 0 1rem;
-    background-color: whitesmoke;
-    width: 20%;
-}
+@import '../../../../styles/constants.scss';
 ul {
     padding: 0;
     margin: 0;
@@ -52,3 +43,4 @@ a:hover:after {
     background-color: $pink;
     transition: width 0.4s;
 }
+

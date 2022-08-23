@@ -1,4 +1,5 @@
-@import '../../../styles/constants.scss';
+@import '../../../../styles/constants.scss';
+
 .home{
     display: flex;
     flex-direction: column;
@@ -6,11 +7,11 @@
     justify-content: center;
     gap: 4rem;
     background-image: 
-        url(../../../assets/icons/Vector.svg), 
-        url(../../../assets/icons/Bloobs.svg), 
-        url(../../../assets/icons/Bloobs_right.svg),
-        url(../../../assets/icons/Bloobs.svg),
-        url(../../../assets/icons/Bloobs_right_down.svg);
+        url(../../../../assets/icons/Vector.svg), 
+        url(../../../../assets/icons/Bloobs.svg), 
+        url(../../../../assets/icons/Bloobs_right.svg),
+        url(../../../../assets/icons/Bloobs.svg),
+        url(../../../../assets/icons/Bloobs_right_down.svg);
     background-position: 
         right 0 top 0, 
         left 0 top 20rem, 
