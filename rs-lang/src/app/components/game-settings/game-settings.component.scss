@@ -1,0 +1,11 @@
+@import '../../../styles/constants.scss';
+
+.settings {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  .volume {
+    @include icon-size();
+  }
+}

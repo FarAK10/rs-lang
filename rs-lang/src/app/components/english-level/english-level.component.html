@@ -1,0 +1,12 @@
+<div class="english-level__wrapper">
+  <section class="english-level">
+    <h2 class="english-level__title">{{gameName}}</h2>
+    <h3 class="english-level__subtitle">Choose level</h3>
+    <p>P.S. You can choose correct answer by clicking the mouse or use &#x2190; and &#x2192; on your keyboard</p>
+    <div class="levels">
+      <button mat-fab color="accent" class="level" *ngFor="let level of levels"
+        (click)="setLevel(level)">{{level}}</button>
+    </div>
+    <button class="back-home" mat-flat-button color="accent">Back home</button>
+  </section>
+</div>
