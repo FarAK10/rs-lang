@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   // baseUrl = 'https://app-rs-lang.herokuapp.com';
   baseUrl = 'http://localhost:8088';
 
@@ -19,4 +19,9 @@ export class ApiService {
   generateUrl(url: string): string {
     return `${this.baseUrl}/${url}`;
   }
+
+  getWords(group?: string, page?: string) {
+    return this.http.get(`${this.baseUrl}?page=${page}&group=${group}`);
+  }
+
 }

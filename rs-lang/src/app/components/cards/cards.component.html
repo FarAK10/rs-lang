@@ -1,1 +1,107 @@
-<p>cards works!</p>
+<div class="cards">
+    <div class="container">
+        <ul class="cards__menu">
+            <img src="./../../../assets/img/flower-left.png" alt="flower" class="flower-left">
+            <li class="cards__menu-item">Sprint</li>
+            <li class="cards__menu-item">Sprint</li>
+            <li class="cards__menu-item">Sprint</li>
+            <li class="cards__menu-item">Sprint</li>
+            <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
+        </ul>
+        <ul class="cards__pagination">
+            <span class="cards__pagination-text">English is my heart</span>
+            <li class="cards__pagination-first btn"><i class="fa-solid fa-angles-left"></i></li>
+            <li class="cards__pagination-prev btn"><i class="fa-solid fa-chevron-left"></i></li>
+            <li class="cards__pagination-page btn">1</li>
+            <li class="cards__pagination-next btn"><i class="fa-solid fa-chevron-right"></i></li>
+            <li class="cards__pagination-last btn"><i class="fa-solid fa-angles-right"></i></li>
+            <span class="cards__pagination-text">English is my soul</span>
+        </ul>
+        <div class="cards__content">
+            <div class="cards__items">
+                <div class="card">
+                    <div class="card__img">
+                        <img class="card__img-img" src="./../../../assets/img/1.jpg" alt="">
+                    </div>
+                    <div class="card__info">
+                        <span class="card__img-name">Человек </span>
+                        <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
+                        <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
+                        <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
+                        <span class="card__info-words">Men (mən)</span>
+                    </div>
+                    <div class="card__text">
+                        <span class="card__info-ru">Человек - это Homo Sapiens</span>
+                        <span class="card__info-en">Men is a Homo Sapiens</span>
+                    </div>
+                    <marquee class="card__row" direction="left" scrollamount="10">Человек - это звучит гордо | <span class="card__info-en">Man - it sounds proud</span></marquee>
+                </div>
+                <div class="card">
+                    <div class="card__img">
+                        <img class="card__img-img" src="./../../../assets/img/1.jpg" alt="">
+                    </div>
+                    <div class="card__info">
+                        <span class="card__img-name">Человек </span>
+                        <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
+                        <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
+                        <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
+                        <span class="card__info-words">Men (mən)</span>
+                    </div>
+                    <div class="card__text">
+                        <span class="card__info-ru">Человек - это Homo Sapiens</span>
+                        <span class="card__info-en">Men is a Homo Sapiens</span>
+                    </div>
+                    <marquee class="card__row" direction="left" scrollamount="10">Человек - это звучит гордо | <span class="card__info-en">Man - it sounds proud</span></marquee>
+                </div>
+                <div class="card">
+                    <div class="card__img">
+                        <img class="card__img-img" src="./../../../assets/img/1.jpg" alt="">
+                    </div>
+                    <div class="card__info">
+                        <span class="card__img-name">Человек </span>
+                        <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
+                        <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
+                        <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
+                        <span class="card__info-words">Men (mən)</span>
+                    </div>
+                    <div class="card__text">
+                        <span class="card__info-ru">Человек - это Homo Sapiens</span>
+                        <span class="card__info-en">Men is a Homo Sapiens</span>
+                    </div>
+                    <marquee class="card__row" direction="left" scrollamount="10">Человек - это звучит гордо | <span class="card__info-en">Man - it sounds proud</span></marquee>
+                </div>
+                <div class="card">
+                    <div class="card__img">
+                        <img class="card__img-img" src="./../../../assets/img/1.jpg" alt="">
+                    </div>
+                    <div class="card__info">
+                        <span class="card__img-name">Человек </span>
+                        <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
+                        <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
+                        <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
+                        <span class="card__info-words">Men (mən)</span>
+                    </div>
+                    <div class="card__text">
+                        <span class="card__info-ru">Человек - это Homo Sapiens</span>
+                        <span class="card__info-en">Men is a Homo Sapiens</span>
+                    </div>
+                    <marquee class="card__row" direction="left" scrollamount="10">Человек - это звучит гордо | <span class="card__info-en">Man - it sounds proud</span></marquee>
+                </div>
+              
+
+            </div>
+            <ul class="cards__levels">
+                <h4 class="cards__level-title">levels</h4>
+                <li 
+                  class="cards__levels-level"
+                  id = {{level.id}}
+                  [class.active] = "level.id === parameters.id"
+                  *ngFor="let level of levels" 
+                  [ngStyle]="{background: level.color}"
+                >
+                    {{level.digit}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

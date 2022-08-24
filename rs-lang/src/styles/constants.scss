@@ -1,7 +1,9 @@
 @import './fonts.scss';
 
 $pink: #ff4081;
-$grey: rgb(240, 240, 240);
+$light-pink: #ffc7d9;
+$grey: #f0f0f0;
+$light-grey: #f6f6f6;
 $black: #000000;
 
 @mixin font($size: 24px, $color: #000000, $family: 'Areal', $weight: 300, $height: 20px) {
@@ -11,5 +13,11 @@ $black: #000000;
   color: $color;
   line-height: $height;
 }
-$pink: #ff4081;
-$grey: rgb(240, 240, 240);
+
+@mixin btn($width: 100px, $height: 50px, $radius: 0px, $background: white) {
+  width: $width;
+  height: $height;
+  border-radius: $radius;
+  background-color: $background;
+  cursor: pointer;
+}

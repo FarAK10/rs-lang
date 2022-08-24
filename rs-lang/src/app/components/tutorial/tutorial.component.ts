@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Level } from 'src/app/interfaces/interfaces';
 
 @Component({
@@ -8,23 +8,17 @@ import { Level } from 'src/app/interfaces/interfaces';
 })
 export class TutorialComponent implements OnInit {
 
+  @Input() levels!:Level[];
+  @Output() onAdd: EventEmitter<Level> = new EventEmitter<Level>();
+
   parameters: Level = {
+    id: 0,
     digit: '',
     title: '',
     text: '',
     words: 0,
     color: ''
   }
-
-
-  levels: Level[] = [
-    {id: 1, digit: 'A1', title: 'Beginner', text: 'Понимать интонацию и жесты собеседника. Говорить: "London is the capital of Great Britain".', words: 600, color: "red"},
-    {id: 2, digit: 'A2', title: 'Elementary', text: 'Разговаривать с детьми. Слушать англоязычную музыку, делая вид, что что-то понимаете.', words: 1200, color: "orange"},
-    {id: 3, digit: 'B1', title: 'Pre-Intermediate', text: 'Пройти тест по английскому языку, чтобы устроиться фронтенд-разработчиком.', words: 1800, color: "yellowgreen"},
-    {id: 4, digit: 'B2', title: 'Intermediate', text: 'Употреблять английские слова в своей речи. Там, где надо и не надо.', words: 2400, color: "green"},
-    {id: 5, digit: 'C1', title: 'Upper-Intermediate', text: 'Мимикрировать под рядового жителя окраины Брайтон-Бич.', words: 3000, color: "blue"},
-    {id: 6, digit: 'C2', title: 'Advanced', text: 'Расслабиться. Потому что никто не знает английский на таком уровне, кроме королевы Великобритании.', words: 3600, color: "violet"},
-  ]
 
   constructor() { }
 
@@ -37,7 +31,12 @@ export class TutorialComponent implements OnInit {
     this.setParameters(Number(target.id));
   }
 
+  onCheck() {
+    this.onAdd.emit(this.parameters);
+  }
+
   setParameters(id: number) {
+    this.parameters.id = id;
     this.parameters.title = this.levels[Number(id-1)].title;
     this.parameters.text = this.levels[Number(id-1)].text;
     this.parameters.digit = this.levels[Number(id-1)].digit;
@@ -50,3 +49,4 @@ export class TutorialComponent implements OnInit {
   }
   
 }
+
