@@ -4,5 +4,8 @@ export class SidebarService{
   open(){
     this.opened = !this.opened;
   }
+  openDialog(){
+    
+  }
 
 }

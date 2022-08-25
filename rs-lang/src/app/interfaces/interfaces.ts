@@ -10,4 +10,6 @@ export interface ICurrentUser {
   refreshToken: string;
   userId: string;
   name: string;
+  isAuth: boolean;
+
 }
