@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   constructor(private http: HttpClient) { }
-  // baseUrl = 'https://app-rs-lang.herokuapp.com';
-  baseUrl = 'http://localhost:8088';
+  baseUrl = 'https://app-rs-lang.herokuapp.com';
+  // baseUrl = 'http://localhost:8088';
 
   post<T>(url: string, body: T): Observable<T> {
     console.log('post');
@@ -20,8 +20,8 @@ export class ApiService {
     return `${this.baseUrl}/${url}`;
   }
 
-  getWords(group?: string, page?: string) {
-    return this.http.get(`${this.baseUrl}?page=${page}&group=${group}`);
+  getWords(group: string = '0', page: string = '0') {
+    return this.http.get(`${this.baseUrl}/words?group=${group}&page=${page}`);
   }
 
 }

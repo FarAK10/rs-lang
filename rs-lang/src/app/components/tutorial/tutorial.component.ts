@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Level } from 'src/app/interfaces/interfaces';
+import { ApiService } from 'src/app/services/api.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-tutorial',
@@ -8,10 +10,10 @@ import { Level } from 'src/app/interfaces/interfaces';
 })
 export class TutorialComponent implements OnInit {
 
-  @Input() levels!:Level[];
-  @Output() onAdd: EventEmitter<Level> = new EventEmitter<Level>();
+  // @Input() levels!:Level[];
+  // @Output() onAdd: EventEmitter<Level> = new EventEmitter<Level>();
 
-  parameters: Level = {
+  setting: Level = {
     id: 0,
     digit: '',
     title: '',
@@ -20,7 +22,10 @@ export class TutorialComponent implements OnInit {
     color: ''
   }
 
-  constructor() { }
+  constructor(
+    public data: DataService,
+    private apiService: ApiService
+  ) {}
 
   onMouseOver(e: Event) {
     let target = e.target as HTMLElement;
@@ -32,20 +37,21 @@ export class TutorialComponent implements OnInit {
   }
 
   onCheck() {
-    this.onAdd.emit(this.parameters);
+    this.data.currentLevel = Object.assign({}, this.setting);
+    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => this.data.words = value);
   }
 
   setParameters(id: number) {
-    this.parameters.id = id;
-    this.parameters.title = this.levels[Number(id-1)].title;
-    this.parameters.text = this.levels[Number(id-1)].text;
-    this.parameters.digit = this.levels[Number(id-1)].digit;
-    this.parameters.words = this.levels[Number(id-1)].words;
-    this.parameters.color = this.levels[Number(id-1)].color;
+    this.setting.id = id;
+    this.setting.title = this.data.levels[Number(id)].title;
+    this.setting.text = this.data.levels[Number(id)].text;
+    this.setting.digit = this.data.levels[Number(id)].digit;
+    this.setting.words = this.data.levels[Number(id)].words;
+    this.setting.color = this.data.levels[Number(id)].color;
   }
 
   ngOnInit(): void {
-    this.setParameters(1);
+    this.setParameters(0);
   }
   
 }

@@ -109,16 +109,16 @@
             align-items: flex-start;
             gap: 50px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, 45%);
+            grid-template-columns: repeat(auto-fill, 450px);
 
             .card {
+                margin-top: 20px;
                 height: 300px;
                 object-fit: cover;
                 -webkit-box-reflect: below 0 linear-gradient(transparent, transparent, #0004);
                 transform-origin: center;
                 transform: perspective(800px) rotateY(25deg);
                 transition: 0.5s;
-                box-shadow: 0 2px 7px 0px red;
                 border-radius: 10px;
                 padding: 7px;
                 display: flex;
@@ -152,9 +152,8 @@
                     display: flex;
                     justify-content: space-between;
                     width: 100%;
-                    background: red;
                     border-radius: 10px;
-                    padding: 3px 10px;
+                    padding: 3px 10px 5px 10px;
 
                     .card__img-name {
                         @include font(20px, white, "Noto Sans Display Condensed", 100);
@@ -164,6 +163,12 @@
                         align-self: center;
                         @include font(20px, white, "Noto Sans Display Condensed", 100);
                     }
+                    .card__info-left,
+                    .card__info-right {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
                 }
                 .card__text {
                     display: flex;
@@ -172,29 +177,37 @@
                     padding: 14px 10px 10px 10px;
                     border-radius: 10px;
                     width: max-content;
+                    max-width: 420px;
+                    width: max-content;
                     background: rgb(255, 255, 255, .5);
                     margin: -1px;
                     border-bottom-left-radius: 0px;
+                    height: max-content;
+                    white-space: pre-wrap;
                     @include font(16px, black, "Noto Sans Display Condensed", 100);
+                    .card__info-ru,
                     .card__info-en {
+                        white-space: pre-wrap;
+                    }
+                    .card__info-ru {
                         font-style: italic;
                     }
                 }
                 .card__row {
+                    position: absolute;
+                    bottom: 0;
                     margin-top: 160px;
                     background-color: rgb(255, 255, 255, .7);
                     margin-left: -1px;
-                    width: calc(100% + 2px);
+                    width: 437px;
                     padding: 0 5px;
+                    bottom: 20px;
                     @include font(16px, black, "Noto Sans Display Condensed", 100);
                     .card__info-en {
                         font-style: italic;
+                        margin-top: 10px;
                     }
                 }
-            }
-
-            &:hover .card {
-                opacity: 0.3;
             }
 
             & .card:hover {

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Level } from 'src/app/interfaces/interfaces';
+import { Level, Word } from 'src/app/interfaces/interfaces';
+import { ApiService } from 'src/app/services/api.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-cards',
@@ -8,8 +10,10 @@ import { Level } from 'src/app/interfaces/interfaces';
 })
 export class CardsComponent implements OnInit {
 
-  @Input() levels!:Level[];
-  @Input() parameters!:Level;
+  constructor(
+    public data: DataService,
+    public apiService: ApiService,
+  ) {}
 
   onScroll () {
     const pagination: HTMLElement | null = document.querySelector('.cards__pagination');
@@ -23,6 +27,11 @@ export class CardsComponent implements OnInit {
     } 
   }
 
+  onCheck(e: Event) {
+    const target = e.target as HTMLElement;
+    this.data.currentLevel = Object.assign({}, this.data.levels[Number(target.id)]);
+    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => this.data.words = value);
+  }
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.onScroll);

@@ -19,75 +19,28 @@
         </ul>
         <div class="cards__content">
             <div class="cards__items">
-                <div class="card">
+
+                <div class="card" *ngFor="let word of data.words" [ngStyle]="{boxShadow: '0 2px 7px 0px ' + data.currentLevel.color}">
                     <div class="card__img">
-                        <img class="card__img-img" src="./../../../assets/img/1.jpg" alt="">
+                        <img class="card__img-img" [src]="'https://app-rs-lang.herokuapp.com/'+word.image" alt="">
                     </div>
-                    <div class="card__info">
-                        <span class="card__img-name">Человек </span>
-                        <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
-                        <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
-                        <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
-                        <span class="card__info-words">Men (mən)</span>
+                    <div class="card__info" [ngStyle]="{background: data.currentLevel.color}">
+                        <div class="card__info-left">
+                            <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
+                            <span class="card__info-words">{{word.word}} {{word.transcription}}</span>
+                        </div>
+                        <div class="card__info-right">
+                            <span class="card__img-name">{{word.wordTranslate}}</span>
+                            <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
+                            <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
+                        </div>
                     </div>
                     <div class="card__text">
-                        <span class="card__info-ru">Человек - это Homo Sapiens</span>
-                        <span class="card__info-en">Men is a Homo Sapiens</span>
+                        <span class="card__info-en" [innerHtml]="word.textMeaning"></span>
+                        <span class="card__info-ru" [innerHtml]="word.textMeaningTranslate">.</span>
                     </div>
-                    <marquee class="card__row" direction="left" scrollamount="10">Человек - это звучит гордо | <span class="card__info-en">Man - it sounds proud</span></marquee>
+                    <marquee class="card__row" direction="left" scrollamount="10" [innerHtml]="word.textExample + ' | ' + word.textExampleTranslate + '.'"></marquee>
                 </div>
-                <div class="card">
-                    <div class="card__img">
-                        <img class="card__img-img" src="./../../../assets/img/1.jpg" alt="">
-                    </div>
-                    <div class="card__info">
-                        <span class="card__img-name">Человек </span>
-                        <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
-                        <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
-                        <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
-                        <span class="card__info-words">Men (mən)</span>
-                    </div>
-                    <div class="card__text">
-                        <span class="card__info-ru">Человек - это Homo Sapiens</span>
-                        <span class="card__info-en">Men is a Homo Sapiens</span>
-                    </div>
-                    <marquee class="card__row" direction="left" scrollamount="10">Человек - это звучит гордо | <span class="card__info-en">Man - it sounds proud</span></marquee>
-                </div>
-                <div class="card">
-                    <div class="card__img">
-                        <img class="card__img-img" src="./../../../assets/img/1.jpg" alt="">
-                    </div>
-                    <div class="card__info">
-                        <span class="card__img-name">Человек </span>
-                        <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
-                        <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
-                        <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
-                        <span class="card__info-words">Men (mən)</span>
-                    </div>
-                    <div class="card__text">
-                        <span class="card__info-ru">Человек - это Homo Sapiens</span>
-                        <span class="card__info-en">Men is a Homo Sapiens</span>
-                    </div>
-                    <marquee class="card__row" direction="left" scrollamount="10">Человек - это звучит гордо | <span class="card__info-en">Man - it sounds proud</span></marquee>
-                </div>
-                <div class="card">
-                    <div class="card__img">
-                        <img class="card__img-img" src="./../../../assets/img/1.jpg" alt="">
-                    </div>
-                    <div class="card__info">
-                        <span class="card__img-name">Человек </span>
-                        <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
-                        <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
-                        <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
-                        <span class="card__info-words">Men (mən)</span>
-                    </div>
-                    <div class="card__text">
-                        <span class="card__info-ru">Человек - это Homo Sapiens</span>
-                        <span class="card__info-en">Men is a Homo Sapiens</span>
-                    </div>
-                    <marquee class="card__row" direction="left" scrollamount="10">Человек - это звучит гордо | <span class="card__info-en">Man - it sounds proud</span></marquee>
-                </div>
-              
 
             </div>
             <ul class="cards__levels">
@@ -95,9 +48,10 @@
                 <li 
                   class="cards__levels-level"
                   id = {{level.id}}
-                  [class.active] = "level.id === parameters.id"
-                  *ngFor="let level of levels" 
+                  *ngFor="let level of data.levels" 
+                  [class.active] = "level.id === data.currentLevel.id"
                   [ngStyle]="{background: level.color}"
+                  (click)="onCheck($event)"
                 >
                     {{level.digit}}
                 </li>

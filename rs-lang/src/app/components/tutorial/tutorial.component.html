@@ -6,10 +6,10 @@
         <div class="level__content">
             <div class="level__cards">
                 <div 
-                  *ngFor="let level of levels" 
+                  *ngFor="let level of data.levels" 
                   class="level__card" 
                   [ngStyle]="{background: 'linear-gradient(30deg, white 15%, ' + level.color + ')'}" 
-                  [class.active] = "level.id === 1"
+                  [class.active] = "level.id === 0"
                   id="{{ level.id }}"
                   (mouseenter)="onMouseOver($event)"
                   (click)="onCheck()">
@@ -20,14 +20,14 @@
                 </div>
             </div>
             <div class="info">
-                <h2 class="info__header">{{ parameters.digit }}</h2>
-                <span class="info__title">{{ parameters.title }}</span>
+                <h2 class="info__header">{{ setting.digit }}</h2>
+                <span class="info__title">{{ setting.title }}</span>
                 <div class="info__words">
-                    Словарный запас: <span class="info__words-digits">{{ parameters.words }}</span> слов!
+                    Словарный запас: <span class="info__words-digits">{{ setting.words }}</span> слов!
                 </div>
                <div class="info__text">
                     <span class="info__text-desc">Что вы сможете, достигнув этого уровня:</span>
-                    <p class="info__text-skills">{{ parameters.text }}</p>
+                    <p class="info__text-skills">{{ setting.text }}</p>
                </div>
             </div>
             <div class="image">

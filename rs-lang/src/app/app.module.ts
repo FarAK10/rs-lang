@@ -16,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import HeaderInterceptor from './services/header.interceptor';
+import { ApiService } from './services/api.service';
 
 const formsModules = [
   MatButtonModule,
