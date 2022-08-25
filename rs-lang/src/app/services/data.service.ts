@@ -17,7 +17,7 @@ export class DataService {
   ]
   
   words: any;
-
+  page: number = 0;
   currentLevel: Level = this.levels[0];
 
   constructor(

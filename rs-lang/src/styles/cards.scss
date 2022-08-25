@@ -81,16 +81,20 @@
             &:hover {
                 box-shadow: 0 3px 10px 0px $pink;
             }
+            &.disabled {
+                box-shadow: 0 0 3px $pink;
+                cursor: default;
+                color: $light-pink;
+    
+                &:hover {
+                    box-shadow: 0 0 3px 0px $pink;
+                }
+            }
         }
 
         .cards__pagination-page {
             @include btn(100px, 50px, 10px);
-            box-shadow: 0 0 3px $pink;
-            cursor: default;
-
-            &:hover {
-                box-shadow: 0 0 5px 0px $pink;
-            }
+            color: $pink !important;
         }
     }
 

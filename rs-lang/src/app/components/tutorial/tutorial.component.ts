@@ -39,6 +39,7 @@ export class TutorialComponent implements OnInit {
   onCheck() {
     this.data.currentLevel = Object.assign({}, this.setting);
     this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => this.data.words = value);
+    this.data.page = 0;
   }
 
   setParameters(id: number) {
@@ -52,6 +53,11 @@ export class TutorialComponent implements OnInit {
 
   ngOnInit(): void {
     this.setParameters(0);
+  }
+
+  ngAfterViewChecked(): void {
+    const el: HTMLElement | null = document.querySelector('.active');
+    this.setParameters(Number(el?.getAttribute('id')));
   }
   
 }

@@ -10,11 +10,27 @@
         </ul>
         <ul class="cards__pagination">
             <span class="cards__pagination-text">English is my heart</span>
-            <li class="cards__pagination-first btn"><i class="fa-solid fa-angles-left"></i></li>
-            <li class="cards__pagination-prev btn"><i class="fa-solid fa-chevron-left"></i></li>
-            <li class="cards__pagination-page btn">1</li>
-            <li class="cards__pagination-next btn"><i class="fa-solid fa-chevron-right"></i></li>
-            <li class="cards__pagination-last btn"><i class="fa-solid fa-angles-right"></i></li>
+            <li 
+              class="cards__pagination-first btn" 
+              [class.disabled]="this.data.page === 0"
+              (click) = "changePage('0')"
+            ><i class="fa-solid fa-angles-left"></i></li>
+            <li 
+              class="cards__pagination-prev btn" 
+              [class.disabled]="this.data.page === 0"
+              (click) = "changePage('-1')"
+            ><i class="fa-solid fa-chevron-left"></i></li>
+            <li class="cards__pagination-page btn disabled">{{this.data.page + 1}}</li>
+            <li 
+              class="cards__pagination-next btn" 
+              [class.disabled]="this.data.page === 29"
+              (click) = "changePage('+1')"
+            ><i class="fa-solid fa-chevron-right"></i></li>
+            <li 
+              class="cards__pagination-last btn" 
+              [class.disabled]="this.data.page === 29"
+              (click) = "changePage('29')"
+            ><i class="fa-solid fa-angles-right"></i></li>
             <span class="cards__pagination-text">English is my soul</span>
         </ul>
         <div class="cards__content">
@@ -22,11 +38,11 @@
 
                 <div class="card" *ngFor="let word of data.words" [ngStyle]="{boxShadow: '0 2px 7px 0px ' + data.currentLevel.color}">
                     <div class="card__img">
-                        <img class="card__img-img" [src]="'https://app-rs-lang.herokuapp.com/'+word.image" alt="">
+                        <img class="card__img-img" [src]="baseUrl+word.image" alt="">
                     </div>
                     <div class="card__info" [ngStyle]="{background: data.currentLevel.color}">
                         <div class="card__info-left">
-                            <a class="btn-icon" href="#" title="Слушать"><i class="fa-solid fa-volume-high"></i></a>
+                            <a class="btn-icon" href="#" title="Слушать" (click)="play($event, baseUrl + word.audioMeaning, baseUrl + word.audioExample)"><i class="fa-solid fa-volume-high"></i></a>
                             <span class="card__info-words">{{word.word}} {{word.transcription}}</span>
                         </div>
                         <div class="card__info-right">
