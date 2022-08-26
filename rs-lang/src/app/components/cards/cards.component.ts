@@ -10,14 +10,14 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class CardsComponent implements OnInit {
 
-  voice!: HTMLAudioElement;
-
+  
   constructor(
     public data: DataService,
     public apiService: ApiService,
-  ) { }
-
+    ) { }
+    
   baseUrl = this.apiService.baseUrl + '/';
+  voice!: HTMLAudioElement;
 
   onScroll() {
     const pagination: HTMLElement | null = document.querySelector('.cards__pagination');
@@ -34,7 +34,7 @@ export class CardsComponent implements OnInit {
   onCheck(e: Event) {
     const target = e.target as HTMLElement;
     this.data.currentLevel = Object.assign({}, this.data.levels[Number(target.id)]);
-    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => this.data.words = value);
+    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => this.data.words = JSON.parse(JSON.stringify(value)));
     this.data.page = 0;
   }
 
@@ -74,7 +74,7 @@ export class CardsComponent implements OnInit {
       default :
         this.data.page = this.data.page;
     }
-    this.apiService.getWords(String(this.data.currentLevel.id), String(this.data.page)).subscribe(value => this.data.words = value);
+    this.apiService.getWords(String(this.data.currentLevel.id), String(this.data.page)).subscribe(value => this.data.words = JSON.parse(JSON.stringify(value)));
   }
 
   ngOnInit(): void {

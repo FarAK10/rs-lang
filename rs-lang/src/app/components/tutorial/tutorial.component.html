@@ -12,7 +12,8 @@
                   [class.active] = "level.id === data.currentLevel.id"
                   id="{{ level.id }}"
                   (mouseenter)="onMouseOver($event)"
-                  (click)="onCheck()">
+                  (click)="onCheck()"
+                  routerLink="/tutorial/words">
                     <span>
                         <span class="level__card-title">{{ level.title }}</span>
                         <span class="level__card-digit">{{ level.digit }}</span>

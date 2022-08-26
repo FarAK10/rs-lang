@@ -16,12 +16,9 @@ export class DataService {
     {id: 5, digit: 'C2', title: 'Advanced', text: 'Расслабиться. Потому что никто не знает английский на таком уровне, кроме королевы Великобритании.', words: 3600, color: "violet"},
   ]
   
-  words: any;
+  token: string = '';
+  words!: Word[];
   page: number = 0;
   currentLevel: Level = this.levels[0];
-
-  constructor(
-    private apiService: ApiService,
-  ) { }
 
 }

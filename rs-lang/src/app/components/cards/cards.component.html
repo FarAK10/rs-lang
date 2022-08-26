@@ -3,9 +3,9 @@
         <ul class="cards__menu">
             <img src="./../../../assets/img/flower-left.png" alt="flower" class="flower-left">
             <li class="cards__menu-item">Sprint</li>
-            <li class="cards__menu-item">Sprint</li>
-            <li class="cards__menu-item">Sprint</li>
-            <li class="cards__menu-item">Sprint</li>
+            <li class="cards__menu-item">Audio battle</li>
+            <li class="cards__menu-item">Other</li>
+            <li class="cards__menu-item">Other</li>
             <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
         </ul>
         <ul class="cards__pagination">
@@ -35,6 +35,9 @@
         </ul>
         <div class="cards__content">
             <div class="cards__items">
+                <div class="cards__text" *ngIf="!data.words || data.words.length === 0">
+                    Слов больше нет :(
+                </div>
 
                 <div class="card" *ngFor="let word of data.words" [ngStyle]="{boxShadow: '0 2px 7px 0px ' + data.currentLevel.color}">
                     <div class="card__img">
@@ -42,13 +45,13 @@
                     </div>
                     <div class="card__info" [ngStyle]="{background: data.currentLevel.color}">
                         <div class="card__info-left">
-                            <a class="btn-icon" href="#" title="Слушать" (click)="play($event, baseUrl + word.audioMeaning, baseUrl + word.audioExample)"><i class="fa-solid fa-volume-high"></i></a>
+                            <a class="btn-icon active" href="#" title="Слушать" (click)="play($event, baseUrl + word.audioMeaning, baseUrl + word.audioExample)"><i class="fa-solid fa-volume-high"></i></a>
                             <span class="card__info-words">{{word.word}} {{word.transcription}}</span>
                         </div>
                         <div class="card__info-right">
                             <span class="card__img-name">{{word.wordTranslate}}</span>
-                            <a class="btn-icon" href="#" title="Записать"><i class="fa-solid fa-pencil"></i></a>
-                            <a class="btn-icon" href="#" title="Удалить"><i class="fa-solid fa-trash-can"></i></a>
+                            <a class="btn-icon" href="#" title="Записать" [class.active]="data.token"><i class="fa-solid fa-pencil"></i></a>
+                            <a class="btn-icon" href="#" title="Удалить" [class.active]="data.token"><i class="fa-solid fa-trash-can"></i></a>
                         </div>
                     </div>
                     <div class="card__text">
@@ -57,8 +60,9 @@
                     </div>
                     <marquee class="card__row" direction="left" scrollamount="10" [innerHtml]="word.textExample + ' | ' + word.textExampleTranslate + '.'"></marquee>
                 </div>
-
+                
             </div>
+
             <ul class="cards__levels">
                 <h4 class="cards__level-title">levels</h4>
                 <li 

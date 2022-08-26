@@ -38,7 +38,7 @@ export class TutorialComponent implements OnInit {
 
   onCheck() {
     this.data.currentLevel = Object.assign({}, this.setting);
-    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => this.data.words = value);
+    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => this.data.words = JSON.parse(JSON.stringify(value)));
     this.data.page = 0;
   }
 

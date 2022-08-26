@@ -114,6 +114,20 @@
             gap: 50px;
             display: grid;
             grid-template-columns: repeat(auto-fill, 450px);
+            position: relative;
+
+            .cards__text {
+                position: absolute;
+                width: calc(100% - 110px);
+                @include font(52px, $pink, "Sensei Medium", 700);
+                text-align: center;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                top: 200px;
+                left: 50%;
+                transform: translate(-50%, 0);
+            }
 
             .card {
                 margin-top: 20px;
@@ -297,4 +311,8 @@
     width: 15px;
     height: 15px;
     color: white;
+    display: none;
+    &.active {
+        display: block;
+    }
 }

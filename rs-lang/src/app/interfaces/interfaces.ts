@@ -33,7 +33,7 @@ export interface Word {
   textMeaning: string,
   textExample: string,
   transcription: string,
+  wordTranslate: string,
   textExampleTranslate: string,
-  textMeaningTranslate: string,
-  wordTranslate: string
+  textMeaningTranslate: string
 }
