@@ -8,11 +8,12 @@ import { LocalStorageService } from './local-storage.service';
 import { ERROR_CODES } from '../shared/enums';
 @Injectable({
   providedIn: 'root',
-  })
+})
 export class AuthorizationService {
-    constructor(private apiService: ApiService, private localStorageService: LocalStorageService,) {}
-  isAuth = true;
+  constructor(private apiService: ApiService, private localStorageService: LocalStorageService) {}
+  isAuth = false;
   currentUser!: ICurrentUser;
+
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
 
   register(newUser: INewUser): void {
