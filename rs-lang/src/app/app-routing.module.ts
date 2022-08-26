@@ -5,6 +5,8 @@ import { HomeComponent } from './components/layout/home/home.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'tutorial', component: TutorialComponent },
   {
     path: 'game',
     loadChildren: () => import('./routings/game/game.module').then((mod) => mod.GameModule),
