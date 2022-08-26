@@ -4,6 +4,9 @@
   width: 420px;
   margin: auto auto;
   background-color: $grey;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  min-height: calc(80vh - 128px);
 
   .auth-nav {
     display: flex;

@@ -8,12 +8,11 @@ import { LocalStorageService } from './local-storage.service';
 import { ERROR_CODES } from '../shared/enums';
 @Injectable({
   providedIn: 'root',
-})
+  })
 export class AuthorizationService {
-  constructor(private apiService: ApiService, private localStorageService: LocalStorageService) {}
-
+    constructor(private apiService: ApiService, private localStorageService: LocalStorageService,) {}
+  isAuth = true;
   currentUser!: ICurrentUser;
-
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
 
   register(newUser: INewUser): void {
@@ -44,6 +43,7 @@ export class AuthorizationService {
           this.currentUser = res;
           this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
           this.resoursesLoaded$.next(true);
+          this.isAuth = true;
         },
         (err) => {
           alert('incorrect password or token is experid');
