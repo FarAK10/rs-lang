@@ -6,12 +6,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDialogModule} from '@angular/material/dialog';
 
+
 const MaterialComponents = [
   MatToolbarModule,
   MatIconModule,
   MatButtonModule,
   MatSidenavModule,
-  MatDialogModule
+  MatDialogModule,
+
 ]
 
 @NgModule({

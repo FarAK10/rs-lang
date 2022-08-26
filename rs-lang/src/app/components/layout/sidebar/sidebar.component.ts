@@ -7,9 +7,9 @@ import { SidebarService } from '../../../services/sidebar.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit{
-  
+
   constructor(public sidebarService: SidebarService) { 
-    
+
   }
 
   ngOnInit(): void {
