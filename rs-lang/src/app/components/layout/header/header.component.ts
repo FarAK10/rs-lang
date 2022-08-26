@@ -9,7 +9,7 @@ import { SidebarService } from '../../../services/sidebar.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public sidebarService: SidebarService,) { 
+  constructor(public sidebarService: SidebarService) { 
     
   }
 
