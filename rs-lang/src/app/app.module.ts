@@ -22,7 +22,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 import { GameSettingsComponent } from './components/game-settings/game-settings.component';
-
+import { GameResultComponent } from './shared/components/game-result/game-result.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { WordComponent } from './shared/components/word/word.component';
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
@@ -46,6 +48,8 @@ const angularMaterailModules = [
     SprintGameComponent,
     EnglishLevelComponent,
     GameSettingsComponent,
+    GameResultComponent,
+    WordComponent,
   ],
 
   imports: [
@@ -58,6 +62,7 @@ const angularMaterailModules = [
     HttpClientModule,
     ...angularMaterailModules,
     ...formsModules,
+    NgCircleProgressModule.forRoot({}),
   ],
   providers: [
     {

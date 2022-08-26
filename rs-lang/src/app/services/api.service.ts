@@ -24,4 +24,7 @@ export class ApiService {
   generateUrl(url: string): string {
     return `${this.baseUrl}/${url}`;
   }
+  getBaseUrl(): string {
+    return this.baseUrl;
+  }
 }

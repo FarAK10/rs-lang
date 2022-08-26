@@ -4,19 +4,18 @@ import { take, windowWhen } from 'rxjs';
 import { IAggregatedResp, IWord } from 'src/app/interfaces/interfaces';
 import { GameService } from 'src/app/services/game.service';
 import { shuffle } from 'src/app/shared/functions';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sprint-game',
   templateUrl: './sprint-game.component.html',
   styleUrls: ['./sprint-game.component.scss'],
 })
 export class SprintGameComponent implements OnInit {
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService, private router: Router) {}
 
   gameName: string = 'Sprint';
 
   level!: string;
-
-  isLevelSelected: boolean = false;
 
   soundIcon: string = 'volume_mute';
 
@@ -44,30 +43,27 @@ export class SprintGameComponent implements OnInit {
 
   rightInRow: number = 0;
 
+  elem: HTMLElement = document.documentElement;
+
   ngOnInit(): void {
     this.gameService
       .getAggregatedWords()
       .pipe(take(1))
       .subscribe((words: [IAggregatedResp]) => {
         this.aggregatedWords = shuffle(words[0].paginatedResults);
-        console.log(this.aggregatedWords);
         this.setEnglishWord();
         this.setTranslation();
         this.startAnimation();
-        console.log(this.englishWord);
       });
   }
 
   setLevel(level: string) {
     this.level = level;
-    this.isLevelSelected = true;
   }
 
   onMute(isMute: boolean) {
     this.isMute = isMute;
   }
-
-  elem = document.documentElement;
 
   onFullScreen(isFullScreen: boolean) {
     if (isFullScreen) {
@@ -87,9 +83,9 @@ export class SprintGameComponent implements OnInit {
       this.translation = this.aggregatedWords[this.index].wordTranslate;
     } else {
       this.isCorrect = false;
-      let randomIndex = Math.random() * 100;
+      let randomIndex = Math.random() * 200;
       while (randomIndex === this.index) {
-        randomIndex = Math.random() * 100;
+        randomIndex = Math.random() * 200;
       }
 
       this.translation = this.aggregatedWords[Math.floor(randomIndex)].wordTranslate;
@@ -108,6 +104,7 @@ export class SprintGameComponent implements OnInit {
       this.setScore();
     } else {
       this.playSound('wrong.mp3');
+      this.gameService.pushWrong(this.currentWord);
       this.resetCoefficient();
     }
     this.next();
@@ -140,6 +137,7 @@ export class SprintGameComponent implements OnInit {
         this.timeLeft--;
       } else if (this.timeLeft === 0) {
         clearInterval(timer);
+        this.router.navigate([`game/result`]);
       }
     }, 1000);
   }

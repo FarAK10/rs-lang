@@ -34,9 +34,9 @@ export class GameSettingsComponent implements OnInit {
 
   onFullScreen() {
     if (this.isFullScreen) {
-      this.fullScreen = 'fullscreen_exit';
-    } else {
       this.fullScreen = 'fullscreen';
+    } else {
+      this.fullScreen = 'fullscreen_exit';
     }
     this.isFullScreen = !this.isFullScreen;
     this.screenSizeChange.emit(this.isFullScreen);
