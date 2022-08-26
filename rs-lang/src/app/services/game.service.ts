@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { flatMap } from 'rxjs';
+import { flatMap, Observable } from 'rxjs';
 import { IAggregatedResp, IWord } from '../interfaces/interfaces';
 import { ApiService } from './api.service';
 import { AuthorizationService } from './authorization.service';
@@ -26,6 +26,11 @@ export class GameService {
     const userId = this.authService.getUserId();
     const url = `users/${userId}/aggregatedWords?group=${this.englishLevel}&wordsPerPage=${this.wordsPerPage}`;
     return this.apiService.get<[IAggregatedResp]>(url);
+  }
+
+  getWords(page: number) {
+    const url = `words?group=${this.englishLevel}&page=${page}`;
+    return this.apiService.get<IWord[]>(url);
   }
 
   pushCorrect(word: IWord) {

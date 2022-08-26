@@ -1,4 +1,4 @@
-<div class="sprint__wrapper">
+<div class="sprint__wrapper" (keydown.arrowLeft)="check(true)" (keydown.arrowRight)="check(false)">
   <app-game-settings (muteChange)="onMute($event)" (screenSizeChange)="onFullScreen($event)"></app-game-settings>
   <div class="center">
     <div class="timer">

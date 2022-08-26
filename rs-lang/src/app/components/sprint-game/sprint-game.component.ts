@@ -5,6 +5,7 @@ import { IAggregatedResp, IWord } from 'src/app/interfaces/interfaces';
 import { GameService } from 'src/app/services/game.service';
 import { shuffle } from 'src/app/shared/functions';
 import { Router } from '@angular/router';
+import { HostListener } from '@angular/core';
 @Component({
   selector: 'app-sprint-game',
   templateUrl: './sprint-game.component.html',
@@ -25,7 +26,7 @@ export class SprintGameComponent implements OnInit {
 
   coefficient: number = 1;
 
-  timeLeft: number = 60;
+  timeLeft: number = 10;
 
   aggregatedWords: Array<IWord> = [];
 
@@ -43,18 +44,28 @@ export class SprintGameComponent implements OnInit {
 
   rightInRow: number = 0;
 
+  currentPage = 1;
+
   elem: HTMLElement = document.documentElement;
 
   ngOnInit(): void {
     this.gameService
-      .getAggregatedWords()
+      .getWords(this.currentPage)
       .pipe(take(1))
-      .subscribe((words: [IAggregatedResp]) => {
-        this.aggregatedWords = shuffle(words[0].paginatedResults);
+      .subscribe((words: IWord[]) => {
+        this.aggregatedWords = shuffle(words);
         this.setEnglishWord();
         this.setTranslation();
         this.startAnimation();
       });
+  }
+
+  @HostListener('window:keydown.ArrowLeft') arrowLeftEvent() {
+    this.check(true);
+  }
+
+  @HostListener('window:keydown.ArrowRight') arrowRightEvent() {
+    this.check(false);
   }
 
   setLevel(level: string) {
@@ -83,18 +94,35 @@ export class SprintGameComponent implements OnInit {
       this.translation = this.aggregatedWords[this.index].wordTranslate;
     } else {
       this.isCorrect = false;
-      let randomIndex = Math.random() * 200;
+      let randomIndex = Math.random() * 20;
       while (randomIndex === this.index) {
-        randomIndex = Math.random() * 200;
+        randomIndex = Math.random() * 20;
       }
 
       this.translation = this.aggregatedWords[Math.floor(randomIndex)].wordTranslate;
     }
   }
   next() {
-    this.index++;
-    this.setEnglishWord();
-    this.setTranslation();
+    if (this.index < 19) {
+      this.index++;
+      this.setEnglishWord();
+      this.setTranslation();
+    } else {
+      this.index = 0;
+      this.currentPage++;
+      this.changePage();
+    }
+  }
+
+  changePage() {
+    this.gameService
+      .getWords(this.currentPage)
+      .pipe(take(1))
+      .subscribe((words: IWord[]) => {
+        this.aggregatedWords = shuffle(words);
+        this.setEnglishWord();
+        this.setTranslation();
+      });
   }
 
   check(choice: boolean) {
