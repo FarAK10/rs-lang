@@ -3,6 +3,7 @@
 .cards {
     margin-top: 70px;
     width: 100%;
+    padding-bottom: 50px;
 
     .cards__menu {
         width: 100%;
@@ -49,7 +50,8 @@
         position: sticky;
         top: 0;
         margin-top: 20px;
-        width: 100%;
+        width: calc(100% + 20px);
+        margin-left: -10px;
         padding: 20px;
         display: flex;
         gap: 25px;
@@ -111,7 +113,7 @@
             justify-content: space-around;
             flex-wrap: wrap;
             align-items: flex-start;
-            gap: 50px;
+            gap: 5px;
             display: grid;
             grid-template-columns: repeat(auto-fill, 450px);
             position: relative;
@@ -236,16 +238,16 @@
 
         .cards__levels {
             position: sticky;
-            top: 110px;
+            top: 108px;
             width: 90px;
-            height: 550px;
+            height: 500px;
             border-radius: 10px;
             box-shadow: 0 2px 7px 0px $pink;
             padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
             transition: all .3s ease;
 
             &.enable {

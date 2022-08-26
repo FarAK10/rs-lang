@@ -35,7 +35,7 @@
         </ul>
         <div class="cards__content">
             <div class="cards__items">
-                <div class="cards__text" *ngIf="!data.words || data.words.length === 0">
+                <div class="cards__text" *ngIf="(!data.words || data.words.length === 0) && data.token">
                     Слов больше нет :(
                 </div>
 
