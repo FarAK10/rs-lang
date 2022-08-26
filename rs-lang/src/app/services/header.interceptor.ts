@@ -12,15 +12,14 @@ export default class HeaderInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.authorizationService.getToken();
-    let clonedReq;
-    if (token) {
-      clonedReq = req.clone({ withCredentials: true });
-      clonedReq.headers.set('Authorization', `Bearer ${token}`);
-    } else {
-      clonedReq = req.clone();
-    }
-    clonedReq.headers.set('Content-Type', 'application/json');
-    clonedReq.headers.set('Accept', 'application/json');
-    return next.handle(req);
+
+    const clonedReq = req.clone({
+      setHeaders: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return next.handle(clonedReq);
   }
 }

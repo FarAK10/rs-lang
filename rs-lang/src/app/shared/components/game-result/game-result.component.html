@@ -1,0 +1,34 @@
+<section class="result">
+
+  <div class="result__header">
+    <h2 class="title">Result</h2>
+    <button class="btn" mat-raised-button color="accent" (click)="navigate()">play again</button>
+  </div>
+
+  <div class="result__statistics">
+    <div class="circle">
+      <circle-progress class="circular-bar" [percent]="persentCorrect" [radius]="80" [outerStrokeWidth]="8"
+        [innerStrokeWidth]="6" [outerStrokeColor]="' #3f51b5'" [innerStrokeColor]="'#ff4081'" [animation]="true"
+        [animationDuration]="300">
+      </circle-progress>
+      <p class="circle__accuracy">Accuracy</p>
+    </div>
+    <ul class="statista-list">
+      <li class="statista-list__info">Right answers: <span class="words-number">{{correctAnswersNumber}}</span></li>
+      <li class="statista-list__info">Wrong answers: <span class="words-number">{{mistakesNumber}}</span></li>
+      <li class="statista-list__info">Total words repeated: <span class="words-number">{{totalWordsNumber}}</span></li>
+    </ul>
+  </div>
+
+  <div class="result__words">
+    <h3 class="result__words-header">Mistakes <span class="words-number">{{mistakesNumber}}</span></h3>
+    <app-word *ngFor="let word of incorrectAnswers" [word]="word"></app-word>
+  </div>
+
+  <div class="result__words">
+    <h3 class="result__words-header">Correct Answers <span class="words-number">{{correctAnswersNumber}}</span></h3>
+    <app-word *ngFor="let word of correctAnswers" [word]="word"></app-word>
+  </div>
+
+
+</section>

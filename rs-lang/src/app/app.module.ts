@@ -24,12 +24,28 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import HeaderInterceptor from './services/header.interceptor';
-
+import { SprintGameComponent } from './components/sprint-game/sprint-game.component';
+import { EnglishLevelComponent } from './components/english-level/english-level.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatBadgeModule } from '@angular/material/badge';
+import { GameSettingsComponent } from './components/game-settings/game-settings.component';
+import { GameResultComponent } from './shared/components/game-result/game-result.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { WordComponent } from './shared/components/word/word.component';
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
   MatProgressSpinnerModule,
+];
+
+const angularMaterailModules = [
+  MatDialogModule,
+  MatIconModule,
+  MatSlideToggleModule,
+  MatBadgeModule,
 ];
 
 @NgModule({
@@ -46,6 +62,11 @@ const formsModules = [
     AutorizationComponent,
     LoginComponent,
     RegisterComponent,
+    SprintGameComponent,
+    EnglishLevelComponent,
+    GameSettingsComponent,
+    GameResultComponent,
+    WordComponent,
   ],
 
   imports: [
@@ -57,7 +78,9 @@ const formsModules = [
     AuthModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ...angularMaterailModules,
     ...formsModules,
+    NgCircleProgressModule.forRoot({}),
   ],
   providers: [
     {

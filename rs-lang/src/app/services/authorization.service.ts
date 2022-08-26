@@ -56,4 +56,11 @@ export class AuthorizationService {
   getToken(): string {
     return this.currentUser?.token;
   }
+
+  getUserId(): string {
+    return this.currentUser?.userId;
+  }
+  getUser(): ICurrentUser {
+    return this.currentUser;
+  }
 }

@@ -1,4 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { IWord } from '../interfaces/interfaces';
 
 export function passwordMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -11,4 +12,23 @@ export function passwordMatchValidator(): ValidatorFn {
     }
     return null;
   };
+}
+
+export function shuffle(array: IWord[]) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [
+      array[currentIndex],
+      array[randomIndex],
+    ] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
 }

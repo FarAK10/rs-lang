@@ -1,0 +1,26 @@
+<div class="sprint__wrapper" (keydown.arrowLeft)="check(true)" (keydown.arrowRight)="check(false)">
+  <app-game-settings (muteChange)="onMute($event)" (screenSizeChange)="onFullScreen($event)"></app-game-settings>
+  <div class="center">
+    <div class="timer">
+      <mat-icon class="timer__clock" color="primary">alarm</mat-icon>
+      <h3 class="timer__time">{{timeLeft}} seconds</h3>
+    </div>
+    <div class="score">
+      <div class="score__coefficient">coefficent X {{coefficient}} +{{coefficient*10}}</div>
+      <div class="score__points">Points: {{totalPoints}}</div>
+    </div>
+    <div class="right-in-row">
+      <mat-icon color="primary" class="right-in-row__icon" [matBadge]="rightInRow" matBadgePosition="after"
+        matBadgeColor="accent">
+        check_circle_outline
+      </mat-icon>
+    </div>
+    <h2 class="question">
+      {{englishWord}} <span class="word">это</span> {{translation}}?
+    </h2>
+    <div class="buttons">
+      <button mat-raised-button color="primary" (click)="check(true)">Correct</button>
+      <button mat-raised-button color="accent" (click)="check(false)">Wrong</button>
+    </div>
+  </div>
+</div>

@@ -15,3 +15,17 @@ $darkBlue: #56597A;
 }
 $pink: #ff4081;
 $grey: rgb(240, 240, 240);
+$blue: #3f51b5;
+$lightBlue: aliceblue;
+@mixin bordered {
+  border: 3px solid;
+  border-radius: 30px;
+  line-height: 25px;
+  font-size: 20px;
+}
+
+@mixin icon-size {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+}

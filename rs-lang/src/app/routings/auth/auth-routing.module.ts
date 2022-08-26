@@ -5,10 +5,14 @@ import { RegisterComponent } from 'src/app/components/register/register.componen
 import { AutorizationComponent } from 'src/app/components/autorization/autorization.component';
 
 const routes: Routes = [
-  { path: 'autorization', component: AutorizationComponent, children: [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-  ] },
+  {
+    path: 'autorization',
+    component: AutorizationComponent,
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
+  },
 ];
 
 @NgModule({
