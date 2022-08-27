@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICurrentUser, INewUser } from '../interfaces/interfaces';
+import { ICurrentUser, INewUser, Level, Parameters, Word } from '../interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthorizationService } from './authorization.service';
@@ -31,8 +31,12 @@ export class ApiService {
     return this.baseUrl;
   }
 
-  getWords(group: string = '0', page: string = '0') {
+  getWords(group: string = '0', page: string = '0'): Observable<Object> {
     return this.http.get(`${this.baseUrl}/words?group=${group}&page=${page}`);
+  }
+
+  setLocalstorage (page: number, currentLevel: Level, words: Word[]): void {
+    localStorage.setItem('parameters', JSON.stringify({page, currentLevel, words}));
   }
 
 }

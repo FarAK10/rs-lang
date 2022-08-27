@@ -10,27 +10,17 @@
         </ul>
         <ul class="cards__pagination">
             <span class="cards__pagination-text">English is my heart</span>
-            <li 
-              class="cards__pagination-first btn" 
-              [class.disabled]="this.data.page === 0"
-              (click) = "changePage('0')"
-            ><i class="fa-solid fa-angles-left"></i></li>
-            <li 
-              class="cards__pagination-prev btn" 
-              [class.disabled]="this.data.page === 0"
-              (click) = "changePage('-1')"
-            ><i class="fa-solid fa-chevron-left"></i></li>
+            <li class="cards__pagination-first btn" [class.disabled]="this.data.page === 0" (click)="changePage('0')"><i
+                    class="fa-solid fa-angles-left"></i></li>
+            <li class="cards__pagination-prev btn" [class.disabled]="this.data.page === 0" (click)="changePage('-1')"><i
+                    class="fa-solid fa-chevron-left"></i></li>
             <li class="cards__pagination-page btn disabled">{{this.data.page + 1}}</li>
-            <li 
-              class="cards__pagination-next btn" 
-              [class.disabled]="this.data.page === 29"
-              (click) = "changePage('+1')"
-            ><i class="fa-solid fa-chevron-right"></i></li>
-            <li 
-              class="cards__pagination-last btn" 
-              [class.disabled]="this.data.page === 29"
-              (click) = "changePage('29')"
-            ><i class="fa-solid fa-angles-right"></i></li>
+            <li class="cards__pagination-next btn" [class.disabled]="this.data.page === 29" (click)="changePage('+1')">
+                <i class="fa-solid fa-chevron-right"></i>
+            </li>
+            <li class="cards__pagination-last btn" [class.disabled]="this.data.page === 29" (click)="changePage('29')">
+                <i class="fa-solid fa-angles-right"></i>
+            </li>
             <span class="cards__pagination-text">English is my soul</span>
         </ul>
         <div class="cards__content">
@@ -38,41 +28,40 @@
                 <div class="cards__text" *ngIf="(!data.words || data.words.length === 0) && data.token">
                     Слов больше нет :(
                 </div>
-
-                <div class="card" *ngFor="let word of data.words" [ngStyle]="{boxShadow: '0 2px 7px 0px ' + data.currentLevel.color}">
+                <div class="card" *ngFor="let word of data.words"
+                    [ngStyle]="{boxShadow: '0 2px 7px 0px ' + data.currentLevel.color}">
                     <div class="card__img">
                         <img class="card__img-img" [src]="baseUrl+word.image" alt="">
                     </div>
                     <div class="card__info" [ngStyle]="{background: data.currentLevel.color}">
                         <div class="card__info-left">
-                            <a class="btn-icon active" href="#" title="Слушать" (click)="play($event, baseUrl + word.audioMeaning, baseUrl + word.audioExample)"><i class="fa-solid fa-volume-high"></i></a>
+                            <a class="btn-icon active" href="#" title="Слушать"
+                                (click)="play($event, baseUrl + word.audioMeaning, baseUrl + word.audioExample)"><i
+                                    class="fa-solid fa-volume-high"></i></a>
                             <span class="card__info-words">{{word.word}} {{word.transcription}}</span>
                         </div>
                         <div class="card__info-right">
                             <span class="card__img-name">{{word.wordTranslate}}</span>
-                            <a class="btn-icon" href="#" title="Записать" [class.active]="data.token"><i class="fa-solid fa-pencil"></i></a>
-                            <a class="btn-icon" href="#" title="Удалить" [class.active]="data.token"><i class="fa-solid fa-trash-can"></i></a>
+                            <a class="btn-icon" href="#" title="Записать" [class.active]="data.token"><i
+                                    class="fa-solid fa-pencil"></i></a>
+                            <a class="btn-icon" href="#" title="Удалить" [class.active]="data.token"><i
+                                    class="fa-solid fa-trash-can"></i></a>
                         </div>
                     </div>
                     <div class="card__text">
                         <span class="card__info-en" [innerHtml]="word.textMeaning"></span>
                         <span class="card__info-ru" [innerHtml]="word.textMeaningTranslate">.</span>
                     </div>
-                    <marquee class="card__row" direction="left" scrollamount="10" [innerHtml]="word.textExample + ' | ' + word.textExampleTranslate + '.'"></marquee>
+                    <marquee class="card__row" direction="left" scrollamount="10"
+                        [innerHtml]="word.textExample + ' | ' + word.textExampleTranslate + '.'"></marquee>
                 </div>
-                
             </div>
 
             <ul class="cards__levels">
                 <h4 class="cards__level-title">levels</h4>
-                <li 
-                  class="cards__levels-level"
-                  id = {{level.id}}
-                  *ngFor="let level of data.levels" 
-                  [class.active] = "level.id === data.currentLevel.id"
-                  [ngStyle]="{background: level.color}"
-                  (click)="onCheck($event)"
-                >
+                <li class="cards__levels-level" id={{level.id}} *ngFor="let level of data.levels"
+                    [class.active]="level.id === data.currentLevel.id" [ngStyle]="{background: level.color}"
+                    (click)="onCheck($event)">
                     {{level.digit}}
                 </li>
             </ul>

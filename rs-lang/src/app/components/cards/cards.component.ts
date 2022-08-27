@@ -34,8 +34,12 @@ export class CardsComponent implements OnInit {
   onCheck(e: Event) {
     const target = e.target as HTMLElement;
     this.data.currentLevel = Object.assign({}, this.data.levels[Number(target.id)]);
-    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => this.data.words = JSON.parse(JSON.stringify(value)));
     this.data.page = 0;
+    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => {
+      this.data.words = JSON.parse(JSON.stringify(value));
+      this.apiService.setLocalstorage(this.data.page, this.data.currentLevel, this.data.words);
+    });
+
   }
 
   play(e: Event, Meaning: string, Example: string): void {
@@ -74,7 +78,11 @@ export class CardsComponent implements OnInit {
       default :
         this.data.page = this.data.page;
     }
-    this.apiService.getWords(String(this.data.currentLevel.id), String(this.data.page)).subscribe(value => this.data.words = JSON.parse(JSON.stringify(value)));
+    this.apiService.getWords(String(this.data.currentLevel.id), String(this.data.page)).subscribe(value => {
+      this.data.words = JSON.parse(JSON.stringify(value));
+      this.apiService.setLocalstorage(this.data.page, this.data.currentLevel, this.data.words);
+    });
+
   }
 
   ngOnInit(): void {

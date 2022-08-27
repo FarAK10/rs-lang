@@ -64,3 +64,9 @@ export interface Word {
   textExampleTranslate: string,
   textMeaningTranslate: string
 }
+
+export interface Parameters {
+  page: number,
+  currentLevel: Level,
+  words: Word[]
+}
