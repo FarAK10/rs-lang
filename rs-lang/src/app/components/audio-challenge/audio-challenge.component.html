@@ -4,8 +4,8 @@
     <div class="lives">
       <mat-icon *ngFor="let life of lives" color="primary">{{life}}</mat-icon>
     </div>
-    <div class="img-wrapper">
-      <img src="../../../assets/icons/wave-sound.png" alt="associated img with word">
+    <div class="img-wrapper" (click)="playPronunciation()">
+      <img [src]="imgLink" alt="associated img with word">
     </div>
     <h2 class="current-word">{{currentEnglishWord}}</h2>
     <div class="buttons">

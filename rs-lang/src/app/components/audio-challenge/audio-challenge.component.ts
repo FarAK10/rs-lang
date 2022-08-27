@@ -3,6 +3,7 @@ import { IOption, IWord } from 'src/app/interfaces/interfaces';
 import { AudioChallengeService } from 'src/app/services/audio-challenge.service';
 import { GameService } from 'src/app/services/game.service';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-audio-challenge',
@@ -20,9 +21,9 @@ export class AudioChallengeComponent implements OnInit {
 
   elem: HTMLElement = document.documentElement;
 
-  imgLink!: string;
-
   defaultImgLink: string = '../../../assets/icons/wave-sound.png';
+
+  imgLink: string = '../../../assets/icons/wave-sound.png';
 
   currentEnglishWord: string = '';
 
@@ -38,6 +39,8 @@ export class AudioChallengeComponent implements OnInit {
 
   showBtnText: string = 'Show Answer';
 
+  baseUrl!: string;
+
   lives: Array<string> = [
     'favorite',
     'favorite',
@@ -49,6 +52,7 @@ export class AudioChallengeComponent implements OnInit {
   constructor(
     private audioGameService: AudioChallengeService,
     private gameService: GameService,
+    private apiService: ApiService,
     private router: Router,
   ) {}
 
@@ -58,7 +62,9 @@ export class AudioChallengeComponent implements OnInit {
       this.options = options;
       this.correctWord = this.audioGameService.getCorrectWord();
       this.currentEnglishWord = this.correctWord.word;
+      this.playPronunciation();
     });
+    this.baseUrl = this.apiService.getBaseUrl();
   }
 
   onMute(isMute: boolean) {
@@ -77,32 +83,31 @@ export class AudioChallengeComponent implements OnInit {
     const correctTranslation = this.correctWord.wordTranslate;
     if (correctTranslation === translation) {
       this.playSound('correct.mp3');
-      this.gameService.pushCorrect(this.correctWord);
-      this.isAnswerShown = true;
-      this.toggleText();
+      this.onRightAnswer();
     } else {
       this.playSound('wrong.mp3');
       this.onIncorrectAnswer();
     }
   }
 
-  toggleText() {
+  toggle() {
     if (this.isAnswerShown) {
       this.showBtnText = 'next question';
+      this.imgLink = `${this.baseUrl}/${this.correctWord.image}`;
     } else {
       this.showBtnText = 'Show answer';
+      this.imgLink = this.defaultImgLink;
     }
   }
 
   reduceNumberOfAttempts() {
-    if (this.livesLeft === 0) {
+    if (this.livesLeft === -1) {
       this.router.navigate([`game/result`]);
     } else {
       this.lives.splice(this.livesLeft, 1, 'favorite_border');
       this.livesLeft--;
     }
   }
-
   isWrong(className: string) {
     if (this.isAnswerShown) {
       return className;
@@ -117,24 +122,37 @@ export class AudioChallengeComponent implements OnInit {
     }
   }
 
+  playPronunciation() {
+    const url = `${this.baseUrl}/${this.correctWord.audio}`;
+    const audio = new Audio(url);
+    audio.play();
+  }
+
   showAnswer() {
     if (this.isAnswerShown) {
       this.onNextQuestion();
     } else {
       this.onIncorrectAnswer();
     }
-    this.toggleText();
+    this.toggle();
   }
 
   onIncorrectAnswer() {
     this.reduceNumberOfAttempts();
     this.gameService.pushWrong(this.correctWord);
     this.isAnswerShown = true;
-    this.toggleText();
+    this.toggle();
+  }
+
+  onRightAnswer() {
+    this.gameService.pushCorrect(this.correctWord);
+    this.isAnswerShown = true;
+    this.toggle();
   }
 
   onNextQuestion() {
     this.audioGameService.checkPage();
     this.isAnswerShown = false;
+    // this.playPronunciation();
   }
 }

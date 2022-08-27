@@ -25,7 +25,6 @@ export class AudioChallengeService {
       .pipe(take(1))
       .subscribe((words: IWord[]) => {
         this.allWords = shuffle(words);
-        console.log(words);
         this.sliceNumber = 0;
         this.options.next(this.getOptions());
       });
@@ -33,7 +32,7 @@ export class AudioChallengeService {
 
   getOptions(): IOption[] {
     let options = this.allWords
-      .slice(this.sliceNumber, this.sliceNumber + 5)
+      .slice(this.sliceNumber * 5, this.sliceNumber * 5 + 5)
       .map((word: IWord, index: number) => {
         if (index === this.sliceNumber) {
           this.correctOption = this.setClass(word, 'correct');
@@ -47,9 +46,10 @@ export class AudioChallengeService {
 
   checkPage() {
     if (this.sliceNumber < 2) {
-      this.options.next(this.getOptions());
       this.sliceNumber++;
+      this.options.next(this.getOptions());
     } else {
+      this.currentPage++;
       this.getWords();
     }
   }
