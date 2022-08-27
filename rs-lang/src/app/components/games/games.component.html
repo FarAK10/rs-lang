@@ -1,0 +1,17 @@
+<div class="games__container">
+    <div class="cards__container">
+      <div class="card" *ngFor="let post of card">
+        <div class="icons">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">{{post.icon}}</mat-icon>
+        </div>
+        <h3>{{post.title}}</h3>
+            <p class="description">{{post.description}}</p>
+            <div class="play">
+                <a routerLink={{post.link}}>
+                  Play
+                </a>
+            </div>
+      </div>
+    </div>
+</div>    
+

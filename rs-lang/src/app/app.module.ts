@@ -36,6 +36,7 @@ import { GameResultComponent } from './shared/components/game-result/game-result
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { WordComponent } from './shared/components/word/word.component';
 import { ApiService } from './services/api.service';
+import { GamesComponent } from './components/games/games.component';
 
 const formsModules = [
   MatButtonModule,
@@ -71,6 +72,7 @@ const angularMaterailModules = [
     GameResultComponent,
     WordComponent,
     CardsComponent,
+    GamesComponent,
 
   ],
 
