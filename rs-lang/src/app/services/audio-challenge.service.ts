@@ -17,7 +17,7 @@ export class AudioChallengeService {
 
   correctOption!: IOption;
 
-  options = new BehaviorSubject<IOption[]>([]);
+  options$ = new BehaviorSubject<IOption[]>([]);
 
   getWords() {
     this.gameService
@@ -26,7 +26,7 @@ export class AudioChallengeService {
       .subscribe((words: IWord[]) => {
         this.allWords = shuffle(words);
         this.sliceNumber = 0;
-        this.options.next(this.getOptions());
+        this.options$.next(this.getOptions());
       });
   }
 
@@ -47,7 +47,7 @@ export class AudioChallengeService {
   checkPage() {
     if (this.sliceNumber < 2) {
       this.sliceNumber++;
-      this.options.next(this.getOptions());
+      this.options$.next(this.getOptions());
     } else {
       this.currentPage++;
       this.getWords();

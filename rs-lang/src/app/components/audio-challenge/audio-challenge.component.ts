@@ -58,11 +58,12 @@ export class AudioChallengeComponent implements OnInit {
 
   ngOnInit(): void {
     this.audioGameService.getWords();
-    this.audioGameService.options.subscribe((options: IOption[]) => {
+    this.audioGameService.options$.subscribe((options: IOption[]) => {
       this.options = options;
-      this.correctWord = this.audioGameService.getCorrectWord();
-      this.currentEnglishWord = this.correctWord.word;
-      this.playPronunciation();
+      if (this.options.length) {
+        this.correctWord = this.audioGameService.getCorrectWord();
+        this.playPronunciation();
+      }
     });
     this.baseUrl = this.apiService.getBaseUrl();
   }
@@ -94,9 +95,11 @@ export class AudioChallengeComponent implements OnInit {
     if (this.isAnswerShown) {
       this.showBtnText = 'next question';
       this.imgLink = `${this.baseUrl}/${this.correctWord.image}`;
+      this.currentEnglishWord = this.correctWord.word;
     } else {
       this.showBtnText = 'Show answer';
       this.imgLink = this.defaultImgLink;
+      this.currentEnglishWord = '';
     }
   }
 
@@ -153,6 +156,5 @@ export class AudioChallengeComponent implements OnInit {
   onNextQuestion() {
     this.audioGameService.checkPage();
     this.isAnswerShown = false;
-    // this.playPronunciation();
   }
 }
