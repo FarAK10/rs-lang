@@ -12,7 +12,8 @@ import { SidebarComponent } from './components/layout/sidebar/sidebar.component'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TutorialComponent } from './tutorial/tutorial.component';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { CardsComponent } from './components/cards/cards.component';
 import { AutorizationComponent } from './components/autorization/autorization.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -34,6 +35,8 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
 import { GameResultComponent } from './shared/components/game-result/game-result.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { WordComponent } from './shared/components/word/word.component';
+import { ApiService } from './services/api.service';
+
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
@@ -67,6 +70,8 @@ const angularMaterailModules = [
     GameSettingsComponent,
     GameResultComponent,
     WordComponent,
+    CardsComponent,
+
   ],
 
   imports: [
@@ -82,6 +87,7 @@ const angularMaterailModules = [
     ...formsModules,
     NgCircleProgressModule.forRoot({}),
   ],
+  
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -8,7 +8,9 @@ import { AuthorizationService } from './authorization.service';
   providedIn: 'root',
 })
 export class ApiService {
+
   constructor(private http: HttpClient) {}
+
   baseUrl = 'https://app-rs-lang.herokuapp.com';
   // baseUrl = 'http://localhost:8088';
 
@@ -24,7 +26,13 @@ export class ApiService {
   generateUrl(url: string): string {
     return `${this.baseUrl}/${url}`;
   }
+
   getBaseUrl(): string {
     return this.baseUrl;
   }
+
+  getWords(group: string = '0', page: string = '0') {
+    return this.http.get(`${this.baseUrl}/words?group=${group}&page=${page}`);
+  }
+
 }

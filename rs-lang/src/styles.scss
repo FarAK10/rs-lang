@@ -93,6 +93,12 @@ select {
   font: inherit;
 }
 
+.container {
+  margin: auto;
+  max-width: 1200px;
+  padding: 0 70px;
+}
+
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 @media (prefers-reduced-motion: reduce) {
   * {

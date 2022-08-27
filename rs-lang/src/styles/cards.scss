@@ -1,0 +1,320 @@
+@import './constants.scss';
+
+.cards {
+    margin-top: 70px;
+    width: 100%;
+    padding-bottom: 50px;
+
+    .cards__menu {
+        width: 100%;
+        margin: auto;
+        border-radius: 10px;
+        background: $light-pink;
+        padding: 20px 150px;
+        display: flex;
+        justify-content: space-around;
+        position: relative;
+
+        .flower-left,
+        .flower-right {
+            position: absolute;
+            height: 100px;
+            bottom: 0;
+            left: -80px;
+            z-index: -1;
+        }
+
+        .flower-right {
+            left: auto;
+            right: -80px;
+        }
+
+        .cards__menu-item {
+            width: 150px;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 0 10px $light-grey;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .2s ease;
+            @include font(18px, $pink, "Post Human", 100);
+
+            &:hover {
+                box-shadow: 0 0 15px $pink;
+            }
+        }
+    }
+
+    .cards__pagination {
+        position: sticky;
+        top: 0;
+        margin-top: 20px;
+        margin-left: -10px;
+        width: calc(100% + 10px);
+        padding: 20px;
+        display: flex;
+        gap: 25px;
+        justify-content: center;
+        background: #fafafa;
+        z-index: 2;
+        transition: all .3s ease;
+
+        &.enable {
+            box-shadow: 0 5px 5px -5px $pink;
+        }
+
+        .cards__pagination-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include font(52px, $pink, "Ludvig van Bethoveen", 100);
+        }
+
+        .btn {
+            @include btn(70px, 50px, 10px);
+            box-shadow: 0 2px 3px 0px $pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include font(22px, $pink, "Post Human", 700);
+            transition: all .3s ease;
+
+            &:hover {
+                box-shadow: 0 3px 10px 0px $pink;
+            }
+            &.disabled {
+                box-shadow: 0 0 3px $pink;
+                cursor: default;
+                color: $light-pink;
+    
+                &:hover {
+                    box-shadow: 0 0 3px 0px $pink;
+                }
+            }
+        }
+
+        .cards__pagination-page {
+            @include btn(100px, 50px, 10px);
+            color: $pink !important;
+        }
+    }
+
+    .cards__content {
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+
+        .cards__items {
+            width: calc(100% - 110px);
+            border-radius: 10px;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 5px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 450px);
+            position: relative;
+
+            .cards__text {
+                position: absolute;
+                width: calc(100% - 110px);
+                @include font(52px, $pink, "Sensei Medium", 700);
+                text-align: center;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                top: 200px;
+                left: 50%;
+                transform: translate(-50%, 0);
+            }
+
+            .card {
+                margin-top: 20px;
+                height: 300px;
+                object-fit: cover;
+                -webkit-box-reflect: below 0 linear-gradient(transparent, transparent, #0004);
+                transform-origin: center;
+                transform: perspective(800px) rotateY(25deg);
+                transition: 0.5s;
+                border-radius: 10px;
+                padding: 7px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow: hidden;
+                margin-bottom: 150px;
+
+                .card__img {
+                    width: 25%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .card__img-img {
+                        width: 97%;
+                        height: 84%;
+                        top: 55.5%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        object-fit: cover;
+                        position: absolute;
+                        bottom: 0;
+                        z-index: -1;
+                        border-radius: 10px;
+                        overflow: hidden;
+                    }
+                }
+
+                .card__info {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    border-radius: 10px;
+                    padding: 3px 10px 5px 10px;
+
+                    .card__img-name {
+                        @include font(20px, white, "Noto Sans Display Condensed", 100);
+                    }
+
+                    .card__info-words {
+                        align-self: center;
+                        @include font(20px, white, "Noto Sans Display Condensed", 100);
+                    }
+                    .card__info-left,
+                    .card__info-right {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+                }
+                .card__text {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 10px;
+                    padding: 14px 10px 10px 10px;
+                    border-radius: 10px;
+                    width: max-content;
+                    max-width: 420px;
+                    width: max-content;
+                    background: rgb(255, 255, 255, .5);
+                    margin: -1px;
+                    border-bottom-left-radius: 0px;
+                    height: max-content;
+                    white-space: pre-wrap;
+                    @include font(16px, black, "Noto Sans Display Condensed", 100);
+                    .card__info-ru,
+                    .card__info-en {
+                        white-space: pre-wrap;
+                    }
+                    .card__info-ru {
+                        font-style: italic;
+                    }
+                }
+                .card__row {
+                    position: absolute;
+                    bottom: 0;
+                    margin-top: 160px;
+                    background-color: rgb(255, 255, 255, .7);
+                    margin-left: -1px;
+                    width: 437px;
+                    padding: 0 5px;
+                    bottom: 20px;
+                    @include font(16px, black, "Noto Sans Display Condensed", 100);
+                    .card__info-en {
+                        font-style: italic;
+                        margin-top: 10px;
+                    }
+                }
+            }
+
+            & .card:hover {
+                transform: perspective(800px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        .cards__levels {
+            position: sticky;
+            top: 108px;
+            width: 90px;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 2px 7px 0px $pink;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            transition: all .3s ease;
+
+            &.enable {
+                opacity: .3;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .cards__level-title {
+                @include font(22px, $pink, "Post Human", 100);
+            }
+
+            .cards__levels-level {
+                position: relative;
+                padding: 5px 0 0 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                @include font(26px, white, "Post Human", 100);
+                cursor: pointer;
+                transition: all .3s ease;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    width: 71px;
+                    height: 71px;
+                    border-radius: 50%;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    border: 10px solid white;
+                }
+
+                &:hover {
+                    transform: rotate(30deg);
+                    width: 70px;
+                    height: 70px;
+                }
+
+                &.active {
+                    width: 70px;
+                    height: 70px;
+                    transform: rotate(30deg);
+
+                    &::before {
+                        width: 50px;
+                        height: 50px;
+                        border: 4px solid white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.btn-icon {
+    width: 15px;
+    height: 15px;
+    color: white;
+    display: none;
+    &.active {
+        display: block;
+    }
+}

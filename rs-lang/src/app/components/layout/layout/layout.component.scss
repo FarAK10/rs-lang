@@ -4,3 +4,8 @@ mat-sidenav{
     background-color: whitesmoke;
     width: 20%;
 }
+
+mat-sidenav-container,
+mat-sidenav-content {
+    overflow: initial;
+}
