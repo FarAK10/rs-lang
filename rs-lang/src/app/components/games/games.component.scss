@@ -6,6 +6,16 @@
     justify-content: center;
     padding-top: calc(50vh - 232px);
     padding-bottom: calc(50vh - 232px);    
+    background-image: 
+        url(../../../assets/icons/Vector.svg),
+        url(../../../assets/icons/Bloobs.svg),
+        url(../../../assets/icons/MessageSent.svg),
+         ;
+    background-position: 
+        right 0 top 0, 
+        left 0 top 0, 
+        left 0 top 40vh, ;
+    background-repeat: no-repeat;
 }
 
 .cards__container{
