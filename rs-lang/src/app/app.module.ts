@@ -34,6 +34,7 @@ import { GameSettingsComponent } from './components/game-settings/game-settings.
 import { GameResultComponent } from './shared/components/game-result/game-result.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { WordComponent } from './shared/components/word/word.component';
+import { AudioChallengeComponent } from './components/audio-challenge/audio-challenge.component';
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
@@ -67,6 +68,7 @@ const angularMaterailModules = [
     GameSettingsComponent,
     GameResultComponent,
     WordComponent,
+    AudioChallengeComponent,
   ],
 
   imports: [

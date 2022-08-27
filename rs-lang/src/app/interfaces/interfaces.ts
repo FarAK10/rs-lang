@@ -38,3 +38,8 @@ export interface IAggregatedResp {
     },
   ];
 }
+
+export interface IOption {
+  word: IWord;
+  class: string;
+}

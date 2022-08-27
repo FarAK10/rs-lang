@@ -20,6 +20,8 @@ export class GameService {
 
   incorrectAnswers: Array<IWord> = [];
 
+  correctWord: string = '';
+
   constructor(private apiService: ApiService, private authService: AuthorizationService) {}
 
   getAggregatedWords() {
