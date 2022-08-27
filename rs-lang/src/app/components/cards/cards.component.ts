@@ -33,11 +33,11 @@ export class CardsComponent implements OnInit {
 
   onCheck(e: Event) {
     const target = e.target as HTMLElement;
-    this.data.currentLevel = Object.assign({}, this.data.levels[Number(target.id)]);
-    this.data.page = 0;
-    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => {
-      this.data.words = JSON.parse(JSON.stringify(value));
-      this.apiService.setLocalstorage(this.data.page, this.data.currentLevel, this.data.words);
+    this.data.parameters.currentLevel = Object.assign({}, this.data.levels[Number(target.id)]);
+    this.data.parameters.page = 0;
+    this.apiService.getWords(String(this.data.parameters.currentLevel.id), '0').subscribe(value => {
+      this.data.parameters.words = JSON.parse(JSON.stringify(value));
+      this.apiService.setLocalstorage(this.data.parameters);
     });
 
   }
@@ -64,23 +64,23 @@ export class CardsComponent implements OnInit {
   changePage(page: string) {
     switch(page) {
       case ('0') :
-        this.data.page = 0;
+        this.data.parameters.page = 0;
         break;
       case ('-1') :
-        this.data.page = this.data.page -= 1;
+        this.data.parameters.page = this.data.parameters.page -= 1;
         break;
       case ('+1') :
-        this.data.page = this.data.page += 1;
+        this.data.parameters.page = this.data.parameters.page += 1;
         break;
       case ('29') :
-        this.data.page = 29;
+        this.data.parameters.page = 29;
         break;
       default :
-        this.data.page = this.data.page;
+        this.data.parameters.page = this.data.parameters.page;
     }
-    this.apiService.getWords(String(this.data.currentLevel.id), String(this.data.page)).subscribe(value => {
-      this.data.words = JSON.parse(JSON.stringify(value));
-      this.apiService.setLocalstorage(this.data.page, this.data.currentLevel, this.data.words);
+    this.apiService.getWords(String(this.data.parameters.currentLevel.id), String(this.data.parameters.page)).subscribe(value => {
+      this.data.parameters.words = JSON.parse(JSON.stringify(value));
+      this.apiService.setLocalstorage(this.data.parameters);
     });
 
   }

@@ -1,5 +1,5 @@
 import { Injectable, OnChanges, OnInit } from '@angular/core';
-import { Level, Word } from '../interfaces/interfaces';
+import { Level, Parameters, Word } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +17,16 @@ export class DataService {
 
   token: string = '';
 
-  words!: Word[];
-  page: number = 0;
-  currentLevel: Level = this.levels[0];
+  parameters: Parameters = {
+    words: null,
+    page: 0,
+    currentLevel: this.levels[0]
+  }
+
 
   constructor() {
     if (localStorage.getItem('parameters')) {
-      const parameters = JSON.parse(localStorage.getItem('parameters')!);
-      this.words = parameters.words;
-      this.page = parameters.page;
-      this.currentLevel = parameters.currentLevel;
+      this.parameters = JSON.parse(localStorage.getItem('parameters')!);
     }
   }
 

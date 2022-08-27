@@ -34,15 +34,14 @@ export class TutorialComponent implements OnInit {
     })
     target.classList.add('active');
     this.setParameters(Number(target.id));
-    console.log(this.data.words);
   }
 
   onCheck() {
-    this.data.currentLevel = Object.assign({}, this.setting);
-    this.data.page = 0;
-    this.apiService.getWords(String(this.data.currentLevel.id), '0').subscribe(value => {
-      this.data.words = JSON.parse(JSON.stringify(value));
-      this.apiService.setLocalstorage(this.data.page, this.data.currentLevel, this.data.words);
+    this.data.parameters.currentLevel = Object.assign({}, this.setting);
+    this.data.parameters.page = 0;
+    this.apiService.getWords(String(this.data.parameters.currentLevel.id), '0').subscribe(value => {
+      this.data.parameters.words = JSON.parse(JSON.stringify(value));
+      this.apiService.setLocalstorage(this.data.parameters);
     });
   }
 

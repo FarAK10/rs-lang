@@ -9,7 +9,7 @@
                   *ngFor="let level of data.levels" 
                   class="level__card" 
                   [ngStyle]="{background: 'linear-gradient(30deg, white 15%, ' + level.color + ')'}" 
-                  [class.active] = "level.id === data.currentLevel.id"
+                  [class.active] = "level.id === data.parameters.currentLevel.id"
                   id="{{ level.id }}"
                   (mouseenter)="onMouseOver($event)"
                   (click)="onCheck()"

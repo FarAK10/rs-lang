@@ -68,5 +68,5 @@ export interface Word {
 export interface Parameters {
   page: number,
   currentLevel: Level,
-  words: Word[]
+  words: Word[] | null
 }
