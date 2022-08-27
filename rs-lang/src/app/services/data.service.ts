@@ -23,10 +23,9 @@ export class DataService {
     currentLevel: this.levels[0]
   }
 
-
   constructor() {
-    if (localStorage.getItem('parameters')) {
-      this.parameters = JSON.parse(localStorage.getItem('parameters')!);
+    if (sessionStorage.getItem('parameters')) {
+      this.parameters = JSON.parse(sessionStorage.getItem('parameters')!);
     }
   }
 

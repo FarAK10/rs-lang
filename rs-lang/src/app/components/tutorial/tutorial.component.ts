@@ -41,7 +41,7 @@ export class TutorialComponent implements OnInit {
     this.data.parameters.page = 0;
     this.apiService.getWords(String(this.data.parameters.currentLevel.id), '0').subscribe(value => {
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
-      this.apiService.setLocalstorage(this.data.parameters);
+      this.apiService.setSessionStorage(this.data.parameters);
     });
   }
 

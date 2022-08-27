@@ -35,8 +35,8 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/words?group=${group}&page=${page}`);
   }
 
-  setLocalstorage (obj: Parameters): void {
-    localStorage.setItem('parameters', JSON.stringify(obj));
+  setSessionStorage (obj: Parameters): void {
+    sessionStorage.setItem('parameters', JSON.stringify(obj));
   }
 
 }
