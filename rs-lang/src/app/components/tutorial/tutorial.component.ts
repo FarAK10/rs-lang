@@ -38,22 +38,27 @@ export class TutorialComponent implements OnInit, AfterViewChecked {
     this.data.parameters.page = 0;
     this.apiService.getWords(String(this.data.parameters.currentLevel), '0').subscribe(value => {
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
+      this.data.checkAaaEase();
       this.apiService.setSessionStorage(this.data.parameters);
     });
   }
 
   onTutorial() {
-      this.data.parameters.words = this.getHardWords(this.data.parameters.arr!);
-      this.data.parameters.currentLevel = 6;
-      this.data.parameters.page = 0;
-      this.apiService.setSessionStorage(this.data.parameters);
+    this.data.parameters.currentLevel = 6;
+    this.data.parameters.page = 0;
+    this.getHardWords(this.data.parameters.arr!);
   }
 
   getHardWords(arr: HardWords[]) {
     const array: Word[] = [];
-    arr.map((el) => {
+    arr.map((el, ind, arr) => {
       this.apiService.getWord(el.wordId).subscribe(value => {
         array.push(JSON.parse(JSON.stringify(value)));
+        if (ind === arr.length - 1) {
+          this.data.parameters.words = array;
+          this.data.checkAaaEase();
+          this.apiService.setSessionStorage(this.data.parameters);
+        }
       });
     })
     return array;

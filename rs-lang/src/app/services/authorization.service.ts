@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, switchMap, Observable } from 'rxjs';
-import { HardWords, ICurrentUser, INewUser } from '../interfaces/interfaces';
+import { EaseWords, HardWords, ICurrentUser, INewUser } from '../interfaces/interfaces';
 import { ApiService } from './api.service';
 import { map, tap } from 'rxjs';
 import { of } from 'rxjs';
@@ -69,8 +69,11 @@ export class AuthorizationService {
   setHardWords() {
     this.apiService.getHardWords(this.getUserId()).subscribe(value => {
       const arr = (value as HardWords[]).filter((el) => el.difficulty === 'hard');
+      const arr2 = (value as EaseWords[]).filter((el) => el.difficulty === 'ease');
       this.data.parameters.hardWords = this.parseHardWords(arr);
+      this.data.parameters.easeWords = this.parseHardWords(arr2);
       this.data.parameters.arr = JSON.parse(JSON.stringify(arr));
+      this.data.parameters.arrEase = JSON.parse(JSON.stringify(arr2));
       this.apiService.setSessionStorage(this.data.parameters);
       this.data.getUser();
     });

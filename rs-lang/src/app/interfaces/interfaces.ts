@@ -70,10 +70,18 @@ export interface Parameters {
   currentLevel: number,
   words: Word[] | null,
   hardWords: String[] | null,
+  easeWords: String[] | null,
   arr: HardWords[] | null
+  arrEase: EaseWords[] | null
 }
 
 export interface HardWords {
+  id: string,
+  difficulty: string,
+  wordId: string
+}
+
+export interface EaseWords {
   id: string,
   difficulty: string,
   wordId: string

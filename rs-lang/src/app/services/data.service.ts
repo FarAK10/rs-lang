@@ -7,6 +7,8 @@ import { HardWords, ICurrentUser, Level, Parameters, Word } from '../interfaces/
 })
 export class DataService {
 
+  allEase = false;
+
   levels: Level[] = [
     { id: 0, digit: 'A1', title: 'Beginner', text: 'Понимать интонацию и жесты собеседника. Говорить: "London is the capital of Great Britain".', words: 600, color: "red" },
     { id: 1, digit: 'A2', title: 'Elementary', text: 'Разговаривать с детьми. Слушать англоязычную музыку, делая вид, что что-то понимаете.', words: 1200, color: "orange" },
@@ -22,7 +24,9 @@ export class DataService {
     page: 0,
     currentLevel: 0,
     hardWords: null,
-    arr: null
+    arr: null,
+    easeWords: null,
+    arrEase: null
   }
 
   user: ICurrentUser = {
@@ -41,11 +45,16 @@ export class DataService {
     }
   }
 
+  checkAaaEase() {
+    this.allEase = (this.parameters.words?.every(el => this.parameters.easeWords?.includes(el.id))) ? true : false;
+  }
+
   constructor() {
     if (localStorage.getItem('parameters')) {
       this.parameters = JSON.parse(localStorage.getItem('parameters')!);
     }
 
     this.getUser();
+    this.checkAaaEase();
   }
 }

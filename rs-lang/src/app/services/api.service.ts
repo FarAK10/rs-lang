@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { AuthorizationService } from './authorization.service';
 import { DataService } from './data.service';
+import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 
 @Injectable({
   providedIn: 'root',
@@ -42,9 +43,9 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/words/${wordId}`);
   }
 
-  postHardWord(idUser: string, idWord: string) {
+  postWord(idUser: string, idWord: string, opt: string) {
     return this.http.post(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
-      "difficulty": "hard",
+      "difficulty": opt,
       "optional": {}
     });
   }
