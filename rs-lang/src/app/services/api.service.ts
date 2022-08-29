@@ -58,6 +58,13 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/users/${idUser}/words`);
   }
 
+  updateHardWords(idUser: string, idWord: string, opt: string) {
+    return this.http.put(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
+      "difficulty": 'ease',
+      "optional": {}
+    }).subscribe(res => console.log(res));
+  }
+
   setSessionStorage(obj: Parameters): void {
     localStorage.setItem('parameters', JSON.stringify(obj));
   }

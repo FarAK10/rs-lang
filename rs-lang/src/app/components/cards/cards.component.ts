@@ -132,6 +132,7 @@ export class CardsComponent implements OnInit {
     this.data.parameters[otherWord]?.splice(this.data.parameters[otherWord]!.findIndex(el => el === word.id), 1);
     const a = this.data.parameters[otherArr]?.splice(this.data.parameters[otherArr]!.findIndex(el => el.id === word.id), 1);
     this.data.parameters[ourArr]?.push(a![0]);
+    this.apiService.updateHardWords(this.data.user.userId, word.id, opt);
     this.deleteHard(word.id);
     this.data.checkAaaEase();
   }
