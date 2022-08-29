@@ -133,6 +133,7 @@ export class CardsComponent implements OnInit {
     const a = this.data.parameters[otherArr]?.splice(this.data.parameters[otherArr]!.findIndex(el => el.id === word.id), 1);
     this.data.parameters[ourArr]?.push(a![0]);
     this.deleteHard(word.id);
+    this.data.checkAaaEase();
   }
 
   removeWord(e: Event, idWord: string, opt: string) {
