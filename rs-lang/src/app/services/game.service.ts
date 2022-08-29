@@ -56,4 +56,12 @@ export class GameService {
   setCurrentGame(gameName: string): void {
     this.currentGame$.next(gameName);
   }
+
+  getCurrentPage(): number {
+    return this.currentPage;
+  }
+
+  setCurrentPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
 }

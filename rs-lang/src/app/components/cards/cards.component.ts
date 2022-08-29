@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ThrowStmt } from 'angular-html-parser/lib/compiler/src/output/output_ast';
 import { Level, Word } from 'src/app/interfaces/interfaces';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-cards',
@@ -9,7 +11,11 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
-  constructor(public data: DataService, public apiService: ApiService) {}
+  constructor(
+    public data: DataService,
+    public apiService: ApiService,
+    private gameService: GameService,
+  ) {}
 
   baseUrl = this.apiService.baseUrl + '/';
   voice!: HTMLAudioElement;
@@ -77,6 +83,21 @@ export class CardsComponent implements OnInit {
     this.apiService
       .getWords(String(this.data.currentLevel.id), String(this.data.page))
       .subscribe((value) => (this.data.words = JSON.parse(JSON.stringify(value))));
+  }
+
+  setGame(gameName: string): void {
+    this.gameService.setCurrentGame(gameName);
+    this.setPage();
+  }
+
+  setPage(): void {
+    const currentPage = this.data.page;
+    this.gameService.setCurrentPage(currentPage);
+  }
+
+  setEnglishLevel(): void {
+    const englishLevel = Number(this.data.currentLevel);
+    this.gameService.setEnglishLevel(englishLevel);
   }
 
   ngOnInit(): void {
