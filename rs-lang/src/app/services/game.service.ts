@@ -20,6 +20,10 @@ export class GameService {
 
   incorrectAnswers: Array<IWord> = [];
 
+  correctWord: string = '';
+
+  currentGame!: string;
+
   constructor(private apiService: ApiService, private authService: AuthorizationService) {}
 
   getAggregatedWords() {
@@ -44,7 +48,12 @@ export class GameService {
   setEnglishLevel(level: number): void {
     this.englishLevel = level.toString();
   }
+
   getEnglishLevel(): string {
     return this.englishLevel;
+  }
+
+  getGameName(): string {
+    return this.currentGame;
   }
 }

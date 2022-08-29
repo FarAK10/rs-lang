@@ -64,3 +64,8 @@ export interface Word {
   textExampleTranslate: string,
   textMeaningTranslate: string
 }
+
+export interface IOption {
+  word: IWord;
+  class: string;
+}
