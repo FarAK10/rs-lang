@@ -2,38 +2,41 @@
     <div class="container">
         <ul class="cards__menu">
             <img src="./../../../assets/img/flower-left.png" alt="flower" class="flower-left">
+            <li class="cards__menu-item" routerLink="/tutorial">Tutorial</li>
+            <li class="cards__menu-item" routerLink="/tutorial/words" (click)="onTutorial()" *ngIf="this.data.user.isAuth === true">Hard Words</li>
             <li class="cards__menu-item" routerLink="/game/english-level">Sprint</li>
             <li class="cards__menu-item">Audio battle</li>
-            <li class="cards__menu-item">Other</li>
-            <li class="cards__menu-item">Other</li>
             <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
         </ul>
         <ul class="cards__pagination">
             <span class="cards__pagination-text">English is my heart</span>
-            <li class="cards__pagination-first btn" [class.disabled]="this.data.parameters.page === 0" (click)="changePage('0')"><i
-                    class="fa-solid fa-angles-left"></i></li>
-            <li class="cards__pagination-prev btn" [class.disabled]="this.data.parameters.page === 0" (click)="changePage('-1')"><i
-                    class="fa-solid fa-chevron-left"></i></li>
+            <li class="cards__pagination-first btn" [class.disabled]="this.data.parameters.page === 0 || this.data.parameters.currentLevel === 6"
+                (click)="changePage('0')"><i class="fa-solid fa-angles-left"></i></li>
+            <li class="cards__pagination-prev btn" [class.disabled]="this.data.parameters.page === 0 || this.data.parameters.currentLevel === 6"
+                (click)="changePage('-1')"><i class="fa-solid fa-chevron-left"></i></li>
             <li class="cards__pagination-page btn disabled">{{this.data.parameters.page + 1}}</li>
-            <li class="cards__pagination-next btn" [class.disabled]="this.data.parameters.page === 29" (click)="changePage('+1')">
+            <li class="cards__pagination-next btn" [class.disabled]="this.data.parameters.page === 29 || this.data.parameters.currentLevel === 6"
+                (click)="changePage('+1')">
                 <i class="fa-solid fa-chevron-right"></i>
             </li>
-            <li class="cards__pagination-last btn" [class.disabled]="this.data.parameters.page === 29" (click)="changePage('29')">
+            <li class="cards__pagination-last btn" [class.disabled]="this.data.parameters.page === 29 || this.data.parameters.currentLevel === 6"
+                (click)="changePage('29')">
                 <i class="fa-solid fa-angles-right"></i>
             </li>
             <span class="cards__pagination-text">English is my soul</span>
         </ul>
         <div class="cards__content">
             <div class="cards__items">
-                <div class="cards__text" *ngIf="(!data.parameters.words || data.parameters.words.length === 0) && data.token">
+                <div class="cards__text"
+                    *ngIf="(!data.parameters.words || data.parameters.words.length === 0) && data.user.isAuth === true">
                     Слов больше нет :(
                 </div>
                 <div class="card" *ngFor="let word of data.parameters.words"
-                    [ngStyle]="{boxShadow: '0 2px 7px 0px ' + data.parameters.currentLevel.color}">
+                    [ngStyle]="{boxShadow: data.parameters.currentLevel === 6 || data.parameters.hardWords?.includes(word.id) ? '0 2px 7px 0px #ff4081' : '0 2px 7px 0px ' + data.levels[data.parameters.currentLevel].color}">
                     <div class="card__img">
                         <img class="card__img-img" [src]="baseUrl+word.image" alt="">
                     </div>
-                    <div class="card__info" [ngStyle]="{background: data.parameters.currentLevel.color}">
+                    <div class="card__info" [ngStyle]="{background: (data.parameters.currentLevel === 6 || data.parameters.hardWords?.includes(word.id)) ? '#ff4081' : data.levels[data.parameters.currentLevel].color}">
                         <div class="card__info-left">
                             <a class="btn-icon active" href="#" title="Слушать"
                                 (click)="play($event, baseUrl + word.audioMeaning, baseUrl + word.audioExample)"><i
@@ -42,10 +45,29 @@
                         </div>
                         <div class="card__info-right">
                             <span class="card__img-name">{{word.wordTranslate}}</span>
-                            <a class="btn-icon" href="#" title="Записать" [class.active]="data.token"><i
-                                    class="fa-solid fa-pencil"></i></a>
-                            <a class="btn-icon" href="#" title="Удалить" [class.active]="data.token"><i
-                                    class="fa-solid fa-trash-can"></i></a>
+                            <a 
+                              class="btn-icon" 
+                              href="#" 
+                              title="Записать в трудные" 
+                              [class.active]="data.user.isAuth === true"
+                              (click)="addWord($event, word)"
+                              *ngIf="!data.parameters.hardWords?.includes(word.id)"
+                            >
+                                <i class="fa-solid fa-pencil"></i>
+                            </a>
+                            <a 
+                              class="btn-icon" 
+                              href="#" 
+                              title="Больше не трудное" 
+                              [class.active]="data.user.isAuth === true"
+                              (click)="removeWord($event, word.id)"
+                              *ngIf="data.parameters.hardWords?.includes(word.id)"
+                            >
+                            <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                            <a class="btn-icon" href="#" title="Удалить" [class.active]="data.user.isAuth === true">
+                                <!-- <i class="fa-solid fa-trash-can"></i> -->
+                            </a>
                         </div>
                     </div>
                     <div class="card__text">
@@ -60,7 +82,7 @@
             <ul class="cards__levels">
                 <h4 class="cards__level-title">levels</h4>
                 <li class="cards__levels-level" id={{level.id}} *ngFor="let level of data.levels"
-                    [class.active]="level.id === data.parameters.currentLevel.id" [ngStyle]="{background: level.color}"
+                    [class.active]="level.id === data.parameters.currentLevel" [ngStyle]="{background: level.color}"
                     (click)="onCheck($event)">
                     {{level.digit}}
                 </li>

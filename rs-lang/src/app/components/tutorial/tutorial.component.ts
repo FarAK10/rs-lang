@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Level } from 'src/app/interfaces/interfaces';
+import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { HardWords, Level, Word } from 'src/app/interfaces/interfaces';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
 
@@ -8,10 +8,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './tutorial.component.html',
   styleUrls: ['./tutorial.component.scss']
 })
-export class TutorialComponent implements OnInit {
-
-  // @Input() levels!:Level[];
-  // @Output() onAdd: EventEmitter<Level> = new EventEmitter<Level>();
+export class TutorialComponent implements OnInit, AfterViewChecked {
 
   setting: Level = {
     id: 0,
@@ -25,7 +22,7 @@ export class TutorialComponent implements OnInit {
   constructor(
     public data: DataService,
     private apiService: ApiService
-  ) {}
+  ) { }
 
   onMouseOver(e: Event) {
     let target = e.target as HTMLElement;
@@ -37,12 +34,29 @@ export class TutorialComponent implements OnInit {
   }
 
   onCheck() {
-    this.data.parameters.currentLevel = Object.assign({}, this.setting);
+    this.data.parameters.currentLevel = Number(this.setting.id);
     this.data.parameters.page = 0;
-    this.apiService.getWords(String(this.data.parameters.currentLevel.id), '0').subscribe(value => {
+    this.apiService.getWords(String(this.data.parameters.currentLevel), '0').subscribe(value => {
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
       this.apiService.setSessionStorage(this.data.parameters);
     });
+  }
+
+  onTutorial() {
+      this.data.parameters.words = this.getHardWords(this.data.parameters.arr!);
+      this.data.parameters.currentLevel = 6;
+      this.data.parameters.page = 0;
+      this.apiService.setSessionStorage(this.data.parameters);
+  }
+
+  getHardWords(arr: HardWords[]) {
+    const array: Word[] = [];
+    arr.map((el) => {
+      this.apiService.getWord(el.wordId).subscribe(value => {
+        array.push(JSON.parse(JSON.stringify(value)));
+      });
+    })
+    return array;
   }
 
   setParameters(id: number) {
@@ -62,6 +76,6 @@ export class TutorialComponent implements OnInit {
     const el: HTMLElement | null = document.querySelector('.active');
     this.setParameters(Number(el?.getAttribute('id')));
   }
-  
+
 }
 

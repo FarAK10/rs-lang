@@ -55,7 +55,7 @@
         display: flex;
         gap: 25px;
         justify-content: center;
-        background: #fafafa;
+        background: white;
         z-index: 2;
         transition: all .3s ease;
 
@@ -175,12 +175,12 @@
                     padding: 3px 10px 5px 10px;
 
                     .card__img-name {
-                        @include font(20px, white, "Noto Sans Display Condensed", 100);
+                        @include font(18px, white, "Noto Sans Display Condensed", 100);
                     }
 
                     .card__info-words {
                         align-self: center;
-                        @include font(20px, white, "Noto Sans Display Condensed", 100);
+                        @include font(18px, white, "Noto Sans Display Condensed", 100);
                     }
                     .card__info-left,
                     .card__info-right {

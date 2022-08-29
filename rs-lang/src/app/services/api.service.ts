@@ -1,21 +1,24 @@
-import { Injectable } from '@angular/core';
-import { ICurrentUser, INewUser, Level, Parameters, Word } from '../interfaces/interfaces';
+import { Injectable, OnInit } from '@angular/core';
+import { HardWords, ICurrentUser, INewUser, Level, Parameters, Word } from '../interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthorizationService } from './authorization.service';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+  ) { }
+
 
   baseUrl = 'https://app-rs-lang.herokuapp.com';
   // baseUrl = 'http://localhost:8088';
 
   post<T>(url: string, body: T): Observable<T> {
-    console.log('post');
     return this.http.post<T>(this.generateUrl(url), body);
   }
 
@@ -35,8 +38,27 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/words?group=${group}&page=${page}`);
   }
 
-  setSessionStorage (obj: Parameters): void {
-    sessionStorage.setItem('parameters', JSON.stringify(obj));
+  getWord(wordId: string): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/words/${wordId}`);
+  }
+
+  postHardWord(idUser: string, idWord: string) {
+    return this.http.post(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
+      "difficulty": "hard",
+      "optional": {}
+    });
+  }
+
+  removeHardWord(idUser: string, idWord: string) {
+    return this.http.delete(`${this.baseUrl}/users/${idUser}/words/${idWord}`);
+  }
+
+  getHardWords(idUser: string): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/users/${idUser}/words`);
+  }
+
+  setSessionStorage(obj: Parameters): void {
+    localStorage.setItem('parameters', JSON.stringify(obj));
   }
 
 }

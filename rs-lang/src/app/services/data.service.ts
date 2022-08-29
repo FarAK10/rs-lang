@@ -1,5 +1,6 @@
 import { Injectable, OnChanges, OnInit } from '@angular/core';
-import { Level, Parameters, Word } from '../interfaces/interfaces';
+import { Observable } from 'rxjs';
+import { HardWords, ICurrentUser, Level, Parameters, Word } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +13,39 @@ export class DataService {
     { id: 2, digit: 'B1', title: 'Pre-Intermediate', text: 'Пройти тест по английскому языку, чтобы устроиться фронтенд-разработчиком.', words: 1800, color: "yellowgreen" },
     { id: 3, digit: 'B2', title: 'Intermediate', text: 'Употреблять английские слова в своей речи. Там, где надо и не надо.', words: 2400, color: "green" },
     { id: 4, digit: 'C1', title: 'Upper-Intermediate', text: 'Мимикрировать под рядового жителя окраины Брайтон-Бич.', words: 3000, color: "blue" },
-    { id: 5, digit: 'C2', title: 'Advanced', text: 'Расслабиться. Потому что никто не знает английский на таком уровне, кроме королевы Великобритании.', words: 3600, color: "violet" },
+    { id: 5, digit: 'C2', title: 'Advanced', text: 'Расслабиться. Потому что никто не знает столько английских слов, кроме королевы Великобритании.', words: 3600, color: "violet" },
   ]
 
-  token: string = '';
-
+  
   parameters: Parameters = {
     words: null,
     page: 0,
-    currentLevel: this.levels[0]
+    currentLevel: 0,
+    hardWords: null,
+    arr: null
   }
 
-  constructor() {
-    if (sessionStorage.getItem('parameters')) {
-      this.parameters = JSON.parse(sessionStorage.getItem('parameters')!);
+  user: ICurrentUser = {
+    message: '',
+    name: '',
+    refreshToken: '',
+    token: '',
+    userId: '',
+    isAuth: false
+  }
+
+  getUser() {
+    if (localStorage.getItem('user')) {
+      this.user = JSON.parse(localStorage.getItem('user')!);
+      this.user.isAuth = true;
     }
   }
 
+  constructor() {
+    if (localStorage.getItem('parameters')) {
+      this.parameters = JSON.parse(localStorage.getItem('parameters')!);
+    }
+
+    this.getUser();
+  }
 }

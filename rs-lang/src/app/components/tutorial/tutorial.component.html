@@ -9,7 +9,7 @@
                   *ngFor="let level of data.levels" 
                   class="level__card" 
                   [ngStyle]="{background: 'linear-gradient(30deg, white 15%, ' + level.color + ')'}" 
-                  [class.active] = "level.id === data.parameters.currentLevel.id"
+                  [class.active] = "(data.parameters.currentLevel === 6 && level.id === 0) || level.id === data.parameters.currentLevel"
                   id="{{ level.id }}"
                   (mouseenter)="onMouseOver($event)"
                   (click)="onCheck()"
@@ -30,12 +30,18 @@
                     <span class="info__text-desc">Что вы сможете, достигнув этого уровня:</span>
                     <p class="info__text-skills">{{ setting.text }}</p>
                </div>
+               <div class="tutorial" 
+                  *ngIf="this.data.user.isAuth === true"
+                  (click)="onTutorial()"
+                  routerLink="/tutorial/words">
+                    Difficult words
+                </div>
             </div>
             <div class="image">
                 <img class="picture" src="./../../../assets/img/image.jpg" alt="London">
             </div>
             <div class="image3">
-                <img class="picture" src="./../../../assets/img/image3.jpg" alt="Portrait">
+                <img class="picture" src="./../../../assets/img/image3.jpg" alt="Portrait" title="Не смотри на меня">
             </div>
         </div>
     </div>

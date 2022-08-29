@@ -67,6 +67,14 @@ export interface Word {
 
 export interface Parameters {
   page: number,
-  currentLevel: Level,
-  words: Word[] | null
+  currentLevel: number,
+  words: Word[] | null,
+  hardWords: String[] | null,
+  arr: HardWords[] | null
+}
+
+export interface HardWords {
+  id: string,
+  difficulty: string,
+  wordId: string
 }
