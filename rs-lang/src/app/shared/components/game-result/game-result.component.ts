@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { IWord } from 'src/app/interfaces/interfaces';
 import { GameService } from 'src/app/services/game.service';
 
@@ -23,10 +24,15 @@ export class GameResultComponent implements OnInit {
 
   incorrectAnswers: IWord[] = [];
 
+  currentGame: string = '';
+
   ngOnInit(): void {
     this.correctAnswers = this.gameService.correctAnswers;
     this.incorrectAnswers = this.gameService.incorrectAnswers;
     this.setValues();
+    this.gameService.currentGame$.pipe(take(1)).subscribe((gameName: string) => {
+      this.currentGame = gameName;
+    });
   }
 
   setValues(): void {
@@ -40,6 +46,6 @@ export class GameResultComponent implements OnInit {
   }
 
   navigate(): void {
-    this.router.navigate(['./game/sprint']);
+    this.router.navigate([`./game/${this.currentGame}`]);
   }
 }

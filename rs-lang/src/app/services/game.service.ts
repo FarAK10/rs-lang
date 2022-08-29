@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { flatMap, Observable } from 'rxjs';
+import { BehaviorSubject, flatMap, Observable } from 'rxjs';
 import { IAggregatedResp, IWord } from '../interfaces/interfaces';
 import { ApiService } from './api.service';
 import { AuthorizationService } from './authorization.service';
@@ -22,7 +22,7 @@ export class GameService {
 
   correctWord: string = '';
 
-  currentGame!: string;
+  currentGame$ = new BehaviorSubject<string>('');
 
   constructor(private apiService: ApiService, private authService: AuthorizationService) {}
 
@@ -53,7 +53,7 @@ export class GameService {
     return this.englishLevel;
   }
 
-  getGameName(): string {
-    return this.currentGame;
+  setCurrentGame(gameName: string): void {
+    this.currentGame$.next(gameName);
   }
 }
