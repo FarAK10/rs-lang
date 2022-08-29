@@ -117,10 +117,10 @@ export class CardsComponent implements OnInit {
     this.apiService.postWord(this.data.user.userId, word.id, opt).subscribe(res => {
       this.data.parameters[ourArr]?.push(res as HardWords);
       this.apiService.setSessionStorage(this.data.parameters);
+      this.data.checkAaaEase();
     });
     this.data.parameters[ourWord]?.push(word.id);
     this.apiService.setSessionStorage(this.data.parameters);
-    this.data.checkAaaEase();
   }
 
   replaceWord(word: Word, opt: string) {
@@ -142,6 +142,7 @@ export class CardsComponent implements OnInit {
     this.apiService.removeHardWord(this.data.user.userId, idWord).subscribe(res => {
       this.data.parameters[array]?.splice(this.data.parameters[array]!.findIndex(el => el.wordId === idWord), 1);
       this.apiService.setSessionStorage(this.data.parameters);
+      this.data.checkAaaEase();
     });
     this.data.parameters[option]?.splice(this.data.parameters[option]!.indexOf(idWord), 1);
     this.deleteHard(idWord);
