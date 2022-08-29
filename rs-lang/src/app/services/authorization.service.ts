@@ -11,7 +11,7 @@ import { ERROR_CODES } from '../shared/enums';
 })
 export class AuthorizationService {
   constructor(private apiService: ApiService, private localStorageService: LocalStorageService) {}
-  isAuth = false;
+  isAuth = true;
   currentUser!: ICurrentUser;
 
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
