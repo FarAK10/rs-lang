@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs';
 import { of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { ERROR_CODES } from '../shared/enums';
+import { GameService } from './game.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -51,6 +52,11 @@ export class AuthorizationService {
           this.resoursesLoaded$.next(true);
         },
       );
+  }
+
+  setCurrentUser(user: ICurrentUser) {
+    this.currentUser = user;
+    this.isAuth = true;
   }
 
   getToken(): string {

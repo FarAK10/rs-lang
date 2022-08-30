@@ -69,3 +69,8 @@ export interface IOption {
   word: IWord;
   class: string;
 }
+
+export interface IUserWord {
+  difficulty: string;
+  optional: {};
+}

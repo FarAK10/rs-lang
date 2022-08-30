@@ -8,11 +8,10 @@ import { AuthorizationService } from './authorization.service';
   providedIn: 'root',
 })
 export class ApiService {
-
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://app-rs-lang.herokuapp.com';
-  // baseUrl = 'http://localhost:8088';
+  // baseUrl = 'https://app-rs-lang.herokuapp.com';
+  baseUrl = 'http://localhost:8088';
 
   post<T>(url: string, body: T): Observable<T> {
     console.log('post');
@@ -34,5 +33,4 @@ export class ApiService {
   getWords(group: string = '0', page: string = '0') {
     return this.http.get(`${this.baseUrl}/words?group=${group}&page=${page}`);
   }
-
 }

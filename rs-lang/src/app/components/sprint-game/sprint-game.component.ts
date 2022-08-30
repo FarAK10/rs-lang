@@ -55,6 +55,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
       .getWords(this.currentPage)
       .pipe(take(1))
       .subscribe((words: IWord[]) => {
+        console.log(words);
         this.aggregatedWords = shuffle(words);
         this.setEnglishWord();
         this.setTranslation();
