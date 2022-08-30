@@ -15,8 +15,10 @@ canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
 ): Observable<boolean> | Promise<boolean> | boolean {
-   return this.authorizationService.isAuth,
-   this.router.navigate(['/autorization/login']);
+   if(!this.authorizationService.isAuth) {
+    this.router.navigate(['/autorization/login']);
+   }
+   return true
 
    }
 }

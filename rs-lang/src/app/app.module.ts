@@ -36,7 +36,9 @@ import { GameResultComponent } from './shared/components/game-result/game-result
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { WordComponent } from './shared/components/word/word.component';
 import { ApiService } from './services/api.service';
+import { GamesComponent } from './components/games/games.component';
 
+import { AudioChallengeComponent } from './components/audio-challenge/audio-challenge.component';
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
@@ -71,7 +73,8 @@ const angularMaterailModules = [
     GameResultComponent,
     WordComponent,
     CardsComponent,
-
+    GamesComponent,
+    AudioChallengeComponent,
   ],
 
   imports: [

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { take } from 'rxjs';
 import { GameService } from 'src/app/services/game.service';
 @Component({
   selector: 'app-english-level',
@@ -9,7 +10,7 @@ import { GameService } from 'src/app/services/game.service';
 export class EnglishLevelComponent implements OnInit {
   constructor(private gameService: GameService, private router: Router) {}
 
-  @Input() gameName: string = 'sprint';
+  gameName!: string;
 
   levels = [
     'A1',
@@ -20,7 +21,11 @@ export class EnglishLevelComponent implements OnInit {
     'C2',
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.gameService.currentGame$.pipe(take(1)).subscribe((name: string) => {
+      this.gameName = name;
+    });
+  }
 
   setLevel(level: number) {
     this.gameService.setEnglishLevel(level);

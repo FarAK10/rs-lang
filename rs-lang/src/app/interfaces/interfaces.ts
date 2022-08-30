@@ -86,3 +86,8 @@ export interface EaseWords {
   difficulty: string,
   wordId: string
 }
+
+export interface IOption {
+  word: IWord;
+  class: string;
+}

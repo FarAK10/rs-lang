@@ -14,7 +14,7 @@ export function passwordMatchValidator(): ValidatorFn {
   };
 }
 
-export function shuffle(array: IWord[]) {
+export function shuffle<T>(array: T[]): T[] {
   let currentIndex = array.length,
     randomIndex;
 
