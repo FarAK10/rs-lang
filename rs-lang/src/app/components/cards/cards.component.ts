@@ -40,7 +40,7 @@ export class CardsComponent implements OnInit {
     this.data.parameters.page = 0;
     this.apiService.getWords(String(this.data.parameters.currentLevel), '0').subscribe(value => {
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
-      this.data.checkAaaEase();
+      this.data.checkArrEase();
       this.apiService.setSessionStorage(this.data.parameters);
     });
   }
@@ -96,7 +96,7 @@ export class CardsComponent implements OnInit {
   getWords() {
     this.apiService.getWords(String(this.data.parameters.currentLevel), String(this.data.parameters.page)).subscribe(value => {
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
-      this.data.checkAaaEase();
+      this.data.checkArrEase();
       this.apiService.setSessionStorage(this.data.parameters);
     });
   }
@@ -117,7 +117,7 @@ export class CardsComponent implements OnInit {
     this.apiService.postWord(this.data.user.userId, word.id, opt).subscribe(res => {
       this.data.parameters[ourArr]?.push(res as HardWords);
       this.apiService.setSessionStorage(this.data.parameters);
-      this.data.checkAaaEase();
+      this.data.checkArrEase();
     });
     this.data.parameters[ourWord]?.push(word.id);
     this.apiService.setSessionStorage(this.data.parameters);
@@ -134,7 +134,7 @@ export class CardsComponent implements OnInit {
     this.data.parameters[ourArr]?.push(a![0]);
     this.apiService.updateHardWords(this.data.user.userId, word.id, opt);
     this.deleteHard(word.id);
-    this.data.checkAaaEase();
+    this.data.checkArrEase();
   }
 
   removeWord(e: Event, idWord: string, opt: string) {
@@ -144,7 +144,7 @@ export class CardsComponent implements OnInit {
     this.apiService.removeHardWord(this.data.user.userId, idWord).subscribe(res => {
       this.data.parameters[array]?.splice(this.data.parameters[array]!.findIndex(el => el.wordId === idWord), 1);
       this.apiService.setSessionStorage(this.data.parameters);
-      this.data.checkAaaEase();
+      this.data.checkArrEase();
     });
     this.data.parameters[option]?.splice(this.data.parameters[option]!.indexOf(idWord), 1);
     this.deleteHard(idWord);
@@ -159,6 +159,11 @@ export class CardsComponent implements OnInit {
   }
 
   onTutorial() {
+    if (this.data.parameters.currentLevel !== 6) {
+      this.data.parameters.prevLevel = this.data.parameters.currentLevel;
+      this.data.parameters.prevPage = this.data.parameters.page;
+    }
+    if (this.data.parameters.words) this.data.parameters.words!.length = 0;
     this.data.parameters.currentLevel = 6;
     this.data.parameters.page = 0;
     this.getHardWords(this.data.parameters.arr!);
@@ -171,12 +176,22 @@ export class CardsComponent implements OnInit {
         array.push(JSON.parse(JSON.stringify(value)));
         if (ind === arr.length - 1) {
           this.data.parameters.words = array;
-          this.data.checkAaaEase();
+          this.data.checkArrEase();
           this.apiService.setSessionStorage(this.data.parameters);
         }
       });
     })
     return array;
+  }
+
+  backTutorial() {
+    this.data.parameters.currentLevel = this.data.parameters.prevLevel;
+    this.data.parameters.page = this.data.parameters.prevPage;
+    this.apiService.getWords(String(this.data.parameters.currentLevel), String(this.data.parameters.page)).subscribe(value => {
+      this.data.parameters.words = JSON.parse(JSON.stringify(value));
+      this.data.checkArrEase();
+      this.apiService.setSessionStorage(this.data.parameters);
+    });
   }
 
   ngOnInit(): void {
