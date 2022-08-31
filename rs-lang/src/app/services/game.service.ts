@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, flatMap, Observable } from 'rxjs';
-import { IAggregatedResp, IUserWord, IWord } from '../interfaces/interfaces';
+import { IAggregatedResp, HardWords, IWord } from '../interfaces/interfaces';
 import { ApiService } from './api.service';
 import { AuthorizationService } from './authorization.service';
 import { LocalStorageService } from './local-storage.service';
@@ -29,7 +29,7 @@ export class GameService {
 
   currentGame$ = new BehaviorSubject<string>('');
 
-  userWords: IUserWord[] = [];
+  userWords: HardWords[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -76,7 +76,7 @@ export class GameService {
   getUserWords(): void {
     const userId = this.authService.getUserId();
     const url = `users/${userId}/words`;
-    this.apiService.get<IUserWord[]>(url).subscribe((userWords: IUserWord[]) => {
+    this.apiService.get<HardWords[]>(url).subscribe((userWords: HardWords[]) => {
       this.userWords = userWords;
     });
   }
@@ -112,6 +112,11 @@ export class GameService {
   setGameName(gameName: string) {
     console.log(gameName, 'gameService');
     this.localStorageService.setLocalStorage('gameName', gameName);
+  }
+
+  reset() {
+    this.correctAnswers = [];
+    this.incorrectAnswers = [];
   }
 
   setUserId() {

@@ -51,6 +51,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
   elem: HTMLElement = document.documentElement;
 
   ngOnInit(): void {
+    this.gameService.reset();
     this.gameService
       .getWords(this.currentPage)
       .pipe(take(1))

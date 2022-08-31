@@ -66,29 +66,28 @@ export interface Word {
 }
 
 export interface Parameters {
-  page: number,
-  currentLevel: number,
-  words: Word[] | null,
-  hardWords: String[] | null,
-  easeWords: String[] | null,
-  arr: HardWords[] | null
-  arrEase: EaseWords[] | null
+  page: number;
+  currentLevel: number;
+  words: Word[] | null;
+  hardWords: String[] | null;
+  easeWords: String[] | null;
+  arr: HardWords[] | null;
+  arrEase: EaseWords[] | null;
 }
 
 export interface HardWords {
-  id: string,
-  difficulty: string,
-  wordId: string
+  id: string;
+  difficulty: string;
+  wordId: string;
 }
 
 export interface EaseWords {
-  id: string,
-  difficulty: string,
-  wordId: string
+  id: string;
+  difficulty: string;
+  wordId: string;
 }
 
 export interface IOption {
   word: IWord;
   class: string;
 }
-

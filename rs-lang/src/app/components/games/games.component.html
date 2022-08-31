@@ -6,8 +6,8 @@
       </div>
       <h3>{{post.title}}</h3>
       <p class="description">{{post.description}}</p>
-      <div class="play" (click)="setRoute(post.game)">
-        <a routerLink={{post.link}}>
+      <div class="play">
+        <a routerLink={{post.link}} (click)="setRoute(post.game)">
           Play
         </a>
       </div>

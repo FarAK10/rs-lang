@@ -47,6 +47,7 @@ export class AuthorizationService {
       .subscribe(
         (res: ICurrentUser) => {
           this.currentUser = res;
+          localStorage.clear();
           this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
           this.resoursesLoaded$.next(true);
           this.isAuth = true;
