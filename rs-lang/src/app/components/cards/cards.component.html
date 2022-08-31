@@ -12,10 +12,12 @@
             <li class="cards__menu-item" routerLink="/tutorial"><i class="fa-solid fa-graduation-cap"></i>
                 Main menu
             </li>
-            <li class="cards__menu-item" routerLink="/game/english-level">
+            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('sprint')">
                 <i class="fa-solid fa-person-running"></i> Sprint
             </li>
-            <li class="cards__menu-item"><i class="fa-solid fa-headphones-simple"></i> Audio battle</li>
+            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('audio')">
+                <i class="fa-solid fa-headphones-simple"></i> Audio battle
+            </li>
             <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
         </ul>
         <ul class="cards__pagination">

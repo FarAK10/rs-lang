@@ -28,6 +28,7 @@ export class GamesComponent {
   ];
 
   setRoute(game: string) {
+    console.log('games', game);
     this.gameService.setCurrentGame(game);
   }
 }

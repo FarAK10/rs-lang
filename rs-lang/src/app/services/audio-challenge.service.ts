@@ -11,7 +11,7 @@ export class AudioChallengeService {
   constructor(private gameService: GameService) {}
   allWords: Array<IWord> = [];
 
-  currentPage: number = 1;
+  currentPage: number = this.gameService.getCurrentPage();
 
   sliceNumber: number = 0;
 

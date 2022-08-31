@@ -23,7 +23,9 @@ export class EnglishLevelComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameService.currentGame$.pipe(take(1)).subscribe((name: string) => {
+      console.log(name);
       this.gameName = name;
+      this.gameService.setGameName(this.gameName);
     });
   }
 

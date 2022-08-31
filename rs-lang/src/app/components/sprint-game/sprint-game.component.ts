@@ -1,6 +1,6 @@
 import { ContentObserver } from '@angular/cdk/observers';
-import { Component, OnInit } from '@angular/core';
-import { take, windowWhen } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { take, TimeInterval, windowWhen } from 'rxjs';
 import { IAggregatedResp, IWord } from 'src/app/interfaces/interfaces';
 import { GameService } from 'src/app/services/game.service';
 import { shuffle } from 'src/app/shared/functions';
@@ -11,7 +11,7 @@ import { HostListener } from '@angular/core';
   templateUrl: './sprint-game.component.html',
   styleUrls: ['./sprint-game.component.scss'],
 })
-export class SprintGameComponent implements OnInit {
+export class SprintGameComponent implements OnInit, OnDestroy {
   constructor(private gameService: GameService, private router: Router) {}
 
   gameName: string = 'Sprint';
@@ -26,7 +26,7 @@ export class SprintGameComponent implements OnInit {
 
   coefficient: number = 1;
 
-  timeLeft: number = 60;
+  timeLeft: number = 10;
 
   aggregatedWords: Array<IWord> = [];
 
@@ -46,18 +46,27 @@ export class SprintGameComponent implements OnInit {
 
   currentPage = 1;
 
+  timer!: NodeJS.Timer;
+
   elem: HTMLElement = document.documentElement;
 
   ngOnInit(): void {
+    this.gameService.reset();
     this.gameService
       .getWords(this.currentPage)
       .pipe(take(1))
       .subscribe((words: IWord[]) => {
+        console.log(words);
         this.aggregatedWords = shuffle(words);
         this.setEnglishWord();
         this.setTranslation();
         this.startAnimation();
+        this.currentPage = this.gameService.getCurrentPage();
       });
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
   }
 
   @HostListener('window:keydown.ArrowLeft') arrowLeftEvent() {
@@ -160,11 +169,11 @@ export class SprintGameComponent implements OnInit {
   }
 
   startAnimation() {
-    const timer = setInterval(() => {
+    this.timer = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else if (this.timeLeft === 0) {
-        clearInterval(timer);
+        clearInterval(this.timer);
         this.router.navigate([`game/result`]);
       }
     }, 1000);

@@ -40,29 +40,29 @@ export interface IAggregatedResp {
 }
 
 export interface Level {
-  id?: number
-  digit: string,
-  title: string
-  text: string,
-  words: number,
-  color: string
+  id?: number;
+  digit: string;
+  title: string;
+  text: string;
+  words: number;
+  color: string;
 }
 
 export interface Word {
-  id: string,
-  group: number,
-  page: number,
-  word: string,
-  image: string,
-  audio: string,
-  audioMeaning: string,
-  audioExample: string,
-  textMeaning: string,
-  textExample: string,
-  transcription: string,
-  wordTranslate: string,
-  textExampleTranslate: string,
-  textMeaningTranslate: string
+  id: string;
+  group: number;
+  page: number;
+  word: string;
+  image: string;
+  audio: string;
+  audioMeaning: string;
+  audioExample: string;
+  textMeaning: string;
+  textExample: string;
+  transcription: string;
+  wordTranslate: string;
+  textExampleTranslate: string;
+  textMeaningTranslate: string;
 }
 
 export interface Parameters {
@@ -78,15 +78,15 @@ export interface Parameters {
 }
 
 export interface HardWords {
-  id: string,
-  difficulty: string,
-  wordId: string
+  id: string;
+  difficulty: string;
+  wordId: string;
 }
 
 export interface EaseWords {
-  id: string,
-  difficulty: string,
-  wordId: string
+  id: string;
+  difficulty: string;
+  wordId: string;
 }
 
 export interface IOption {

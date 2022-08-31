@@ -11,7 +11,11 @@ import { DataService } from './data.service';
   providedIn: 'root',
 })
 export class AuthorizationService {
-  constructor(private apiService: ApiService, private localStorageService: LocalStorageService, private data: DataService) {}
+  constructor(
+    private apiService: ApiService,
+    private localStorageService: LocalStorageService,
+    private data: DataService,
+  ) {}
   isAuth = false;
   currentUser!: ICurrentUser;
 
@@ -43,6 +47,7 @@ export class AuthorizationService {
       .subscribe(
         (res: ICurrentUser) => {
           this.currentUser = res;
+          localStorage.clear();
           this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
           this.resoursesLoaded$.next(true);
           this.isAuth = true;
@@ -53,6 +58,11 @@ export class AuthorizationService {
           this.resoursesLoaded$.next(true);
         },
       );
+  }
+
+  setCurrentUser(user: ICurrentUser) {
+    this.currentUser = user;
+    this.isAuth = true;
   }
 
   getToken(): string {
@@ -68,7 +78,7 @@ export class AuthorizationService {
 
   setHardWords() {
     this.data.parameters = JSON.parse(JSON.stringify(this.data.parameters));
-    this.apiService.getHardWords(this.getUserId()).subscribe(value => {
+    this.apiService.getHardWords(this.getUserId()).subscribe((value) => {
       const arr = (value as HardWords[]).filter((el) => el.difficulty === 'hard');
       const arr2 = (value as EaseWords[]).filter((el) => el.difficulty === 'ease');
       this.data.parameters.hardWords = this.parseHardWords(arr);

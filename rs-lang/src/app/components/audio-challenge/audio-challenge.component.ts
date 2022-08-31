@@ -57,7 +57,9 @@ export class AudioChallengeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.gameService.reset();
     this.audioGameService.getWords();
+    this.gameService.getUserWords();
     this.audioGameService.options$.subscribe((options: IOption[]) => {
       this.options = options;
       if (this.options.length) {
@@ -65,6 +67,7 @@ export class AudioChallengeComponent implements OnInit {
         this.playPronunciation();
       }
     });
+
     this.baseUrl = this.apiService.getBaseUrl();
   }
 
