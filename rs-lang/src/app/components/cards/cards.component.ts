@@ -1,21 +1,35 @@
 import { Component, Input, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { Subscriber } from 'rxjs';
 import { HardWords, Level, Word } from 'src/app/interfaces/interfaces';
+=======
+import { ThrowStmt } from 'angular-html-parser/lib/compiler/src/output/output_ast';
+import { Level, Word } from 'src/app/interfaces/interfaces';
+>>>>>>> games-routing
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.scss']
+  styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
+<<<<<<< HEAD
 
 
   constructor(
     public data: DataService,
     public apiService: ApiService,
   ) { }
+=======
+  constructor(
+    public data: DataService,
+    public apiService: ApiService,
+    private gameService: GameService,
+  ) {}
+>>>>>>> games-routing
 
   baseUrl = this.apiService.baseUrl + '/';
   voice!: HTMLAudioElement;
@@ -36,6 +50,7 @@ export class CardsComponent implements OnInit {
 
   onCheck(e: Event) {
     const target = e.target as HTMLElement;
+<<<<<<< HEAD
     this.data.parameters.currentLevel = Number(target.id);
     this.data.parameters.page = 0;
     this.apiService.getWords(String(this.data.parameters.currentLevel), '0').subscribe(value => {
@@ -43,11 +58,21 @@ export class CardsComponent implements OnInit {
       this.data.checkAaaEase();
       this.apiService.setSessionStorage(this.data.parameters);
     });
+=======
+    this.data.currentLevel = Object.assign({}, this.data.levels[Number(target.id)]);
+    this.apiService
+      .getWords(String(this.data.currentLevel.id), '0')
+      .subscribe((value) => (this.data.words = JSON.parse(JSON.stringify(value))));
+    this.data.page = 0;
+>>>>>>> games-routing
   }
 
   play(e: Event, Meaning: string, Example: string): void {
     e.preventDefault();
-    let audio = [Meaning, Example];
+    let audio = [
+      Meaning,
+      Example,
+    ];
     let count = 0;
 
     const playAudio = () => {
@@ -59,13 +84,14 @@ export class CardsComponent implements OnInit {
       count += 1;
       if (count >= audio.length) currentAudio.remove;
       currentAudio.onended = () => playAudio();
-    }
+    };
 
     playAudio();
   }
 
   changePage(page: string) {
     switch (page) {
+<<<<<<< HEAD
       case ('0'):
         if (this.data.parameters.page !== 0) {
           this.data.parameters.page = 0;
@@ -177,10 +203,44 @@ export class CardsComponent implements OnInit {
       });
     })
     return array;
+=======
+      case '0':
+        this.data.page = 0;
+        break;
+      case '-1':
+        this.data.page = this.data.page -= 1;
+        break;
+      case '+1':
+        this.data.page = this.data.page += 1;
+        break;
+      case '29':
+        this.data.page = 29;
+        break;
+      default:
+        this.data.page = this.data.page;
+    }
+    this.apiService
+      .getWords(String(this.data.currentLevel.id), String(this.data.page))
+      .subscribe((value) => (this.data.words = JSON.parse(JSON.stringify(value))));
+  }
+
+  setGame(gameName: string): void {
+    this.gameService.setCurrentGame(gameName);
+    this.setPage();
+  }
+
+  setPage(): void {
+    const currentPage = this.data.page;
+    this.gameService.setCurrentPage(currentPage);
+  }
+
+  setEnglishLevel(): void {
+    const englishLevel = Number(this.data.currentLevel);
+    this.gameService.setEnglishLevel(englishLevel);
+>>>>>>> games-routing
   }
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.onScroll);
   }
-
 }

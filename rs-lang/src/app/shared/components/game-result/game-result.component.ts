@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ContentObserver } from '@angular/cdk/observers';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { IWord } from 'src/app/interfaces/interfaces';
 import { GameService } from 'src/app/services/game.service';
 
@@ -9,7 +10,7 @@ import { GameService } from 'src/app/services/game.service';
   templateUrl: './game-result.component.html',
   styleUrls: ['./game-result.component.scss'],
 })
-export class GameResultComponent implements OnInit {
+export class GameResultComponent implements OnInit, OnDestroy {
   constructor(private gameService: GameService, private router: Router) {}
 
   persentCorrect = 40;
@@ -26,13 +27,21 @@ export class GameResultComponent implements OnInit {
 
   currentGame: string = '';
 
+  gameServiceSub!: Subscription;
+
   ngOnInit(): void {
     this.correctAnswers = this.gameService.correctAnswers;
     this.incorrectAnswers = this.gameService.incorrectAnswers;
     this.setValues();
-    this.gameService.currentGame$.pipe(take(1)).subscribe((gameName: string) => {
+    this.gameServiceSub = this.gameService.currentGame$.subscribe((gameName: string) => {
       this.currentGame = gameName;
+      console.log(gameName, 'result');
+      console.log(this.currentGame);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.gameServiceSub.unsubscribe();
   }
 
   setValues(): void {

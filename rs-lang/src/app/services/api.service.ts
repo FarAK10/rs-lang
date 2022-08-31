@@ -1,5 +1,12 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HardWords, ICurrentUser, INewUser, Level, Parameters, Word } from '../interfaces/interfaces';
+import {
+  HardWords,
+  ICurrentUser,
+  INewUser,
+  Level,
+  Parameters,
+  Word,
+} from '../interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { AuthorizationService } from './authorization.service';
@@ -10,14 +17,10 @@ import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
   providedIn: 'root',
 })
 export class ApiService {
+  constructor(private http: HttpClient) {}
 
-  constructor(
-    private http: HttpClient,
-  ) { }
-
-
-  baseUrl = 'https://app-rs-lang.herokuapp.com';
-  // baseUrl = 'http://localhost:8088';
+  // baseUrl = 'https://app-rs-lang.herokuapp.com';
+  baseUrl = 'http://localhost:8088';
 
   post<T>(url: string, body: T): Observable<T> {
     return this.http.post<T>(this.generateUrl(url), body);
@@ -45,8 +48,8 @@ export class ApiService {
 
   postWord(idUser: string, idWord: string, opt: string) {
     return this.http.post(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
-      "difficulty": opt,
-      "optional": {}
+      difficulty: opt,
+      optional: {},
     });
   }
 
@@ -59,14 +62,15 @@ export class ApiService {
   }
 
   updateHardWords(idUser: string, idWord: string, opt: string) {
-    return this.http.put(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
-      "difficulty": 'ease',
-      "optional": {}
-    }).subscribe(res => console.log(res));
+    return this.http
+      .put(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
+        difficulty: 'ease',
+        optional: {},
+      })
+      .subscribe((res) => console.log(res));
   }
 
   setSessionStorage(obj: Parameters): void {
     localStorage.setItem('parameters', JSON.stringify(obj));
   }
-
 }
