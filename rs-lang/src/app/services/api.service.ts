@@ -65,6 +65,10 @@ export class ApiService {
     }).subscribe(res => console.log(res));
   }
 
+  getStat(idUser: string){
+    return this.http.get<[]>(`${this.baseUrl}/users/${idUser}/words`)
+  }
+
   setSessionStorage(obj: Parameters): void {
     localStorage.setItem('parameters', JSON.stringify(obj));
   }

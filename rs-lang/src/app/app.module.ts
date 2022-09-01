@@ -39,6 +39,7 @@ import { ApiService } from './services/api.service';
 import { GamesComponent } from './components/games/games.component';
 
 import { AudioChallengeComponent } from './components/audio-challenge/audio-challenge.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
@@ -75,6 +76,7 @@ const angularMaterailModules = [
     CardsComponent,
     GamesComponent,
     AudioChallengeComponent,
+    StatisticsComponent,
   ],
 
   imports: [

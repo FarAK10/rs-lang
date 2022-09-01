@@ -12,7 +12,7 @@ import { DataService } from './data.service';
 })
 export class AuthorizationService {
   constructor(private apiService: ApiService, private localStorageService: LocalStorageService, private data: DataService) {}
-  isAuth = false;
+  isAuth = true;
   currentUser!: ICurrentUser;
 
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
