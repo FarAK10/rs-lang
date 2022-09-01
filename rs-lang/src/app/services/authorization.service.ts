@@ -11,7 +11,11 @@ import { DataService } from './data.service';
   providedIn: 'root',
 })
 export class AuthorizationService {
-  constructor(private apiService: ApiService, private localStorageService: LocalStorageService, private data: DataService) {}
+  constructor(
+    private apiService: ApiService, 
+    private localStorageService: LocalStorageService, 
+    private data: DataService
+    ) {}
   isAuth = true;
   currentUser!: ICurrentUser;
 
