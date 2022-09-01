@@ -14,9 +14,9 @@ export class AuthorizationService {
   constructor(
     private apiService: ApiService, 
     private localStorageService: LocalStorageService, 
-    private data: DataService
-    ) {}
-  isAuth = true;
+    private data: DataService,
+  ) {}
+  isAuth = false;
   currentUser!: ICurrentUser;
 
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
