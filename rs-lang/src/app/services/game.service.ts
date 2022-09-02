@@ -150,21 +150,21 @@ export class GameService {
 
   updateUserWord(word: IWord, isWrong: boolean): void {
     if (isWrong) {
-      this.apiService.updateEaseWord(this.userId, word._id).subscribe((res: HardWords) => {
+      this.apiService.updateEaseWord(this.userId, word.id).subscribe((res: HardWords) => {
         this.userWords.push(res);
       });
     } else {
-      this.apiService.updateHardWords(this.userId, word._id);
+      this.apiService.updateHardWords(this.userId, word.id);
     }
   }
 
   createUserWord(word: IWord, isWrong: boolean): void {
     if (isWrong) {
-      this.apiService.postWord(this.userId, word._id, 'hard').subscribe((res: HardWords) => {
+      this.apiService.postWord(this.userId, word.id, 'hard').subscribe((res: HardWords) => {
         this.userWords.push(res);
       });
     } else {
-      this.apiService.postWord(this.userId, word._id, 'ease').subscribe((res: HardWords) => {
+      this.apiService.postWord(this.userId, word.id, 'ease').subscribe((res: HardWords) => {
         this.userWords.push(res);
       });
     }

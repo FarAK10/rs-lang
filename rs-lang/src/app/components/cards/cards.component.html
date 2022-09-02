@@ -2,12 +2,22 @@
     <div class="container">
         <ul class="cards__menu">
             <img src="./../../../assets/img/flower-left.png" alt="flower" class="flower-left">
-            <li class="cards__menu-item" routerLink="/tutorial">Tutorial</li>
+            <li class="cards__menu-item" *ngIf="this.data.parameters.currentLevel === 6" (click)="backTutorial()">
+                <i class="fa-solid fa-arrow-left-long"></i> Back tutorial
+            </li>
             <li class="cards__menu-item" routerLink="/tutorial/words" (click)="onTutorial()"
-                *ngIf="this.data.user.isAuth === true">
-                Hard Words</li>
-            <li class="cards__menu-item" (click)="setGame('sprint')">Sprint</li>
-            <li class="cards__menu-item" (click)="setGame('audio')">Audio battle</li>
+                *ngIf="this.data.user.isAuth === true && this.data.parameters.currentLevel !== 6">
+                <i class="fa-solid fa-lightbulb"></i> Hard Words
+            </li>
+            <li class="cards__menu-item" routerLink="/tutorial"><i class="fa-solid fa-graduation-cap"></i>
+                Main menu
+            </li>
+            <li class="cards__menu-item" (click)="setGame('sprint')">
+                <i class="fa-solid fa-person-running"></i> Sprint
+            </li>
+            <li class="cards__menu-item" (click)="setGame('audio')">
+                <i class="fa-solid fa-headphones-simple"></i> Audio battle
+            </li>
             <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
         </ul>
         <ul class="cards__pagination">

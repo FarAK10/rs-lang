@@ -14,7 +14,7 @@ export interface ICurrentUser {
 }
 
 export interface IWord {
-  _id: string;
+  id: string;
   group: number;
   page: number;
   word: string;
@@ -69,6 +69,8 @@ export interface Word {
 export interface Parameters {
   page: number;
   currentLevel: number;
+  prevPage: number;
+  prevLevel: number;
   words: Word[] | null;
   hardWords: String[] | null;
   easeWords: String[] | null;

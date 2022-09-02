@@ -67,6 +67,20 @@ export class DataService {
     arr: null,
     easeWords: null,
     arrEase: null,
+    prevPage: 0,
+    prevLevel: 0,
+  };
+
+  defaultParameters: Parameters = {
+    words: null,
+    page: 0,
+    currentLevel: 0,
+    hardWords: null,
+    arr: null,
+    easeWords: null,
+    arrEase: null,
+    prevPage: 0,
+    prevLevel: 0,
   };
 
   user: ICurrentUser = {
@@ -85,7 +99,7 @@ export class DataService {
     }
   }
 
-  checkAaaEase() {
+  checkArrEase() {
     this.allEase = this.parameters.words?.every((el) => this.parameters.easeWords?.includes(el.id))
       ? true
       : false;
@@ -97,6 +111,6 @@ export class DataService {
     }
 
     this.getUser();
-    this.checkAaaEase();
+    this.checkArrEase();
   }
 }

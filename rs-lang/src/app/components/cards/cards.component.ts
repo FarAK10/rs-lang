@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscriber } from 'rxjs';
-import { HardWords, Level, Word } from 'src/app/interfaces/interfaces';
+import { HardWords, IWord, Level, Word } from 'src/app/interfaces/interfaces';
 import { ThrowStmt } from 'angular-html-parser/lib/compiler/src/output/output_ast';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
 import { GameService } from 'src/app/services/game.service';
 import { Route, Router } from '@angular/router';
 import { AuthorizationService } from 'src/app/services/authorization.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-cards',
@@ -20,6 +21,7 @@ export class CardsComponent implements OnInit {
     private gameService: GameService,
     private authService: AuthorizationService,
     private router: Router,
+    public userService: UserService,
   ) {}
 
   baseUrl = this.apiService.baseUrl + '/';
@@ -45,7 +47,7 @@ export class CardsComponent implements OnInit {
     this.data.parameters.page = 0;
     this.apiService.getWords(String(this.data.parameters.currentLevel), '0').subscribe((value) => {
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
-      this.data.checkAaaEase();
+      this.data.checkArrEase();
       this.apiService.setSessionStorage(this.data.parameters);
     });
   }
@@ -106,51 +108,9 @@ export class CardsComponent implements OnInit {
       .getWords(String(this.data.parameters.currentLevel), String(this.data.parameters.page))
       .subscribe((value) => {
         this.data.parameters.words = JSON.parse(JSON.stringify(value));
-        this.data.checkAaaEase();
+        this.data.checkArrEase();
         this.apiService.setSessionStorage(this.data.parameters);
       });
-  }
-
-  checkWord(e: Event, word: Word, opt: string) {
-    e.preventDefault();
-    const otherWord = opt === 'hard' ? 'easeWords' : 'hardWords';
-    if (this.data.parameters[otherWord]?.includes(word.id)) {
-      this.replaceWord(word, opt);
-    } else {
-      this.addWord(word, opt);
-    }
-  }
-
-  addWord(word: Word, opt: string) {
-    const ourWord = opt === 'hard' ? 'hardWords' : 'easeWords';
-    const ourArr = opt === 'hard' ? 'arr' : 'arrEase';
-    this.apiService.postWord(this.data.user.userId, word.id, opt).subscribe((res) => {
-      this.data.parameters[ourArr]?.push(res as HardWords);
-      this.apiService.setSessionStorage(this.data.parameters);
-      this.data.checkAaaEase();
-    });
-    this.data.parameters[ourWord]?.push(word.id);
-    this.apiService.setSessionStorage(this.data.parameters);
-  }
-
-  replaceWord(word: Word, opt: string) {
-    const otherWord = opt === 'hard' ? 'easeWords' : 'hardWords';
-    const ourWord = opt === 'hard' ? 'hardWords' : 'easeWords';
-    const ourArr = opt === 'hard' ? 'arr' : 'arrEase';
-    const otherArr = opt === 'hard' ? 'arrEase' : 'arr';
-    this.data.parameters[ourWord]?.push(word.id);
-    this.data.parameters[otherWord]?.splice(
-      this.data.parameters[otherWord]!.findIndex((el) => el === word.id),
-      1,
-    );
-    const a = this.data.parameters[otherArr]?.splice(
-      this.data.parameters[otherArr]!.findIndex((el) => el.id === word.id),
-      1,
-    );
-    this.data.parameters[ourArr]?.push(a![0]);
-    this.apiService.updateHardWords(this.data.user.userId, word.id, opt).subscribe();
-    this.deleteHard(word.id);
-    this.data.checkAaaEase();
   }
 
   removeWord(e: Event, idWord: string, opt: string) {
@@ -163,36 +123,19 @@ export class CardsComponent implements OnInit {
         1,
       );
       this.apiService.setSessionStorage(this.data.parameters);
-      this.data.checkAaaEase();
+      this.data.checkArrEase();
     });
     this.data.parameters[option]?.splice(this.data.parameters[option]!.indexOf(idWord), 1);
-    this.deleteHard(idWord);
+    this.userService.deleteHard(idWord);
     this.apiService.setSessionStorage(this.data.parameters);
   }
 
-  deleteHard(idWord: string) {
-    if (this.data.parameters.currentLevel === 6) {
-      this.data.parameters.words?.splice(
-        this.data.parameters.words!.findIndex((el) => el.id === idWord),
-        1,
-      );
-    }
-    const a = [
-      { id: 1 },
-      { id: 2 },
-      { id: 3 },
-    ].every((el) =>
-      [
-        1,
-        2,
-        3,
-      ]?.includes(el.id),
-    )
-      ? 'black'
-      : 'white';
-  }
-
   onTutorial() {
+    if (this.data.parameters.currentLevel !== 6) {
+      this.data.parameters.prevLevel = this.data.parameters.currentLevel;
+      this.data.parameters.prevPage = this.data.parameters.page;
+    }
+    if (this.data.parameters.words) this.data.parameters.words!.length = 0;
     this.data.parameters.currentLevel = 6;
     this.data.parameters.page = 0;
     this.getHardWords(this.data.parameters.arr!);
@@ -205,7 +148,7 @@ export class CardsComponent implements OnInit {
         array.push(JSON.parse(JSON.stringify(value)));
         if (ind === arr.length - 1) {
           this.data.parameters.words = array;
-          this.data.checkAaaEase();
+          this.data.checkArrEase();
           this.apiService.setSessionStorage(this.data.parameters);
         }
       });
@@ -229,6 +172,23 @@ export class CardsComponent implements OnInit {
   setLevel(): void {
     const level = this.data.parameters.currentLevel;
     this.gameService.setEnglishLevel(level);
+  }
+
+  backTutorial() {
+    this.data.parameters.currentLevel = this.data.parameters.prevLevel;
+    this.data.parameters.page = this.data.parameters.prevPage;
+    this.apiService
+      .getWords(String(this.data.parameters.currentLevel), String(this.data.parameters.page))
+      .subscribe((value) => {
+        this.data.parameters.words = JSON.parse(JSON.stringify(value));
+        this.data.checkArrEase();
+        this.apiService.setSessionStorage(this.data.parameters);
+      });
+  }
+
+  checkWord(e: Event, word: Word, difficulty: string) {
+    e.preventDefault();
+    this.userService.checkWord(word, difficulty);
   }
 
   ngOnInit(): void {

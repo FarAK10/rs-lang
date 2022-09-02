@@ -42,7 +42,7 @@ export function filterLearnedWords(array: IWord[]) {
 export function isContains(userWords: HardWords[], word: IWord) {
   let result = false;
   userWords.forEach((userWord) => {
-    if (userWord.id === word._id) {
+    if (userWord.id === word.id) {
       result = true;
     }
   });

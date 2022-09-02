@@ -38,12 +38,17 @@ export class TutorialComponent implements OnInit, AfterViewChecked {
     this.data.parameters.page = 0;
     this.apiService.getWords(String(this.data.parameters.currentLevel), '0').subscribe(value => {
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
-      this.data.checkAaaEase();
+      this.data.checkArrEase();
       this.apiService.setSessionStorage(this.data.parameters);
     });
   }
 
   onTutorial() {
+    if (this.data.parameters.currentLevel !== 6) {
+      this.data.parameters.prevLevel = this.data.parameters.currentLevel;
+      this.data.parameters.prevPage = this.data.parameters.page;
+    }
+    this.data.parameters.words!.length = 0;
     this.data.parameters.currentLevel = 6;
     this.data.parameters.page = 0;
     this.getHardWords(this.data.parameters.arr!);
@@ -56,7 +61,7 @@ export class TutorialComponent implements OnInit, AfterViewChecked {
         array.push(JSON.parse(JSON.stringify(value)));
         if (ind === arr.length - 1) {
           this.data.parameters.words = array;
-          this.data.checkAaaEase();
+          this.data.checkArrEase();
           this.apiService.setSessionStorage(this.data.parameters);
         }
       });
