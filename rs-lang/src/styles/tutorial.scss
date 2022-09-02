@@ -30,7 +30,7 @@
                 font-size: 24px;
                 font-weight: 700;
                 box-shadow: 0 0 5px rgb(164, 163, 163);
-                font-family: "Post Human";
+                font-family: "Five-Italic";
                 cursor: pointer;
                 transition: all .2s ease;
                 z-index: 4;
@@ -44,6 +44,7 @@
 
                 .level__card-digit {
                     transition: all .2s ease;
+                    font-family: "Post Human";
                 }
             }
 
@@ -129,13 +130,12 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                padding-top: 10px;
                 letter-spacing: 4px;
                 box-shadow: 0 0 5px $pink;
                 cursor: pointer;
                 transition: all .2s ease;
                 z-index: 4;
-                @include font(28px, $pink, "Post Human", 700, 35px);
+                @include font(28px, $pink, "Five-Italic", 700, 35px);
                 &:hover {
                     box-shadow: 0 0 10px $pink;
                 }

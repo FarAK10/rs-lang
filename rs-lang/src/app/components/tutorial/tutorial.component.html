@@ -1,7 +1,7 @@
 <div class="level">
     <div class="container">
         <h2 class="level__header">
-            Выберите уровень сложности
+            {{ 'info.tutorial' | translate }}
         </h2>
         <div class="level__content">
             <div class="level__cards">
@@ -15,33 +15,33 @@
                   (click)="onCheck()"
                   routerLink="/tutorial/words">
                     <span>
-                        <span class="level__card-title">{{ level.title }}</span>
+                        <span class="level__card-title">{{ level.title | translate}}</span>
                         <span class="level__card-digit">{{ level.digit }}</span>
                     </span>
                 </div>
             </div>
             <div class="info">
                 <h2 class="info__header">{{ setting.digit }}</h2>
-                <span class="info__title">{{ setting.title }}</span>
+                <span class="info__title">{{ setting.title | translate}}</span>
                 <div class="info__words">
-                    Словарный запас: <span class="info__words-digits">{{ setting.words }}</span> слов!
+                    {{ 'info.vocabulary' | translate }}: <span class="info__words-digits">{{ setting.words }}</span> {{ 'info.words' | translate }}!
                 </div>
                <div class="info__text">
-                    <span class="info__text-desc">Что вы сможете, достигнув этого уровня:</span>
-                    <p class="info__text-skills">{{ setting.text }}</p>
+                    <span class="info__text-desc">{{ 'info.skills' | translate }}</span>
+                    <p class="info__text-skills">{{ setting.text | translate}}</p>
                </div>
                <div class="tutorial" 
                   *ngIf="this.data.user.isAuth === true"
                   (click)="onTutorial()"
                   routerLink="/tutorial/words">
-                    Difficult words
+                  {{ 'button.hardWords' | translate }}
                 </div>
             </div>
             <div class="image">
                 <img class="picture" src="./../../../assets/img/image.jpg" alt="London">
             </div>
             <div class="image3">
-                <img class="picture" src="./../../../assets/img/image3.jpg" alt="Portrait" title="Не смотри на меня">
+                <img class="picture" src="./../../../assets/img/image3.jpg" alt="Portrait" title="{{ 'title.photo' | translate }}">
             </div>
         </div>
     </div>

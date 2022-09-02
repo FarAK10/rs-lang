@@ -4,11 +4,11 @@
       <div class="icons">
         <mat-icon aria-hidden="false" aria-label="Example home icon">{{post.icon}}</mat-icon>
       </div>
-      <h3>{{post.title}}</h3>
-      <p class="description">{{post.description}}</p>
+      <h3>{{ post.title | translate}}</h3>
+      <p class="description">{{ post.description | translate}}</p>
       <div class="play">
         <a routerLink={{post.link}} (click)="setRoute(post.game)">
-          Play
+          {{ 'button.play' | translate}}
         </a>
       </div>
     </div>
