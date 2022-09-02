@@ -41,8 +41,9 @@ export function filterLearnedWords(array: IWord[]) {
 
 export function isContains(userWords: HardWords[], word: IWord) {
   let result = false;
+  const wordId = word?.id ? word.id : word._id;
   userWords.forEach((userWord) => {
-    if (userWord.id === word.id) {
+    if (userWord.id === wordId) {
       result = true;
     }
   });

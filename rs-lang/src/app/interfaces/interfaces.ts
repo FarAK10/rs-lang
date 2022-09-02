@@ -15,6 +15,7 @@ export interface ICurrentUser {
 
 export interface IWord {
   id: string;
+  _id: string;
   group: number;
   page: number;
   word: string;
@@ -71,11 +72,11 @@ export interface Parameters {
   currentLevel: number;
   prevPage: number;
   prevLevel: number;
-  words: Word[] | null;
+  words: IWord[] | null;
   hardWords: String[] | null;
   easeWords: String[] | null;
   arr: HardWords[] | null;
-  arrEase: EaseWords[] | null;
+  arrEase: HardWords[] | null;
 }
 
 export interface HardWords {
@@ -99,4 +100,18 @@ export interface EaseWords {
 export interface IOption {
   word: IWord;
   class: string;
+}
+
+interface gameStatista {
+  newWords: HardWords[];
+  correctPercents: number[];
+  series: number[];
+}
+
+export interface IUserStatista {
+  learnedWords: number;
+  optional: {
+    sprint: gameStatista;
+    audio: gameStatista;
+  };
 }

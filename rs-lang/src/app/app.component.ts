@@ -14,6 +14,7 @@ import { GameService } from './services/game.service';
 })
 export class AppComponent implements OnInit {
   title = 'rs-lang';
+  gameName!: string;
 
   constructor(
     public data: DataService,
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     this.setCorrectAnswers();
     this.setWrongAnswers();
     this.setGameName();
+    this.setCorrectSeries();
   }
 
   setUser() {
@@ -55,10 +57,26 @@ export class AppComponent implements OnInit {
   }
 
   setGameName() {
-    const gameName = this.localStorageService.getLocalStorage('gameName') as string;
-    console.log(gameName, 'app component');
-    if (gameName) {
-      this.gameService.setCurrentGame(gameName);
+    this.gameName = this.localStorageService.getLocalStorage('gameName') as string;
+    console.log(this.gameName, 'app component');
+    if (this.gameName) {
+      this.gameService.setCurrentGame(this.gameName);
+    }
+  }
+
+  setCorrectSeries() {
+    const sprintCorrectSeries = JSON.parse(
+      this.localStorageService.getLocalStorage('sprintCorrectSeries') as string,
+    ) as number[];
+    const audiCorrectSeries = JSON.parse(
+      this.localStorageService.getLocalStorage('audioCorrectSeries') as string,
+    ) as number[];
+
+    if (sprintCorrectSeries) {
+      this.gameService.setSeries(sprintCorrectSeries, 'sprint');
+    }
+    if (audiCorrectSeries) {
+      this.gameService.setSeries(audiCorrectSeries, 'audio');
     }
   }
 }

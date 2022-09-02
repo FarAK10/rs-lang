@@ -26,7 +26,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   coefficient: number = 1;
 
-  timeLeft: number = 60;
+  timeLeft: number = 10;
 
   aggregatedWords: Array<IWord> = [];
 
@@ -51,6 +51,8 @@ export class SprintGameComponent implements OnInit, OnDestroy {
   elem: HTMLElement = document.documentElement;
 
   wordsSub!: Subscription;
+
+  correctSerries: number = 0;
 
   ngOnInit(): void {
     this.gameService.reset();
@@ -133,9 +135,11 @@ export class SprintGameComponent implements OnInit, OnDestroy {
   check(choice: boolean) {
     if (choice === this.isCorrect) {
       this.playSound('correct.mp3');
+      this.correctSerries++;
       this.gameService.pushCorrect(this.currentWord);
       this.setScore();
     } else {
+      this.gameService.addToSeries(this.correctSerries);
       this.playSound('wrong.mp3');
       this.gameService.pushWrong(this.currentWord);
       this.resetCoefficient();
@@ -160,6 +164,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
     }
   }
   resetCoefficient() {
+    this.correctSerries = 0;
     this.rightInRow = 0;
     this.coefficient = 1;
   }
@@ -176,6 +181,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   stopGame() {
     clearInterval(this.timer);
+    this.gameService.addToSeries(this.correctSerries);
     this.router.navigate([`game/result`]);
   }
 }

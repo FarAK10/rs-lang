@@ -42,6 +42,8 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
   baseUrl!: string;
 
+  correctInRow: number = 0;
+
   optionsSub$!: Subscription;
 
   lives: Array<string> = [
@@ -93,9 +95,12 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   checkAnswer(translation: string) {
     const correctTranslation = this.correctWord.wordTranslate;
     if (correctTranslation === translation) {
+      this.correctInRow++;
       this.playSound('correct.mp3');
       this.onRightAnswer();
     } else {
+      this.gameService.addToSeries(this.correctInRow);
+      this.correctInRow = 0;
       this.playSound('wrong.mp3');
       this.onIncorrectAnswer();
     }
@@ -103,7 +108,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
   toggle() {
     if (this.isAnswerShown) {
-      this.showBtnText = 'next question';
+      this.isTheLastLive();
       this.imgLink = `${this.baseUrl}/${this.correctWord.image}`;
       this.currentEnglishWord = this.correctWord.word;
     } else {
@@ -113,13 +118,18 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     }
   }
 
-  reduceNumberOfAttempts() {
+  isTheLastLive() {
     if (this.livesLeft === -1) {
-      this.router.navigate([`game/result`]);
+      this.showBtnText = 'show results';
+      this.gameService.addToSeries(this.correctInRow);
     } else {
-      this.lives.splice(this.livesLeft, 1, 'favorite_border');
-      this.livesLeft--;
+      this.showBtnText = 'next question';
     }
+  }
+
+  reduceNumberOfAttempts() {
+    this.lives.splice(this.livesLeft, 1, 'favorite_border');
+    this.livesLeft--;
   }
   isWrong(className: string) {
     if (this.isAnswerShown) {
@@ -164,7 +174,11 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   }
 
   onNextQuestion() {
-    this.audioGameService.nextQuestion();
-    this.isAnswerShown = false;
+    if (this.livesLeft === -1) {
+      this.router.navigate([`game/result`]);
+    } else {
+      this.audioGameService.nextQuestion();
+      this.isAnswerShown = false;
+    }
   }
 }

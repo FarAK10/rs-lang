@@ -142,7 +142,7 @@ export class CardsComponent implements OnInit {
   }
 
   getHardWords(arr: HardWords[]) {
-    const array: Word[] = [];
+    const array: IWord[] = [];
     arr.map((el, ind, arr) => {
       this.apiService.getWord(el.wordId).subscribe((value) => {
         array.push(JSON.parse(JSON.stringify(value)));
@@ -186,7 +186,7 @@ export class CardsComponent implements OnInit {
       });
   }
 
-  checkWord(e: Event, word: Word, difficulty: string) {
+  checkWord(e: Event, word: IWord, difficulty: string) {
     e.preventDefault();
     this.userService.checkWord(word, difficulty);
   }

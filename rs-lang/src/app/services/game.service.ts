@@ -17,6 +17,7 @@ import { AuthorizationService } from './authorization.service';
 import { LocalStorageService } from './local-storage.service';
 import { filterLearnedWords, isContains, shuffle } from '../shared/functions';
 import { DataService } from './data.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -42,9 +43,15 @@ export class GameService {
 
   currentGame$ = new BehaviorSubject<string>('');
 
+  gameName!: string;
+
   gameWords: IWord[] = [];
 
   userWords: HardWords[] = [];
+
+  sprintCorrectSeries: number[] = [];
+
+  audioCorrectSerices: number[] = [];
 
   isWordsLoaded$ = new BehaviorSubject(true);
 
@@ -52,15 +59,18 @@ export class GameService {
     private apiService: ApiService,
     private authService: AuthorizationService,
     private localStorageService: LocalStorageService,
+    private userService: UserService,
   ) {}
 
   getWords() {
-    this.authService.setHardWords();
     this.userId = this.authService.getUserId();
-    this.setUserWords();
+    this.getGameName();
     this.isWordsLoaded$.next(false);
     if (this.authService.isAuth) {
-      this.getAuthorizedWords();
+      this.userService.getUserWords().subscribe((userWords: HardWords[]) => {
+        this.userWords = userWords;
+        this.getAuthorizedWords();
+      });
     } else {
       this.getUnauthorizedWords();
     }
@@ -126,7 +136,7 @@ export class GameService {
   pushCorrect(word: IWord): void {
     this.correctAnswers.push(word);
     if (this.authService.isAuth) {
-      this.updateUserWords(word, true);
+      this.userService.checkWord(word, 'ease');
     }
     this.localStorageService.setLocalStorage('correctAnswers', JSON.stringify(this.correctAnswers));
   }
@@ -134,39 +144,32 @@ export class GameService {
   pushWrong(word: IWord): void {
     this.incorrectAnswers.push(word);
     if (this.authService.isAuth) {
-      this.updateUserWords(word, false);
+      this.userService.checkWord(word, 'hard');
     }
     this.localStorageService.setLocalStorage('wrongAnswers', JSON.stringify(this.incorrectAnswers));
   }
 
-  updateUserWords(word: IWord, isWrong: boolean): void {
-    this.userWords = this.authService.userWords;
-    if (isContains(this.userWords, word)) {
-      this.updateUserWord(word, isWrong);
+  addToSeries(correctInRow: number) {
+    if (this.gameName === 'sprint') {
+      this.sprintCorrectSeries.push(correctInRow);
+      this.localStorageService.setLocalStorage(
+        'sprintCorrectSeries',
+        JSON.stringify(this.sprintCorrectSeries),
+      );
     } else {
-      this.createUserWord(word, isWrong);
+      this.audioCorrectSerices.push(correctInRow);
+      this.localStorageService.setLocalStorage(
+        'audioCorrectSeries',
+        JSON.stringify(this.audioCorrectSerices),
+      );
     }
   }
 
-  updateUserWord(word: IWord, isWrong: boolean): void {
-    if (isWrong) {
-      this.apiService.updateEaseWord(this.userId, word.id).subscribe((res: HardWords) => {
-        this.userWords.push(res);
-      });
+  setSeries(correctSeries: number[], gameName: string) {
+    if (gameName === 'sprint') {
+      this.sprintCorrectSeries = correctSeries;
     } else {
-      this.apiService.updateHardWords(this.userId, word.id);
-    }
-  }
-
-  createUserWord(word: IWord, isWrong: boolean): void {
-    if (isWrong) {
-      this.apiService.postWord(this.userId, word.id, 'hard').subscribe((res: HardWords) => {
-        this.userWords.push(res);
-      });
-    } else {
-      this.apiService.postWord(this.userId, word.id, 'ease').subscribe((res: HardWords) => {
-        this.userWords.push(res);
-      });
+      this.audioCorrectSerices = correctSeries;
     }
   }
 
@@ -202,9 +205,20 @@ export class GameService {
     this.localStorageService.setLocalStorage('gameName', gameName);
   }
 
+  getGameName(): void {
+    this.gameName = this.localStorageService.getLocalStorage('gameName') as string;
+  }
+
   reset(): void {
     this.correctAnswers = [];
     this.incorrectAnswers = [];
+    if (this.gameName === 'sprint') {
+      this.sprintCorrectSeries = [];
+      this.userService.newSprintGameWords = [];
+    } else {
+      this.audioCorrectSerices = [];
+      this.userService.newAudioGameWords = [];
+    }
   }
 
   setUserId(): void {
