@@ -1,9 +1,22 @@
+import { IfStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, flatMap, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  flatMap,
+  from,
+  mergeMap,
+  observable,
+  Observable,
+  of,
+  switchMap,
+  take,
+} from 'rxjs';
 import { IAggregatedResp, HardWords, IWord } from '../interfaces/interfaces';
 import { ApiService } from './api.service';
 import { AuthorizationService } from './authorization.service';
 import { LocalStorageService } from './local-storage.service';
+import { filterLearnedWords, isContains, shuffle } from '../shared/functions';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +26,7 @@ export class GameService {
 
   englishLevel: string = '5';
 
-  currentPage: number = 1;
+  currentPage: number = 30;
 
   wordsPerPage: number = 20;
 
@@ -29,7 +42,11 @@ export class GameService {
 
   currentGame$ = new BehaviorSubject<string>('');
 
+  gameWords: IWord[] = [];
+
   userWords: HardWords[] = [];
+
+  isWordsLoaded$ = new BehaviorSubject(true);
 
   constructor(
     private apiService: ApiService,
@@ -37,48 +54,120 @@ export class GameService {
     private localStorageService: LocalStorageService,
   ) {}
 
-  getAggregatedWords() {
-    const userId = this.authService.getUserId();
-    const url = `users/${userId}/aggregatedWords?group=${this.englishLevel}&wordsPerPage=${this.wordsPerPage}`;
-    return this.apiService.get<[IAggregatedResp]>(url);
-  }
-
-  getWords(page: number) {
-    const url = `words?group=${this.englishLevel}&page=${page}`;
-    return this.apiService.get<IWord[]>(url);
-  }
-
-  getAuthorizedWords(page: number) {
-    let url: string;
-    if (this.isLaunchedFromMenu) {
-      url = `users/${this.userId}/aggregatedWords?group=${this.englishLevel}&wordsPerPage=${this.wordsPerPage}&page=${page}`;
+  getWords() {
+    this.authService.setHardWords();
+    this.userId = this.authService.getUserId();
+    this.setUserWords();
+    this.isWordsLoaded$.next(false);
+    if (this.authService.isAuth) {
+      this.getAuthorizedWords();
     } else {
-      url = `users/${this.userId}/aggregatedWords?group=${this.englishLevel}&wordsPerPage=${this.wordsPerPage}&page=${page}&filter={"$or":[{"userWord.difficulty":"hard"},{"userWord":null}]}`;
+      this.getUnauthorizedWords();
     }
-    return this.apiService.get<IWord[]>(url);
   }
 
-  getUnauthorizedWords(page: number) {
-    const url = `words?group=${this.englishLevel}&page=${page}`;
-    return this.apiService.get<IWord[]>(url);
+  getUnauthorizedWords() {
+    this.gameWords = [];
+    const urls = [];
+    for (let i = 0; i <= this.currentPage; i++) {
+      const url = `words?group=${this.englishLevel}&page=${i}`;
+      urls.push(url);
+    }
+    of(...urls)
+      .pipe(
+        mergeMap((url) => this.apiService.get<IWord[]>(url)),
+        take(this.currentPage + 1),
+      )
+      .subscribe({
+        next: (words: IWord[]) => {
+          this.gameWords.push(...words);
+        },
+        complete: () => {
+          this.isWordsLoaded$.next(true);
+        },
+      });
   }
 
-  pushCorrect(word: IWord) {
+  getAuthorizedWords() {
+    const userId = this.authService.getUserId();
+    if (this.isLaunchedFromMenu) {
+      const url = `users/${userId}/aggregatedWords?group=${this.englishLevel}&wordsPerPage=400`;
+      this.apiService
+        .get<[IAggregatedResp]>(url)
+        .pipe(take(1))
+        .subscribe((words: IAggregatedResp[]) => {
+          this.gameWords = shuffle(words[0].paginatedResults);
+          this.isWordsLoaded$.next(true);
+        });
+    } else {
+      this.gameWords = [];
+      const urls = [];
+      for (let i = this.currentPage; i >= 0; i--) {
+        const url = `users/${userId}/aggregatedWords?page=${i}&group=${this.englishLevel}&wordsPerPage=20`;
+        urls.push(url);
+      }
+      of(...urls)
+        .pipe(
+          mergeMap((url) => this.apiService.get<[IAggregatedResp]>(url)),
+          take(this.currentPage + 1),
+        )
+        .subscribe({
+          next: (words: [IAggregatedResp]) => {
+            const filtered = filterLearnedWords(words[0].paginatedResults);
+            this.gameWords.push(...filtered);
+          },
+          complete: () => {
+            this.isWordsLoaded$.next(true);
+          },
+        });
+    }
+  }
+
+  pushCorrect(word: IWord): void {
     this.correctAnswers.push(word);
+    if (this.authService.isAuth) {
+      this.updateUserWords(word, true);
+    }
     this.localStorageService.setLocalStorage('correctAnswers', JSON.stringify(this.correctAnswers));
   }
 
-  pushWrong(word: IWord) {
+  pushWrong(word: IWord): void {
     this.incorrectAnswers.push(word);
+    if (this.authService.isAuth) {
+      this.updateUserWords(word, false);
+    }
     this.localStorageService.setLocalStorage('wrongAnswers', JSON.stringify(this.incorrectAnswers));
   }
 
-  getUserWords(): void {
-    const userId = this.authService.getUserId();
-    const url = `users/${userId}/words`;
-    this.apiService.get<HardWords[]>(url).subscribe((userWords: HardWords[]) => {
-      this.userWords = userWords;
-    });
+  updateUserWords(word: IWord, isWrong: boolean): void {
+    this.userWords = this.authService.userWords;
+    if (isContains(this.userWords, word)) {
+      this.updateUserWord(word, isWrong);
+    } else {
+      this.createUserWord(word, isWrong);
+    }
+  }
+
+  updateUserWord(word: IWord, isWrong: boolean): void {
+    if (isWrong) {
+      this.apiService.updateEaseWord(this.userId, word._id).subscribe((res: HardWords) => {
+        this.userWords.push(res);
+      });
+    } else {
+      this.apiService.updateHardWords(this.userId, word._id);
+    }
+  }
+
+  createUserWord(word: IWord, isWrong: boolean): void {
+    if (isWrong) {
+      this.apiService.postWord(this.userId, word._id, 'hard').subscribe((res: HardWords) => {
+        this.userWords.push(res);
+      });
+    } else {
+      this.apiService.postWord(this.userId, word._id, 'ease').subscribe((res: HardWords) => {
+        this.userWords.push(res);
+      });
+    }
   }
 
   setEnglishLevel(level: number): void {
@@ -109,17 +198,20 @@ export class GameService {
     this.incorrectAnswers = answers;
   }
 
-  setGameName(gameName: string) {
-    console.log(gameName, 'gameService');
+  setGameName(gameName: string): void {
     this.localStorageService.setLocalStorage('gameName', gameName);
   }
 
-  reset() {
+  reset(): void {
     this.correctAnswers = [];
     this.incorrectAnswers = [];
   }
 
-  setUserId() {
+  setUserId(): void {
     this.userId = this.authService.getUserId();
+  }
+
+  setUserWords(): void {
+    this.userWords = this.authService.userWords;
   }
 }

@@ -21,6 +21,8 @@ export class AuthorizationService {
 
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
 
+  userWords!: HardWords[];
+
   register(newUser: INewUser): void {
     this.apiService.post('users', newUser).subscribe({
       next: () => {
@@ -78,8 +80,9 @@ export class AuthorizationService {
 
   setHardWords() {
     this.apiService.getHardWords(this.getUserId()).subscribe((value) => {
-      const arr = (value as HardWords[]).filter((el) => el.difficulty === 'hard');
-      const arr2 = (value as EaseWords[]).filter((el) => el.difficulty === 'ease');
+      this.userWords = value;
+      const arr = value.filter((el) => el.difficulty === 'hard');
+      const arr2 = value.filter((el) => el.difficulty === 'ease');
       this.data.parameters.hardWords = this.parseHardWords(arr);
       this.data.parameters.easeWords = this.parseHardWords(arr2);
       this.data.parameters.arr = JSON.parse(JSON.stringify(arr));

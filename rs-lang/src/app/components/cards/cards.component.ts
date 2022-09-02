@@ -5,6 +5,8 @@ import { ThrowStmt } from 'angular-html-parser/lib/compiler/src/output/output_as
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
 import { GameService } from 'src/app/services/game.service';
+import { Route, Router } from '@angular/router';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({
   selector: 'app-cards',
@@ -16,6 +18,8 @@ export class CardsComponent implements OnInit {
     public data: DataService,
     public apiService: ApiService,
     private gameService: GameService,
+    private authService: AuthorizationService,
+    private router: Router,
   ) {}
 
   baseUrl = this.apiService.baseUrl + '/';
@@ -144,7 +148,7 @@ export class CardsComponent implements OnInit {
       1,
     );
     this.data.parameters[ourArr]?.push(a![0]);
-    this.apiService.updateHardWords(this.data.user.userId, word.id, opt);
+    this.apiService.updateHardWords(this.data.user.userId, word.id, opt).subscribe();
     this.deleteHard(word.id);
     this.data.checkAaaEase();
   }
@@ -210,12 +214,21 @@ export class CardsComponent implements OnInit {
   }
   setGame(gameName: string): void {
     this.gameService.setCurrentGame(gameName);
+    this.gameService.isLaunchedFromMenu = false;
     this.setPage();
+    this.setLevel();
+    this.router.navigate([`/game/${gameName}`]);
   }
 
   setPage(): void {
     const currentPage = this.data.parameters.page;
+    console.log(currentPage);
     this.gameService.setCurrentPage(currentPage);
+  }
+
+  setLevel(): void {
+    const level = this.data.parameters.currentLevel;
+    this.gameService.setEnglishLevel(level);
   }
 
   ngOnInit(): void {

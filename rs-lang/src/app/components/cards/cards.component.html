@@ -6,8 +6,8 @@
             <li class="cards__menu-item" routerLink="/tutorial/words" (click)="onTutorial()"
                 *ngIf="this.data.user.isAuth === true">
                 Hard Words</li>
-            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('sprint')">Sprint</li>
-            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('audio')">Audio battle</li>
+            <li class="cards__menu-item" (click)="setGame('sprint')">Sprint</li>
+            <li class="cards__menu-item" (click)="setGame('audio')">Audio battle</li>
             <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
         </ul>
         <ul class="cards__pagination">

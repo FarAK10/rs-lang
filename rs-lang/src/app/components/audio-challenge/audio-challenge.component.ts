@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IOption, IWord } from 'src/app/interfaces/interfaces';
 import { AudioChallengeService } from 'src/app/services/audio-challenge.service';
 import { GameService } from 'src/app/services/game.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { Subscribable, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-audio-challenge',
   templateUrl: './audio-challenge.component.html',
   styleUrls: ['./audio-challenge.component.scss'],
 })
-export class AudioChallengeComponent implements OnInit {
+export class AudioChallengeComponent implements OnInit, OnDestroy {
   gameName: string = 'Audio-Challenge';
 
   level!: string;
@@ -41,6 +42,8 @@ export class AudioChallengeComponent implements OnInit {
 
   baseUrl!: string;
 
+  optionsSub$!: Subscription;
+
   lives: Array<string> = [
     'favorite',
     'favorite',
@@ -59,9 +62,9 @@ export class AudioChallengeComponent implements OnInit {
   ngOnInit(): void {
     this.gameService.reset();
     this.audioGameService.getWords();
-    this.gameService.getUserWords();
-    this.audioGameService.options$.subscribe((options: IOption[]) => {
+    this.optionsSub$ = this.audioGameService.options$.pipe().subscribe((options: IOption[]) => {
       this.options = options;
+      console.log(options);
       if (this.options.length) {
         this.correctWord = this.audioGameService.getCorrectWord();
         this.playPronunciation();
@@ -69,6 +72,10 @@ export class AudioChallengeComponent implements OnInit {
     });
 
     this.baseUrl = this.apiService.getBaseUrl();
+  }
+
+  ngOnDestroy(): void {
+    this.optionsSub$.unsubscribe();
   }
 
   onMute(isMute: boolean) {
@@ -157,7 +164,7 @@ export class AudioChallengeComponent implements OnInit {
   }
 
   onNextQuestion() {
-    this.audioGameService.checkPage();
+    this.audioGameService.nextQuestion();
     this.isAnswerShown = false;
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
+import { TutorialComponent } from '../tutorial/tutorial.component';
 
 @Component({
   selector: 'app-games',
@@ -28,7 +29,8 @@ export class GamesComponent {
   ];
 
   setRoute(game: string) {
-    console.log('games', game);
+    this.gameService.isLaunchedFromMenu = true;
     this.gameService.setCurrentGame(game);
+    console.log('games', game);
   }
 }

@@ -30,6 +30,10 @@ export class ApiService {
     return this.http.get<T>(this.generateUrl(url));
   }
 
+  put<T>(url: string, body: T): Observable<T> {
+    return this.http.put<T>(this.generateUrl(url), body);
+  }
+
   generateUrl(url: string): string {
     return `${this.baseUrl}/${url}`;
   }
@@ -46,10 +50,16 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/words/${wordId}`);
   }
 
-  postWord(idUser: string, idWord: string, opt: string) {
-    return this.http.post(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
+  postWord(idUser: string, idWord: string, opt: string): Observable<HardWords> {
+    let optionalBody = {
+      isLearned: false,
+    };
+    if (opt === 'ease') {
+      optionalBody.isLearned = true;
+    }
+    return this.http.post<HardWords>(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
       difficulty: opt,
-      optional: {},
+      optional: optionalBody,
     });
   }
 
@@ -57,17 +67,26 @@ export class ApiService {
     return this.http.delete(`${this.baseUrl}/users/${idUser}/words/${idWord}`);
   }
 
-  getHardWords(idUser: string): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/users/${idUser}/words`);
+  getHardWords(idUser: string): Observable<HardWords[]> {
+    return this.http.get<HardWords[]>(`${this.baseUrl}/users/${idUser}/words`);
   }
 
-  updateHardWords(idUser: string, idWord: string, opt: string) {
-    return this.http
-      .put(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
-        difficulty: 'ease',
-        optional: {},
-      })
-      .subscribe((res) => console.log(res));
+  updateHardWords(idUser: string, idWord: string, opt?: string): Observable<HardWords> {
+    return this.http.put<HardWords>(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
+      difficulty: 'ease',
+      optional: {
+        isLearned: true,
+      },
+    });
+  }
+
+  updateEaseWord(idUser: string, idWord: string): Observable<HardWords> {
+    return this.http.put<HardWords>(`${this.baseUrl}/users/${idUser}/words/${idWord}`, {
+      difficulty: 'hard',
+      optional: {
+        isLearned: false,
+      },
+    });
   }
 
   setSessionStorage(obj: Parameters): void {

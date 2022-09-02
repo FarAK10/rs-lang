@@ -1,5 +1,6 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { IWord } from '../interfaces/interfaces';
+import * as exp from 'constants';
+import { HardWords, IWord } from '../interfaces/interfaces';
 
 export function passwordMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -31,4 +32,19 @@ export function shuffle<T>(array: T[]): T[] {
   }
 
   return array;
+}
+
+export function filterLearnedWords(array: IWord[]) {
+  const filteredArr = array.filter((word) => word?.difficulty !== 'ease');
+  return filteredArr;
+}
+
+export function isContains(userWords: HardWords[], word: IWord) {
+  let result = false;
+  userWords.forEach((userWord) => {
+    if (userWord.id === word._id) {
+      result = true;
+    }
+  });
+  return result;
 }

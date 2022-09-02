@@ -14,7 +14,7 @@ export interface ICurrentUser {
 }
 
 export interface IWord {
-  id: string;
+  _id: string;
   group: number;
   page: number;
   word: string;
@@ -28,6 +28,7 @@ export interface IWord {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  difficulty: string;
 }
 
 export interface IAggregatedResp {
@@ -79,12 +80,18 @@ export interface HardWords {
   id: string;
   difficulty: string;
   wordId: string;
+  optional?: {
+    isLearned: boolean;
+  };
 }
 
 export interface EaseWords {
   id: string;
   difficulty: string;
   wordId: string;
+  optional?: {
+    isLearned: boolean;
+  };
 }
 
 export interface IOption {
