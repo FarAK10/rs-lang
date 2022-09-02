@@ -37,7 +37,7 @@ export class AudioChallengeComponent implements OnInit {
 
   isAnswerShown: boolean = false;
 
-  showBtnText: string = 'Show Answer';
+  showBtnText: string = 'audio.showAnswer';
 
   baseUrl!: string;
 
@@ -96,11 +96,11 @@ export class AudioChallengeComponent implements OnInit {
 
   toggle() {
     if (this.isAnswerShown) {
-      this.showBtnText = 'next question';
+      this.showBtnText = 'audio.next';
       this.imgLink = `${this.baseUrl}/${this.correctWord.image}`;
       this.currentEnglishWord = this.correctWord.word;
     } else {
-      this.showBtnText = 'Show answer';
+      this.showBtnText = 'audio.showAnswer';
       this.imgLink = this.defaultImgLink;
       this.currentEnglishWord = '';
     }

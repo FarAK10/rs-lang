@@ -17,7 +17,7 @@ export class DataService {
   }
   
   allEase: boolean = false;
-  lang: string | null = (localStorage.getItem('lang')) ? localStorage.getItem('lang') : 'en';
+  lang: string | null = (localStorage.getItem('lang')) ? localStorage.getItem('lang') : 'ru';
 
   levels: Level[] = [
     {

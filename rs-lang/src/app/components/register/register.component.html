@@ -1,37 +1,36 @@
 <div class="form-container mat-elevation-z5">
-  <h1>Sign Up a New User!</h1>
+  <h1>{{ 'register.title' | translate }}</h1>
   <form [formGroup]="signUpForm">
 
     <mat-form-field class="input-field" color="accent">
-      <input matInput placeholder="Name" formControlName="name">
-      <mat-error *ngIf="name?.errors?.['required']">Name is required</mat-error>
+      <input matInput placeholder="{{ 'register.name' | translate }}" formControlName="name">
+      <mat-error *ngIf="name?.errors?.['required']">{{ 'register.nameR' | translate }}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field" color="accent">
-      <input matInput placeholder="Email address" formControlName="email">
-      <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
-      <mat-error *ngIf="email?.errors?.['email']">Please enter valid email</mat-error>
+      <input matInput placeholder="{{ 'register.email' | translate }}" formControlName="email">
+      <mat-error *ngIf="email?.errors?.['required']">{{ 'register.emailR' | translate }}</mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">{{ 'register.correctEmail' | translate }}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field" color="accent">
-      <input type="password" matInput placeholder="Password" formControlName="password" autocomplete="on">
-      <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
-      <mat-error *ngIf="password?.errors?.['minlength']">Min length of password is 8 symbols</mat-error>
+      <input type="password" matInput placeholder="{{ 'register.pass' | translate }}" formControlName="password" autocomplete="on">
+      <mat-error *ngIf="password?.errors?.['required']">{{ 'register.passR' | translate }}</mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">{{ 'register.passMin' | translate }}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field" color="accent">
-      <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword"
+      <input type="password" matInput placeholder="{{ 'register.confirmPass' | translate }}" formControlName="confirmPassword"
         autocomplete="on">
-      <mat-error *ngIf="confirmPassword?.errors?.['required']">Confirming Password is required</mat-error>
-      <mat-error *ngIf="confirmPassword?.errors?.['minlength']">Min length of password is 8 symbols</mat-error>
+      <mat-error *ngIf="confirmPassword?.errors?.['required']">{{ 'register.confirm' | translate }}</mat-error>
+      <mat-error *ngIf="confirmPassword?.errors?.['minlength']">{{ 'register.passMin' | translate }}</mat-error>
     </mat-form-field>
 
-    <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">Passwords should match</mat-error>
+    <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">{{ 'register.equal' | translate }}</mat-error>
 
     <div class="center">
       <button [disabled]="!signUpForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit"
-        (click)="submit()">Sign
-        Up!</button>
+        (click)="submit()">{{ 'button.sign' | translate }}</button>
     </div>
   </form>
 </div>

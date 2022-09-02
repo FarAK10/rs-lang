@@ -3,10 +3,10 @@
     <div class="auth-nav">
       <button routerLinkActive="btn-active" [routerLinkActiveOptions]="{exact:true}" mat-stroked-button color="accent"
         routerLink="login">
-        Login
+        {{ 'login.login' | translate }}
       </button>
       <button routerLinkActive="btn-active" mat-stroked-button color="accent" routerLink="register"
-        [routerLinkActiveOptions]="{exact:true}">Registration</button>
+        [routerLinkActiveOptions]="{exact:true}">{{ 'login.registration' | translate }}</button>
     </div>
     <router-outlet></router-outlet>
   </section>

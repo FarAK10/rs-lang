@@ -14,7 +14,7 @@ export class GamesComponent {
       title: 'games.sprint',
       game: 'sprint',
       description:
-        'Проверьте, сколько очков вы можете получить за одну минуту, делая обоснованные предположения о том, что правильно, а что нет.',
+        'games.descSprint',
       link: '/game/english-level',
     },
     {
@@ -22,7 +22,7 @@ export class GamesComponent {
       title: 'games.audioBattle',
       game: 'audio',
       description:
-        'Проверьте свои навыки слушания, пытаясь подобрать правильное значение после услышанного слова. У вас есть только одна попытка.',
+        'games.descAudio',
       link: '/game/english-level',
     },
   ];

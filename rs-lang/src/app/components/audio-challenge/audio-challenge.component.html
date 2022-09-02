@@ -13,6 +13,6 @@
         [ngClass]="isWrong(option.class)"
         (click)="checkAnswer(option.word.wordTranslate)">{{option.word.wordTranslate}}</button>
     </div>
-    <button mat-stroked-button color="primary" class="answer-button" (click)="showAnswer()">{{showBtnText}}</button>
+    <button mat-stroked-button color="primary" class="answer-button" (click)="showAnswer()">{{showBtnText | translate}}</button>
   </div>
 </div>
