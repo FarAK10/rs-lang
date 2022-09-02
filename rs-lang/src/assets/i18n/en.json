@@ -1,0 +1,48 @@
+{
+    "info": {
+        "tutorial": "Choose the difficulty level",
+        "vocabulary": "Vocabulary",
+        "words": "words",
+        "skills": "What can you do when you reach this level:",
+        "levels": "levels"
+    },
+    "languages": {
+        "english": "Eng",
+        "russian": "Rus"
+    },
+    "button": {
+        "back": "Back tutorial",
+        "hardWords": "Hard words",
+        "main": "Main menu",
+        "sprint": "Sprint",
+        "audioBattle": "Audiobattle",
+        "play": "Play"
+    },
+    "title": {
+        "inHard": "Make it difficult",
+        "outHard": "No more difficult",
+        "inEase": "Make it ease",
+        "outEase": "No more ease",
+        "photo": "Do not look at me"
+    },
+    "menu": {
+        "main": "Main",
+        "tutorial": "Electronic textbook",
+        "games": "Mini-games",
+        "statistics": "Statistics"
+    },
+    "levels": {
+        "titleA1": "Beginner",
+        "titleA2": "Elementary",
+        "titleB1": "Pre-Intermediate",
+        "titleB2": "Intermediate",
+        "titleC1": "Upper-Intermediate",
+        "titleC2": "Advanced",
+        "textA1": "Understand the intonation and gestures of the interlocutor. Be able to say: \"London is the capital of Great Britain\"",
+        "textA2": "Talk to children. Listen to English-language music, pretending to understand something.",
+        "textB1": "Take an English language test to get a job as a front-end developer.",
+        "textB2": "Use English words in your speech. Where it is necessary and not necessary.",
+        "textC1": "Mimic under an ordinary resident of the outskirts of Brighton Beach.",
+        "textC2": "To relax. Because no one knows as many English words as the Queen of Great Britain."
+    }
+}

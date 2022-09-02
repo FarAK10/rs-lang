@@ -9,3 +9,19 @@ mat-icon:hover{
     color: white;
     transition: all 0.2s ease-in-out;
 }
+
+.langs {
+    margin-right: 20px;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .lang {
+        cursor: pointer;
+        @include font(24px, black, "Five-Italic", 400);
+        transition: all .3s ease;
+        &:hover {
+            text-shadow: 0 0 5px white;
+        }
+    }
+}

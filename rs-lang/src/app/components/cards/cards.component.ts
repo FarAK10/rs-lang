@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscriber } from 'rxjs';
 import { HardWords, Level, Word } from 'src/app/interfaces/interfaces';
-import { ThrowStmt } from 'angular-html-parser/lib/compiler/src/output/output_ast';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
 import { GameService } from 'src/app/services/game.service';
@@ -16,7 +14,7 @@ export class CardsComponent implements OnInit {
     public data: DataService,
     public apiService: ApiService,
     private gameService: GameService,
-  ) {}
+  ) { }
 
   baseUrl = this.apiService.baseUrl + '/';
   voice!: HTMLAudioElement;
@@ -213,6 +211,7 @@ export class CardsComponent implements OnInit {
     });
     return array;
   }
+
   setGame(gameName: string): void {
     this.gameService.setCurrentGame(gameName);
     this.setPage();

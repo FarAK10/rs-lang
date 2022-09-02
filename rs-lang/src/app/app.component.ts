@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { DataService } from './services/data.service';
 import { GameService } from './services/game.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +21,10 @@ export class AppComponent implements OnInit {
     private authSerice: AuthorizationService,
     private localStorageService: LocalStorageService,
     private gameService: GameService,
-  ) {}
+    private translateService: TranslateService
+  ) {
+    this.translateService.setDefaultLang(data.lang!);
+  }
 
   ngOnInit(): void {
     this.setUser();
