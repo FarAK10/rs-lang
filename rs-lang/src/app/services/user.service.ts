@@ -24,8 +24,10 @@ export class UserService {
     const otherWord = opt === 'hard' ? 'easeWords' : 'hardWords';
     console.log(wordId);
     if (this.data.parameters[otherWord]?.includes(wordId)) {
+      console.log('replace');
       this.replaceWord(wordId, opt);
     } else {
+      console.log('add');
       this.addWord(wordId, opt);
     }
   }

@@ -1,4 +1,4 @@
-<div class="game-wrapper">
+<div class="game-wrapper" *ngIf="isResoursesLoaded">
   <app-game-settings (muteChange)="onMute($event)" (screenSizeChange)="onFullScreen($event)"></app-game-settings>
   <div class="game">
     <div class="lives">
@@ -16,3 +16,6 @@
     <button mat-stroked-button color="primary" class="answer-button" (click)="showAnswer()">{{showBtnText}}</button>
   </div>
 </div>
+<mat-progress-spinner ngClass="spinner" *ngIf="!isResoursesLoaded" class="example-margin" color="accent"
+  mode="indeterminate" [value]="50">
+</mat-progress-spinner>

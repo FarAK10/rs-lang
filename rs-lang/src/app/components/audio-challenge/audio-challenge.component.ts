@@ -46,6 +46,10 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
   optionsSub$!: Subscription;
 
+  isResoursesLoaded: boolean = false;
+
+  wordsSub!: Subscription;
+
   lives: Array<string> = [
     'favorite',
     'favorite',
@@ -64,7 +68,12 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.gameService.reset();
     this.audioGameService.getWords();
-    this.optionsSub$ = this.audioGameService.options$.pipe().subscribe((options: IOption[]) => {
+    this.wordsSub = this.gameService.isWordsLoaded$.subscribe((isLoaded: boolean) => {
+      if (isLoaded) {
+        this.isResoursesLoaded = true;
+      }
+    });
+    this.optionsSub$ = this.audioGameService.options$.subscribe((options: IOption[]) => {
       this.options = options;
       console.log(options);
       if (this.options.length) {
@@ -78,6 +87,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.optionsSub$.unsubscribe();
+    this.wordsSub.unsubscribe();
   }
 
   onMute(isMute: boolean) {

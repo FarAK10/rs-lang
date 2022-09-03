@@ -54,12 +54,15 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   correctSerries: number = 0;
 
+  isResoursesLoaded = false;
+
   ngOnInit(): void {
     this.gameService.reset();
     this.gameService.getWords();
     this.wordsSub = this.gameService.isWordsLoaded$.subscribe((isLoaded: boolean) => {
       console.log('is loaded', isLoaded);
       if (isLoaded) {
+        this.isResoursesLoaded = isLoaded;
         this.aggregatedWords = shuffle(this.gameService.gameWords);
         console.log(this.aggregatedWords);
         this.setEnglishWord();
