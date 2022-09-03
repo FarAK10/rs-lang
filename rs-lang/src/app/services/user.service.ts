@@ -50,14 +50,12 @@ export class UserService {
     const ourWord = opt === 'hard' ? 'hardWords' : 'easeWords';
     const ourArr = opt === 'hard' ? 'arr' : 'arrEase';
     const otherArr = opt === 'hard' ? 'arrEase' : 'arr';
-    this.data.parameters[ourWord]?.push(id);
     this.data.parameters[otherWord]?.splice(
-      this.data.parameters[otherWord]!.findIndex((el) => el === id),
-      1,
+      this.data.parameters[otherWord]!.findIndex((el) => el === id), 1
     );
+    this.data.parameters[ourWord]?.push(id);
     const a = this.data.parameters[otherArr]?.splice(
-      this.data.parameters[otherArr]!.findIndex((el) => el.id === id),
-      1,
+      this.data.parameters[otherArr]!.findIndex((el) => el.wordId === id), 1
     );
     this.data.parameters[ourArr]?.push(a![0]);
     this.apiService.updateHardWords(this.data.user.userId, id, opt).subscribe();
