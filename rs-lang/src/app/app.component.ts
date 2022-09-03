@@ -62,7 +62,6 @@ export class AppComponent implements OnInit {
 
   setGameName() {
     this.gameName = this.localStorageService.getLocalStorage('gameName') as string;
-    console.log(this.gameName, 'app component');
     if (this.gameName) {
       this.gameService.setCurrentGame(this.gameName);
     }

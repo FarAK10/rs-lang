@@ -123,7 +123,6 @@ export class GameService {
         )
         .subscribe({
           next: (words: [IAggregatedResp]) => {
-            console.log(words[0].paginatedResults);
             const filtered = filterLearnedWords(words[0].paginatedResults);
             this.gameWords.push(...filtered);
           },

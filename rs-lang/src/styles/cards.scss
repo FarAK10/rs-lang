@@ -42,6 +42,15 @@
             &:hover {
                 box-shadow: 0 0 15px $pink;
             }
+
+            &.disabled {
+                background-color: $light-pink;
+                cursor: default;
+
+                &:hover {
+                    box-shadow: 0 0 10px $light-grey;
+                }
+            }
         }
     }
 
@@ -82,11 +91,12 @@
             &:hover {
                 box-shadow: 0 3px 10px 0px $pink;
             }
+
             &.disabled {
                 box-shadow: 0 0 3px $pink;
                 cursor: default;
                 color: $light-pink;
-    
+
                 &:hover {
                     box-shadow: 0 0 3px 0px $pink;
                 }
@@ -95,7 +105,7 @@
 
         .cards__pagination-page {
             @include btn(100px, 50px, 10px);
-            color: $pink !important;
+            color: $pink  !important;
         }
     }
 
@@ -106,15 +116,15 @@
         justify-content: space-between;
         position: relative;
 
+        .example-margin {
+            position: absolute;
+            left: 50%;
+            top: 50px;
+            transform: translate(-50%);
+        }
+
         .cards__items {
             width: calc(100% - 110px);
-            border-radius: 10px;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            gap: 5px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 450px);
             position: relative;
 
             .cards__text {
@@ -128,6 +138,17 @@
                 top: 200px;
                 left: 50%;
                 transform: translate(-50%, 0);
+            }
+
+            .card__container {
+                width: 100%;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                gap: 5px;
+                border-radius: 10px;
+                justify-content: space-around;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 450px);
             }
 
             .card {
@@ -145,6 +166,7 @@
                 position: relative;
                 overflow: hidden;
                 margin-bottom: 150px;
+
                 .black {
                     box-shadow: 0 2px 7px 0px black !important;
                 }
@@ -186,6 +208,7 @@
                         align-self: center;
                         @include font(18px, white, "Noto Sans Display Condensed", 100);
                     }
+
                     .card__info-left,
                     .card__info-right {
                         display: flex;
@@ -193,6 +216,7 @@
                         gap: 10px;
                     }
                 }
+
                 .card__text {
                     display: flex;
                     flex-direction: column;
@@ -208,14 +232,17 @@
                     height: max-content;
                     white-space: pre-wrap;
                     @include font(16px, black, "Noto Sans Display Condensed", 100);
+
                     .card__info-ru,
                     .card__info-en {
                         white-space: pre-wrap;
                     }
+
                     .card__info-ru {
                         font-style: italic;
                     }
                 }
+
                 .card__row {
                     position: absolute;
                     bottom: 0;
@@ -226,6 +253,7 @@
                     padding: 0 5px;
                     bottom: 20px;
                     @include font(16px, black, "Noto Sans Display Condensed", 100);
+
                     .card__info-en {
                         font-style: italic;
                         margin-top: 10px;
@@ -237,6 +265,7 @@
                 transform: perspective(800px) rotateY(0deg);
                 opacity: 1;
             }
+
         }
 
         .cards__levels {
@@ -317,8 +346,8 @@
     height: 15px;
     color: white;
     display: none;
+
     &.active {
         display: block;
     }
 }
-

@@ -14,7 +14,7 @@ export class UserService {
     private apiService: ApiService,
     private authService: AuthorizationService,
     private localStorageService: LocalStorageService,
-  ) {}
+  ) { }
 
   newSprintGameWords: HardWords[] = [];
   newAudioGameWords: HardWords[] = [];
@@ -23,13 +23,10 @@ export class UserService {
     const wordId = word?.id ? word.id : word._id;
     const otherWord = opt === 'hard' ? 'easeWords' : 'hardWords';
     const thisWord = opt === 'hard' ? 'hardWords' : 'easeWords';
-    console.log(wordId);
-    if (!this.data.parameters[thisWord]?.includes(wordId)) {
-      if (this.data.parameters[otherWord]?.includes(wordId)) {
-        console.log('replace');
-        this.replaceWord(wordId, opt);
-      } else {
-        console.log('add');
+    if (this.data.parameters[otherWord]?.includes(wordId)) {
+      this.replaceWord(wordId, opt);
+    } else {
+      if (!this.data.parameters[thisWord]?.includes(wordId)) {
         this.addWord(wordId, opt);
       }
     }
@@ -66,6 +63,7 @@ export class UserService {
     this.apiService.updateHardWords(this.data.user.userId, id, opt).subscribe();
     this.deleteHard(id);
     this.data.checkArrEase();
+    this.apiService.setSessionStorage(this.data.parameters);
   }
 
   deleteHard(idWord: string) {
@@ -75,19 +73,6 @@ export class UserService {
         1,
       );
     }
-    const a = [
-      { id: 1 },
-      { id: 2 },
-      { id: 3 },
-    ].every((el) =>
-      [
-        1,
-        2,
-        3,
-      ]?.includes(el.id),
-    )
-      ? 'black'
-      : 'white';
   }
 
   getUserWords() {
@@ -113,7 +98,6 @@ export class UserService {
         body.learnedWords += newWordsNumber;
         body.optional.sprint.correctPercents.push(correctPercent);
         body.optional.sprint.series.push(correctSeries);
-        console.log(userStatista, 'setGameStatista');
       } else {
         const newWordsNumber = this.newAudioGameWords.length;
         body.learnedWords += newWordsNumber;
@@ -134,6 +118,6 @@ export class UserService {
     const url = `users/${userId}/statistics`;
     return this.apiService
       .put<IUserStatista>(url, body)
-      .subscribe(() => console.log('updated statista'));
+      .subscribe();
   }
 }

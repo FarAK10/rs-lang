@@ -8,7 +8,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './tutorial.component.html',
   styleUrls: ['./tutorial.component.scss'],
 })
-export class TutorialComponent implements OnInit, AfterViewChecked {
+export class TutorialComponent implements OnInit {
   setting: Level = {
     id: 0,
     digit: '',
@@ -30,9 +30,11 @@ export class TutorialComponent implements OnInit, AfterViewChecked {
   }
 
   onCheck() {
+    this.data.isLoaded = false;
     this.data.parameters.currentLevel = Number(this.setting.id);
     this.data.parameters.page = 0;
     this.apiService.getWords(String(this.data.parameters.currentLevel), '0').subscribe((value) => {
+      this.data.isLoaded = true;
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
       this.data.checkArrEase();
       this.apiService.setSessionStorage(this.data.parameters);
@@ -40,11 +42,13 @@ export class TutorialComponent implements OnInit, AfterViewChecked {
   }
 
   onTutorial() {
+    this.data.isLoaded = false;
+    if (this.data.parameters.arr?.length === 0) this.data.isLoaded = true;
     if (this.data.parameters.currentLevel !== 6) {
       this.data.parameters.prevLevel = this.data.parameters.currentLevel;
       this.data.parameters.prevPage = this.data.parameters.page;
     }
-    this.data.parameters.words!.length = 0;
+    if (this.data.parameters.words) this.data.parameters.words!.length = 0;
     this.data.parameters.currentLevel = 6;
     this.data.parameters.page = 0;
     this.getHardWords(this.data.parameters.arr!);
@@ -59,9 +63,11 @@ export class TutorialComponent implements OnInit, AfterViewChecked {
           this.data.parameters.words = array;
           this.data.checkArrEase();
           this.apiService.setSessionStorage(this.data.parameters);
+          this.data.isLoaded = true;
         }
       });
     });
+    if (arr.length === 0) this.data.isLoaded = true;
     return array;
   }
 
@@ -76,9 +82,6 @@ export class TutorialComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.setParameters(0);
-  }
-
-  ngAfterViewChecked(): void {
     const el: HTMLElement | null = document.querySelector('.active');
     this.setParameters(Number(el?.getAttribute('id')));
   }

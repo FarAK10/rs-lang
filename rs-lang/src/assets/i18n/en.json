@@ -5,7 +5,8 @@
     "words": "words",
     "skills": "What can you do when you reach this level:",
     "levels": "levels",
-    "res": "Result"
+    "res": "Result",
+    "nowords": "No more words :("
   },
   "languages": {
     "english": "Eng",

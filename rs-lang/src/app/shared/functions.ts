@@ -36,10 +36,8 @@ export function shuffle<T>(array: T[]): T[] {
 
 export function filterLearnedWords(array: IWord[]) {
   const filteredArr = array.filter((word) => {
-    console.log(word.userWord?.difficulty);
     return word?.userWord?.difficulty !== 'ease' || word.userWord === undefined;
   });
-  console.log(filteredArr);
   return filteredArr;
 }
 

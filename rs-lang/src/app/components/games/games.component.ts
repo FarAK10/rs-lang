@@ -31,6 +31,5 @@ export class GamesComponent {
     this.gameService.isLaunchedFromMenu = true;
     this.localStorageService.setLocalStorage('isLaunchedFromMenu', JSON.stringify(true));
     this.gameService.setCurrentGame(game);
-    console.log('games', game);
   }
 }

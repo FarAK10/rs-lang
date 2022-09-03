@@ -12,12 +12,21 @@
             <li class="cards__menu-item" routerLink="/tutorial"><i class="fa-solid fa-graduation-cap"></i>
                 {{ 'button.main' | translate }}
             </li>
-            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('sprint')">
+            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('sprint')"
+                *ngIf="!this.data.allEase && this.data.parameters.currentLevel !== 6">
                 <i class="fa-solid fa-person-running"></i> {{ 'button.sprint' | translate }}
             </li>
-            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('audio')">
+            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('audio')"
+                *ngIf="!this.data.allEase && this.data.parameters.currentLevel !== 6">
                 <i class="fa-solid fa-headphones-simple"></i> {{ 'button.audioBattle' | translate }}
-                <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
+            </li>
+            <li class="cards__menu-item disabled" *ngIf="this.data.allEase || this.data.parameters.currentLevel === 6">
+                <i class="fa-solid fa-person-running"></i> {{ 'button.sprint' | translate }}
+            </li>
+            <li class="cards__menu-item disabled" *ngIf="this.data.allEase || this.data.parameters.currentLevel === 6">
+                <i class="fa-solid fa-headphones-simple"></i> {{ 'button.audioBattle' | translate }}
+            </li>
+            <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
         </ul>
         <ul class="cards__pagination">
             <span class="cards__pagination-text">English is my heart</span>
@@ -28,7 +37,7 @@
                 [class.disabled]="this.data.parameters.page === 0 || this.data.parameters.currentLevel === 6"
                 (click)="changePage('-1')"><i class="fa-solid fa-chevron-left"></i></li>
             <li class="cards__pagination-page btn disabled"
-                [ngStyle]="{backgroundColor: data.allEase === true ? 'pink' : 'white'}">
+                [ngStyle]="{backgroundColor: this.data.allEase === true || this.data.parameters.currentLevel === 6 ? 'pink' : 'white'}">
                 {{this.data.parameters.page + 1}}
             </li>
             <li class="cards__pagination-next btn"
@@ -46,60 +55,68 @@
         <div class="cards__content">
             <div class="cards__items">
                 <div class="cards__text"
-                    *ngIf="(!data.parameters.words || data.parameters.words.length === 0) && data.user.isAuth === true">
-                    Слов больше нет :(
+                    *ngIf="(!data.parameters.words || data.parameters.words.length === 0) && data.user.isAuth === true && this.data.isLoaded">
+                    {{ 'info.nowords' | translate }}
                 </div>
-                <div class="card" *ngFor="let word of data.parameters.words" [ngStyle]="{boxShadow: 
+                <mat-progress-spinner ngClass="spinner" *ngIf="!this.data.isLoaded" class="example-margin"
+                    color="accent" mode="indeterminate" [value]="50">
+                </mat-progress-spinner>
+                <div class="card__container" *ngIf="this.data.isLoaded">
+                    <div class="card" *ngFor="let word of data.parameters.words" [ngStyle]="{boxShadow: 
                         data.parameters.currentLevel === 6 || data.parameters.hardWords?.includes(word.id) 
                         ? '0 2px 7px 0px #ff4081' 
                         : (data.parameters.easeWords?.includes(word.id)) 
                             ? '0 2px 7px 0px #000000' 
                             : '0 2px 7px 0px ' + data.levels[data.parameters.currentLevel].color}">
-                    <div class="card__img">
-                        <img class="card__img-img" [src]="baseUrl+word.image" alt="">
-                    </div>
-                    <div class="card__info" [ngStyle]="{background: 
+                        <div class="card__img">
+                            <img class="card__img-img" [src]="baseUrl+word.image" alt="">
+                        </div>
+                        <div class="card__info" [ngStyle]="{background: 
                         (data.parameters.currentLevel === 6 || data.parameters.hardWords?.includes(word.id)) 
                         ? '#ff4081' 
                         : (data.parameters.easeWords?.includes(word.id)) 
                             ? '#000000' 
                             : data.levels[data.parameters.currentLevel].color}">
-                        <div class="card__info-left">
-                            <a class="btn-icon active" href="#" title="Слушать"
-                                (click)="play($event, baseUrl + word.audioMeaning, baseUrl + word.audioExample)"><i
-                                    class="fa-solid fa-volume-high"></i></a>
-                            <span class="card__info-words">{{word.word}} {{word.transcription}}</span>
+                            <div class="card__info-left">
+                                <a class="btn-icon active" href="#" title="Слушать"
+                                    (click)="play($event, baseUrl + word.audioMeaning, baseUrl + word.audioExample)"><i
+                                        class="fa-solid fa-volume-high"></i></a>
+                                <span class="card__info-words">{{word.word}} {{word.transcription}}</span>
+                            </div>
+                            <div class="card__info-right">
+                                <span class="card__img-name">{{word.wordTranslate}}</span>
+                                <a class="btn-icon" href="#" title="{{ 'title.inHard' | translate }}"
+                                    [class.active]="data.user.isAuth === true" (click)="checkWord($event, word, 'hard')"
+                                    *ngIf="!data.parameters.hardWords?.includes(word.id)">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                                <a class="btn-icon" href="#" title="{{ 'title.outHard' | translate }}"
+                                    [class.active]="data.user.isAuth === true"
+                                    (click)="removeWord($event, word.id, 'hard')"
+                                    *ngIf="data.parameters.hardWords?.includes(word.id)">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                                <a class="btn-icon" href="#" title="{{ 'title.inEase' | translate }}"
+                                    [class.active]="data.user.isAuth === true" (click)="checkWord($event, word, 'ease')"
+                                    *ngIf="!data.parameters.easeWords?.includes(word.id)">
+                                    <i class="fa-solid fa-check"></i>
+                                </a>
+                                <a class="btn-icon" href="#" title="{{ 'title.outEase' | translate }}"
+                                    [class.active]="data.user.isAuth === true"
+                                    (click)="removeWord($event, word.id, 'ease')"
+                                    *ngIf="data.parameters.easeWords?.includes(word.id)">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="card__info-right">
-                            <span class="card__img-name">{{word.wordTranslate}}</span>
-                            <a class="btn-icon" href="#" title="{{ 'title.inHard' | translate }}"
-                                [class.active]="data.user.isAuth === true" (click)="checkWord($event, word, 'hard')"
-                                *ngIf="!data.parameters.hardWords?.includes(word.id)">
-                                <i class="fa-solid fa-pencil"></i>
-                            </a>
-                            <a class="btn-icon" href="#" title="{{ 'title.outHard' | translate }}"
-                                [class.active]="data.user.isAuth === true" (click)="removeWord($event, word.id, 'hard')"
-                                *ngIf="data.parameters.hardWords?.includes(word.id)">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </a>
-                            <a class="btn-icon" href="#" title="{{ 'title.inEase' | translate }}"
-                                [class.active]="data.user.isAuth === true" (click)="checkWord($event, word, 'ease')"
-                                *ngIf="!data.parameters.easeWords?.includes(word.id)">
-                                <i class="fa-solid fa-check"></i>
-                            </a>
-                            <a class="btn-icon" href="#" title="{{ 'title.outEase' | translate }}"
-                                [class.active]="data.user.isAuth === true" (click)="removeWord($event, word.id, 'ease')"
-                                *ngIf="data.parameters.easeWords?.includes(word.id)">
-                                <i class="fa-solid fa-xmark"></i>
-                            </a>
+
+                        <div class="card__text">
+                            <span class="card__info-en" [innerHtml]="word.textMeaning"></span>
+                            <span class="card__info-ru" [innerHtml]="word.textMeaningTranslate">.</span>
                         </div>
+                        <marquee class="card__row" direction="left" scrollamount="10"
+                            [innerHtml]="word.textExample + ' | ' + word.textExampleTranslate + '.'"></marquee>
                     </div>
-                    <div class="card__text">
-                        <span class="card__info-en" [innerHtml]="word.textMeaning"></span>
-                        <span class="card__info-ru" [innerHtml]="word.textMeaningTranslate">.</span>
-                    </div>
-                    <marquee class="card__row" direction="left" scrollamount="10"
-                        [innerHtml]="word.textExample + ' | ' + word.textExampleTranslate + '.'"></marquee>
                 </div>
             </div>
 

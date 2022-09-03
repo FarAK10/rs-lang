@@ -86,7 +86,7 @@ export class AuthorizationService {
   }
 
   setHardWords() {
-    this.data.parameters = JSON.parse(JSON.stringify(this.data.parameters));
+    this.data.parameters = JSON.parse(JSON.stringify(this.data.defaultParameters));
     this.apiService.getHardWords(this.getUserId()).subscribe((value) => {
       this.userWords = value;
       const arr = value.filter((el) => el.difficulty === 'hard');

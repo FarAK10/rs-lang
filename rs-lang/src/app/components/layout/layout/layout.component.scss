@@ -10,3 +10,11 @@ mat-sidenav-content {
     overflow: initial;
     background-color: white;
 }
+
+mat-sidenav-container {
+    min-height: calc(100vh - 8rem);
+}
+
+mat-sidenav-content {
+    height: 100%;
+}

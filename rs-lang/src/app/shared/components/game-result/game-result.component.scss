@@ -5,7 +5,7 @@
   flex-direction: column;
   margin: auto;
   width: 500px;
-  height: 400px;
+  height: calc(100vh - 8rem);
   background-color: $grey;
   padding: 15px;
   overflow-y: scroll;

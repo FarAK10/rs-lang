@@ -26,7 +26,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   coefficient: number = 1;
 
-  timeLeft: number = 10;
+  timeLeft: number = 60;
 
   aggregatedWords: Array<IWord> = [];
 
@@ -60,12 +60,9 @@ export class SprintGameComponent implements OnInit, OnDestroy {
     this.gameService.reset();
     this.gameService.getWords();
     this.wordsSub = this.gameService.isWordsLoaded$.subscribe((isLoaded: boolean) => {
-      console.log('is loaded', isLoaded);
       if (isLoaded) {
         this.isResoursesLoaded = isLoaded;
         this.aggregatedWords = shuffle(this.gameService.gameWords);
-        console.log(this.aggregatedWords);
-        console.log(this.aggregatedWords);
         this.setEnglishWord();
         this.setTranslation();
         this.startAnimation();
@@ -97,7 +94,6 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   setWordIndex() {
     this.index = this.gameService.gameWords.length;
-    console.log('index', this.index);
   }
 
   onFullScreen(isFullScreen: boolean) {

@@ -65,10 +65,8 @@ export class GameResultComponent implements OnInit {
 
   setSeries(): void {
     let series: number[];
-    console.log(this.currentGameName);
     if (this.currentGameName === 'sprint') {
       series = this.gameService.sprintCorrectSeries;
-      console.log(series);
     } else {
       series = this.gameService.audioCorrectSerices;
     }
@@ -76,7 +74,6 @@ export class GameResultComponent implements OnInit {
   }
 
   navigate(): void {
-    console.log(this.currentGameName);
     this.router.navigate([`./game/${this.currentGameName}`]);
   }
 }

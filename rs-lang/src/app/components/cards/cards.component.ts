@@ -44,10 +44,12 @@ export class CardsComponent implements OnInit {
   }
 
   onCheck(e: Event) {
+    this.data.isLoaded = false;
     const target = e.target as HTMLElement;
     this.data.parameters.currentLevel = Number(target.id);
     this.data.parameters.page = 0;
     this.apiService.getWords(String(this.data.parameters.currentLevel), '0').subscribe((value) => {
+      this.data.isLoaded = true;
       this.data.parameters.words = JSON.parse(JSON.stringify(value));
       this.data.checkArrEase();
       this.apiService.setSessionStorage(this.data.parameters);
@@ -106,9 +108,11 @@ export class CardsComponent implements OnInit {
   }
 
   getWords() {
+    this.data.isLoaded = false;
     this.apiService
       .getWords(String(this.data.parameters.currentLevel), String(this.data.parameters.page))
       .subscribe((value) => {
+        this.data.isLoaded = true;
         this.data.parameters.words = JSON.parse(JSON.stringify(value));
         this.data.checkArrEase();
         this.apiService.setSessionStorage(this.data.parameters);
@@ -133,6 +137,8 @@ export class CardsComponent implements OnInit {
   }
 
   onTutorial() {
+    this.data.isLoaded = false;
+    if (this.data.parameters.arr?.length === 0) this.data.isLoaded = true;
     if (this.data.parameters.currentLevel !== 6) {
       this.data.parameters.prevLevel = this.data.parameters.currentLevel;
       this.data.parameters.prevPage = this.data.parameters.page;
@@ -152,9 +158,11 @@ export class CardsComponent implements OnInit {
           this.data.parameters.words = array;
           this.data.checkArrEase();
           this.apiService.setSessionStorage(this.data.parameters);
+          this.data.isLoaded = true;
         }
       });
     });
+    if (arr.length === 0) this.data.isLoaded = true;
     return array;
   }
 
@@ -169,7 +177,6 @@ export class CardsComponent implements OnInit {
 
   setPage(): void {
     const currentPage = this.data.parameters.page;
-    console.log(currentPage);
     this.gameService.setCurrentPage(currentPage);
   }
 
@@ -179,11 +186,13 @@ export class CardsComponent implements OnInit {
   }
 
   backTutorial() {
+    this.data.isLoaded = false;
     this.data.parameters.currentLevel = this.data.parameters.prevLevel;
     this.data.parameters.page = this.data.parameters.prevPage;
     this.apiService
       .getWords(String(this.data.parameters.currentLevel), String(this.data.parameters.page))
       .subscribe((value) => {
+        this.data.isLoaded = true;
         this.data.parameters.words = JSON.parse(JSON.stringify(value));
         this.data.checkArrEase();
         this.apiService.setSessionStorage(this.data.parameters);
