@@ -109,6 +109,7 @@ interface gameStatista {
 }
 
 export interface IUserStatista {
+  id?: number;
   learnedWords: number;
   optional: {
     sprint: gameStatista;

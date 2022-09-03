@@ -64,7 +64,7 @@ export class GameService {
 
   getWords() {
     this.userId = this.authService.getUserId();
-    this.getGameName();
+    this.gameName = this.getGameName();
     this.isWordsLoaded$.next(false);
     if (this.authService.isAuth) {
       this.userService.getUserWords().subscribe((userWords: HardWords[]) => {
@@ -205,8 +205,8 @@ export class GameService {
     this.localStorageService.setLocalStorage('gameName', gameName);
   }
 
-  getGameName(): void {
-    this.gameName = this.localStorageService.getLocalStorage('gameName') as string;
+  getGameName(): string {
+    return this.localStorageService.getLocalStorage('gameName') as string;
   }
 
   reset(): void {

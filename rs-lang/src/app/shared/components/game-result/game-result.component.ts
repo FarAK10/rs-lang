@@ -6,16 +6,18 @@ import { IWord } from 'src/app/interfaces/interfaces';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { GameService } from 'src/app/services/game.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-game-result',
   templateUrl: './game-result.component.html',
   styleUrls: ['./game-result.component.scss'],
 })
-export class GameResultComponent implements OnInit, OnDestroy {
+export class GameResultComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private authService: AuthorizationService,
+    private userService: UserService,
     private router: Router,
   ) {}
 
@@ -41,22 +43,16 @@ export class GameResultComponent implements OnInit, OnDestroy {
     this.correctAnswers = this.gameService.correctAnswers;
     this.incorrectAnswers = this.gameService.incorrectAnswers;
     this.setValues();
+    this.currentGameName = this.gameService.getGameName();
     this.setSeries();
-    this.gameServiceSub = this.gameService.currentGame$
-      .pipe(take(1))
-      .subscribe((gameName: string) => {
-        this.currentGameName = gameName;
-        console.log(gameName, 'result');
-        console.log(this.currentGameName);
-      });
     if (this.authService.isAuth) {
+      this.userService.setGameStatistics(
+        this.currentGameName,
+        this.persentCorrect,
+        this.correctInRow,
+      );
     }
   }
-
-  ngOnDestroy(): void {
-    this.gameServiceSub.unsubscribe();
-  }
-
   setValues(): void {
     this.mistakesNumber = this.incorrectAnswers.length;
     this.correctAnswersNumber = this.correctAnswers.length;
@@ -69,8 +65,10 @@ export class GameResultComponent implements OnInit, OnDestroy {
 
   setSeries(): void {
     let series: number[];
+    console.log(this.currentGameName);
     if (this.currentGameName === 'sprint') {
       series = this.gameService.sprintCorrectSeries;
+      console.log(series);
     } else {
       series = this.gameService.audioCorrectSerices;
     }
@@ -78,6 +76,7 @@ export class GameResultComponent implements OnInit, OnDestroy {
   }
 
   navigate(): void {
+    console.log(this.currentGameName);
     this.router.navigate([`./game/${this.currentGameName}`]);
   }
 }

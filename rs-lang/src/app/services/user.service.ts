@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HardWords, IWord, Word } from '../interfaces/interfaces';
+import { HardWords, IUserStatista, IWord, Word } from '../interfaces/interfaces';
 import { ApiService } from './api.service';
 import { AuthorizationService } from './authorization.service';
 import { DataService } from './data.service';
@@ -58,7 +58,7 @@ export class UserService {
       1,
     );
     this.data.parameters[ourArr]?.push(a![0]);
-    this.apiService.updateHardWords(this.data.user.userId, id, opt);
+    this.apiService.updateHardWords(this.data.user.userId, id, opt).subscribe();
     this.deleteHard(id);
     this.data.checkArrEase();
   }
@@ -100,7 +100,35 @@ export class UserService {
     }
   }
 
-  setGameStatistics(gameName: string, correctPercent: number, correctSeries: number) {}
+  setGameStatistics(gameName: string, correctPercent: number, correctSeries: number) {
+    this.getUserStatista().subscribe((userStatista: IUserStatista) => {
+      const { id, ...body }: IUserStatista = userStatista;
+      if (gameName === 'sprint') {
+        const newWordsNumber = this.newSprintGameWords.length;
+        body.learnedWords += newWordsNumber;
+        body.optional.sprint.correctPercents.push(correctPercent);
+        body.optional.sprint.series.push(correctSeries);
+        console.log(userStatista, 'setGameStatista');
+      } else {
+        const newWordsNumber = this.newAudioGameWords.length;
+        body.learnedWords += newWordsNumber;
+        body.optional.audio.correctPercents.push(correctPercent);
+        body.optional.audio.series.push(correctSeries);
+      }
+      this.updateUserStatista(body);
+    });
+  }
 
-  updateUserStatista() {}
+  getUserStatista() {
+    const userId = this.authService.getUserId();
+    const url = `users/${userId}/statistics`;
+    return this.apiService.get<IUserStatista>(url);
+  }
+  updateUserStatista(body: IUserStatista) {
+    const userId = this.authService.getUserId();
+    const url = `users/${userId}/statistics`;
+    return this.apiService
+      .put<IUserStatista>(url, body)
+      .subscribe(() => console.log('updated statista'));
+  }
 }
