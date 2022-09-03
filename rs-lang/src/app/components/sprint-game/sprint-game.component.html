@@ -1,4 +1,4 @@
-<div class="sprint__wrapper">
+<div class="sprint__wrapper" *ngIf="isResoursesLoaded">
   <app-game-settings (muteChange)="onMute($event)" (screenSizeChange)="onFullScreen($event)"></app-game-settings>
   <div class="center">
     <div class="timer">
@@ -24,3 +24,6 @@
     </div>
   </div>
 </div>
+<mat-progress-spinner ngClass="spinner" *ngIf="!isResoursesLoaded" class="example-margin" color="accent"
+  mode="indeterminate" [value]="50">
+</mat-progress-spinner>

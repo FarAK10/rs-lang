@@ -1,6 +1,6 @@
 import { ContentObserver } from '@angular/cdk/observers';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { take, TimeInterval, windowWhen } from 'rxjs';
+import { Subscription, take, TimeInterval, windowWhen } from 'rxjs';
 import { IAggregatedResp, IWord } from 'src/app/interfaces/interfaces';
 import { GameService } from 'src/app/services/game.service';
 import { shuffle } from 'src/app/shared/functions';
@@ -50,23 +50,33 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   elem: HTMLElement = document.documentElement;
 
+  wordsSub!: Subscription;
+
+  correctSerries: number = 0;
+
+  isResoursesLoaded = false;
+
   ngOnInit(): void {
     this.gameService.reset();
-    this.gameService
-      .getWords(this.currentPage)
-      .pipe(take(1))
-      .subscribe((words: IWord[]) => {
-        console.log(words);
-        this.aggregatedWords = shuffle(words);
+    this.gameService.getWords();
+    this.wordsSub = this.gameService.isWordsLoaded$.subscribe((isLoaded: boolean) => {
+      console.log('is loaded', isLoaded);
+      if (isLoaded) {
+        this.isResoursesLoaded = isLoaded;
+        this.aggregatedWords = shuffle(this.gameService.gameWords);
+        console.log(this.aggregatedWords);
+        console.log(this.aggregatedWords);
         this.setEnglishWord();
         this.setTranslation();
         this.startAnimation();
-        this.currentPage = this.gameService.getCurrentPage();
-      });
+        this.setWordIndex();
+      }
+    });
   }
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+    this.wordsSub.unsubscribe();
   }
 
   @HostListener('window:keydown.ArrowLeft') arrowLeftEvent() {
@@ -83,6 +93,11 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   onMute(isMute: boolean) {
     this.isMute = isMute;
+  }
+
+  setWordIndex() {
+    this.index = this.gameService.gameWords.length;
+    console.log('index', this.index);
   }
 
   onFullScreen(isFullScreen: boolean) {
@@ -103,43 +118,32 @@ export class SprintGameComponent implements OnInit, OnDestroy {
       this.translation = this.aggregatedWords[this.index].wordTranslate;
     } else {
       this.isCorrect = false;
-      let randomIndex = Math.random() * 20;
+      let randomIndex = Math.random() * this.aggregatedWords.length;
       while (randomIndex === this.index) {
-        randomIndex = Math.random() * 20;
+        randomIndex = Math.random() * this.aggregatedWords.length;
       }
 
       this.translation = this.aggregatedWords[Math.floor(randomIndex)].wordTranslate;
     }
   }
   next() {
-    if (this.index < 19) {
-      this.index++;
+    if (this.index > 0) {
+      this.index--;
       this.setEnglishWord();
       this.setTranslation();
     } else {
-      this.index = 0;
-      this.currentPage++;
-      this.changePage();
+      this.stopGame();
     }
-  }
-
-  changePage() {
-    this.gameService
-      .getWords(this.currentPage)
-      .pipe(take(1))
-      .subscribe((words: IWord[]) => {
-        this.aggregatedWords = shuffle(words);
-        this.setEnglishWord();
-        this.setTranslation();
-      });
   }
 
   check(choice: boolean) {
     if (choice === this.isCorrect) {
       this.playSound('correct.mp3');
+      this.correctSerries++;
       this.gameService.pushCorrect(this.currentWord);
       this.setScore();
     } else {
+      this.gameService.addToSeries(this.correctSerries);
       this.playSound('wrong.mp3');
       this.gameService.pushWrong(this.currentWord);
       this.resetCoefficient();
@@ -164,6 +168,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
     }
   }
   resetCoefficient() {
+    this.correctSerries = 0;
     this.rightInRow = 0;
     this.coefficient = 1;
   }
@@ -173,9 +178,14 @@ export class SprintGameComponent implements OnInit, OnDestroy {
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else if (this.timeLeft === 0) {
-        clearInterval(this.timer);
-        this.router.navigate([`game/result`]);
+        this.stopGame();
       }
     }, 1000);
+  }
+
+  stopGame() {
+    clearInterval(this.timer);
+    this.gameService.addToSeries(this.correctSerries);
+    this.router.navigate([`game/result`]);
   }
 }

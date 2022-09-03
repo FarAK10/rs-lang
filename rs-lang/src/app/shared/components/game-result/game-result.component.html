@@ -14,19 +14,27 @@
       <p class="circle__accuracy">{{ 'sprint.acc' | translate }}</p>
     </div>
     <ul class="statista-list">
-      <li class="statista-list__info">{{ 'sprint.right' | translate }} <span class="words-number">{{correctAnswersNumber}}</span></li>
-      <li class="statista-list__info">{{ 'sprint.wrong' | translate }} <span class="words-number">{{mistakesNumber}}</span></li>
-      <li class="statista-list__info">{{ 'sprint.total' | translate }} <span class="words-number">{{totalWordsNumber}}</span></li>
+      <li class="statista-list__info">{{ 'sprint.right' | translate }} <span
+          class="words-number">{{correctAnswersNumber}}</span></li>
+      <li class="statista-list__info">{{ 'sprint.wrong' | translate }} <span
+          class="words-number">{{mistakesNumber}}</span></li>
+      <li class="statista-list__info">{{ 'sprint.total' | translate }} <span
+          class="words-number">{{totalWordsNumber}}</span></li>
+      <li class="statista-list__info">{{ 'sprint.series' | translate }} <span
+          class="words-number">{{correctInRow}}</span>
+      </li>
     </ul>
   </div>
 
   <div class="result__words">
-    <h3 class="result__words-header">{{ 'sprint.mistakes' | translate }} <span class="words-number">{{mistakesNumber}}</span></h3>
+    <h3 class="result__words-header">{{ 'sprint.mistakes' | translate }} <span
+        class="words-number">{{mistakesNumber}}</span></h3>
     <app-word *ngFor="let word of incorrectAnswers" [word]="word"></app-word>
   </div>
 
   <div class="result__words">
-    <h3 class="result__words-header">{{ 'sprint.correct' | translate }} <span class="words-number">{{correctAnswersNumber}}</span></h3>
+    <h3 class="result__words-header">{{ 'sprint.correct' | translate }} <span
+        class="words-number">{{correctAnswersNumber}}</span></h3>
     <app-word *ngFor="let word of correctAnswers" [word]="word"></app-word>
   </div>
 

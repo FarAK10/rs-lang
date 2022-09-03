@@ -1,11 +1,8 @@
-export class SidebarService{
+export class SidebarService {
   opened = false;
 
-  open(){
+  open() {
     this.opened = !this.opened;
   }
-  openDialog(){
-
-  }
-
+  openDialog() {}
 }

@@ -6,18 +6,16 @@ import { ICurrentUser, Level, Parameters } from '../interfaces/interfaces';
   providedIn: 'root',
 })
 export class DataService {
-  constructor(
-    private translateService: TranslateService
-  ) {
+  constructor(private translateService: TranslateService) {
     if (localStorage.getItem('parameters')) {
       this.parameters = JSON.parse(localStorage.getItem('parameters')!);
     }
     this.getUser();
     this.checkArrEase();
   }
-  
+
   allEase: boolean = false;
-  lang: string | null = (localStorage.getItem('lang')) ? localStorage.getItem('lang') : 'ru';
+  lang: string | null = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'ru';
 
   levels: Level[] = [
     {
@@ -80,7 +78,7 @@ export class DataService {
     arrEase: null,
     prevPage: 0,
     prevLevel: 0,
-  }
+  };
 
   defaultParameters: Parameters = {
     words: null,
@@ -92,7 +90,7 @@ export class DataService {
     arrEase: null,
     prevPage: 0,
     prevLevel: 0,
-  }
+  };
 
   user: ICurrentUser = {
     message: '',
@@ -121,5 +119,4 @@ export class DataService {
     this.lang = languageCode;
     localStorage.setItem('lang', this.lang);
   }
-
 }

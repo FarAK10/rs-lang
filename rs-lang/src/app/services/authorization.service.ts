@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, switchMap, Observable } from 'rxjs';
-import { EaseWords, HardWords, ICurrentUser, INewUser } from '../interfaces/interfaces';
+import {
+  EaseWords,
+  HardWords,
+  ICurrentUser,
+  INewUser,
+  IUserStatista,
+} from '../interfaces/interfaces';
 import { ApiService } from './api.service';
 import { map, tap } from 'rxjs';
 import { of } from 'rxjs';
@@ -20,6 +26,8 @@ export class AuthorizationService {
   currentUser!: ICurrentUser;
 
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
+
+  userWords!: HardWords[];
 
   register(newUser: INewUser): void {
     this.apiService.post('users', newUser).subscribe({
@@ -52,6 +60,7 @@ export class AuthorizationService {
           this.resoursesLoaded$.next(true);
           this.isAuth = true;
           this.setHardWords();
+          this.getInitialStatista();
         },
         (err) => {
           alert('incorrect password or token is experid');
@@ -79,8 +88,9 @@ export class AuthorizationService {
   setHardWords() {
     this.data.parameters = JSON.parse(JSON.stringify(this.data.parameters));
     this.apiService.getHardWords(this.getUserId()).subscribe((value) => {
-      const arr = (value as HardWords[]).filter((el) => el.difficulty === 'hard');
-      const arr2 = (value as EaseWords[]).filter((el) => el.difficulty === 'ease');
+      this.userWords = value;
+      const arr = value.filter((el) => el.difficulty === 'hard');
+      const arr2 = value.filter((el) => el.difficulty === 'ease');
       this.data.parameters.hardWords = this.parseHardWords(arr);
       this.data.parameters.easeWords = this.parseHardWords(arr2);
       this.data.parameters.arr = JSON.parse(JSON.stringify(arr));
@@ -94,5 +104,38 @@ export class AuthorizationService {
     const array: String[] = [];
     arr.map((el) => array.push(el.wordId));
     return array;
+  }
+
+  getInitialStatista() {
+    const userId = this.getUserId();
+    const url = `users/${userId}/statistics`;
+    this.apiService.get(url).subscribe({
+      error: (err) => {
+        if (err.status === 404) {
+          this.setInitialStatista();
+        }
+      },
+    });
+  }
+
+  setInitialStatista() {
+    const userId = this.getUserId();
+    const url = `users/${userId}/statistics`;
+    const body: IUserStatista = {
+      learnedWords: 0,
+      optional: {
+        sprint: {
+          correctPercents: [],
+          newWords: [],
+          series: [],
+        },
+        audio: {
+          correctPercents: [],
+          newWords: [],
+          series: [],
+        },
+      },
+    };
+    this.apiService.put<IUserStatista>(url, body).subscribe();
   }
 }
