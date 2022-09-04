@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   
 })
 export class HeaderComponent implements OnInit {
-  name: string = 'user';
+  name: string = '';
   email: string = '';
 
 
