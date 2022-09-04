@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthorizationService } from './services/authorization.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { OnInit } from '@angular/core';
-import { IWord } from './interfaces/interfaces';
+import { IUserStatista, IWord } from './interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { DataService } from './services/data.service';
@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
     this.setWrongAnswers();
     this.setGameName();
     this.setCorrectSeries();
+    this.setUserStatista();
   }
 
   setUser() {
@@ -86,6 +87,15 @@ export class AppComponent implements OnInit {
     }
     if (audiCorrectSeries) {
       this.gameService.setSeries(audiCorrectSeries, 'audio');
+    }
+  }
+
+  setUserStatista() {
+    const userStatista = JSON.parse(
+      this.localStorageService.getLocalStorage('userStatistics') as string,
+    ) as IUserStatista;
+    if (userStatista) {
+      this.authSerice.currentUserStatista = userStatista;
     }
   }
 }

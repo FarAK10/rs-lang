@@ -86,17 +86,22 @@ export interface IOption {
   class: string;
 }
 
-export interface GameStatista {
+export interface IGameStatista {
   newWords: HardWords[];
   correctPercents: number[];
   series: number[];
+}
+
+export interface IDayStatista {
+  date: Date;
+  sprint: IGameStatista;
+  audio: IGameStatista;
 }
 
 export interface IUserStatista {
   id?: number;
   learnedWords: number;
   optional: {
-    sprint: GameStatista;
-    audio: GameStatista;
+    dates: IDayStatista[] | string;
   };
 }

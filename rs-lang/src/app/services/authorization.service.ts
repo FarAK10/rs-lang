@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, switchMap, Observable } from 'rxjs';
+import { BehaviorSubject, switchMap, Observable, last } from 'rxjs';
 import {
   EaseWords,
   HardWords,
   ICurrentUser,
+  IDayStatista,
   INewUser,
   IUserStatista,
 } from '../interfaces/interfaces';
@@ -13,6 +14,8 @@ import { of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { ERROR_CODES } from '../shared/enums';
 import { DataService } from './data.service';
+import { identifierModuleUrl } from 'angular-html-parser/lib/compiler/src/compile_metadata';
+import { BoundElementProperty, ThisReceiver } from '@angular/compiler';
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +31,27 @@ export class AuthorizationService {
   resoursesLoaded$ = new BehaviorSubject<boolean>(true);
 
   userWords!: HardWords[];
+
+  defaultDateStatista: IDayStatista = {
+    date: new Date(),
+    sprint: {
+      correctPercents: [],
+      newWords: [],
+      series: [],
+    },
+    audio: {
+      correctPercents: [],
+      newWords: [],
+      series: [],
+    },
+  };
+
+  currentUserStatista: IUserStatista = {
+    learnedWords: 0,
+    optional: {
+      dates: [this.defaultDateStatista],
+    },
+  };
 
   register(newUser: INewUser): void {
     this.apiService.post('users', newUser).subscribe({
@@ -109,7 +133,12 @@ export class AuthorizationService {
   getInitialStatista() {
     const userId = this.getUserId();
     const url = `users/${userId}/statistics`;
-    this.apiService.get(url).subscribe({
+    this.apiService.get<IUserStatista>(url).subscribe({
+      next: (res: IUserStatista) => {
+        this.currentUserStatista = res;
+        res.optional.dates = JSON.parse(res.optional.dates as string);
+        this.checkDate(this.currentUserStatista);
+      },
       error: (err) => {
         if (err.status === 404) {
           this.setInitialStatista();
@@ -119,23 +148,49 @@ export class AuthorizationService {
   }
 
   setInitialStatista() {
-    const userId = this.getUserId();
-    const url = `users/${userId}/statistics`;
     const body: IUserStatista = {
       learnedWords: 0,
       optional: {
-        sprint: {
-          correctPercents: [],
-          newWords: [],
-          series: [],
-        },
-        audio: {
-          correctPercents: [],
-          newWords: [],
-          series: [],
-        },
+        dates: JSON.stringify([this.defaultDateStatista]),
       },
     };
-    this.apiService.put<IUserStatista>(url, body).subscribe();
+    this.putStatista(body);
+  }
+
+  putStatista(res: IUserStatista) {
+    const userId = this.getUserId();
+    const url = `users/${userId}/statistics`;
+    const { id, ...body } = res;
+    body.optional.dates = JSON.stringify(body.optional.dates);
+    console.log(url, body);
+    this.apiService.put<IUserStatista>(url, body).subscribe(() => {
+      body.optional.dates = JSON.parse(body.optional.dates as string);
+    });
+  }
+
+  checkDate(res: IUserStatista) {
+    const datesLength = res.optional.dates.length;
+    const lastDateStatista = res.optional.dates[datesLength - 1];
+    const lastDate = (lastDateStatista as IDayStatista).date;
+    const penultDateStatista = res.optional.dates[datesLength - 2];
+    const penultDate = (penultDateStatista as IDayStatista).date;
+    const hoursDiff = this.timeDiff(lastDate, penultDate);
+    if (hoursDiff >= 24) {
+      console.log('hours', hoursDiff);
+      (res.optional.dates as IDayStatista[]).push(this.defaultDateStatista);
+      this.putStatista(res);
+    }
+  }
+
+  timeDiff(last: Date, penult: Date) {
+    const msBetweenDates = Math.abs(last.getTime() - penult.getTime());
+    const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
+    return hoursBetweenDates;
+  }
+
+  getLastDateStatista() {
+    const datesLength = this.currentUserStatista.optional.dates.length;
+    const lastDateStatista = this.currentUserStatista.optional.dates[datesLength - 1];
+    return lastDateStatista as IDayStatista;
   }
 }

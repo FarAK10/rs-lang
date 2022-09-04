@@ -80,11 +80,11 @@ export class ApiService {
     });
   }
 
-  getStat(idUser: string){
-    return this.http.get<[]>(`${this.baseUrl}/users/${idUser}/words`)
+  getStat(idUser: string) {
+    return this.http.get<[]>(`${this.baseUrl}/users/${idUser}/words`);
   }
-  getGameStats(idUser: string){
-    return this.http.get<IUserStatista>(`${this.baseUrl}/users/${idUser}/statistics`)
+  getGameStats(idUser: string) {
+    return this.http.get<IUserStatista>(`${this.baseUrl}/users/${idUser}/statistics`);
   }
   setSessionStorage(obj: Parameters): void {
     localStorage.setItem('parameters', JSON.stringify(obj));
