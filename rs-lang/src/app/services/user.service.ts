@@ -14,7 +14,7 @@ export class UserService {
     private apiService: ApiService,
     private authService: AuthorizationService,
     private localStorageService: LocalStorageService,
-  ) { }
+  ) {}
 
   newSprintGameWords: HardWords[] = [];
   newAudioGameWords: HardWords[] = [];
@@ -51,11 +51,13 @@ export class UserService {
     const ourArr = opt === 'hard' ? 'arr' : 'arrEase';
     const otherArr = opt === 'hard' ? 'arrEase' : 'arr';
     this.data.parameters[otherWord]?.splice(
-      this.data.parameters[otherWord]!.findIndex((el) => el === id), 1
+      this.data.parameters[otherWord]!.findIndex((el) => el === id),
+      1,
     );
     this.data.parameters[ourWord]?.push(id);
     const a = this.data.parameters[otherArr]?.splice(
-      this.data.parameters[otherArr]!.findIndex((el) => el.wordId === id), 1
+      this.data.parameters[otherArr]!.findIndex((el) => el.wordId === id),
+      1,
     );
     this.data.parameters[ourArr]?.push(a![0]);
     this.apiService.updateHardWords(this.data.user.userId, id, opt).subscribe();
@@ -80,6 +82,7 @@ export class UserService {
   }
 
   setNewWord(word: HardWords) {
+    console.log(word);
     const gameName = this.localStorageService.getLocalStorage('gameName');
     if (gameName === 'sprint') {
       this.newSprintGameWords.push(word);
@@ -92,15 +95,19 @@ export class UserService {
     this.getUserStatista().subscribe((userStatista: IUserStatista) => {
       const { id, ...body }: IUserStatista = userStatista;
       if (gameName === 'sprint') {
+        console.log('newWords', this.newSprintGameWords);
         const newWordsNumber = this.newSprintGameWords.length;
+        console.log(newWordsNumber);
         body.learnedWords += newWordsNumber;
         body.optional.sprint.correctPercents.push(correctPercent);
         body.optional.sprint.series.push(correctSeries);
+        body.optional.sprint.newWords.push(...this.newSprintGameWords);
       } else {
         const newWordsNumber = this.newAudioGameWords.length;
         body.learnedWords += newWordsNumber;
         body.optional.audio.correctPercents.push(correctPercent);
         body.optional.audio.series.push(correctSeries);
+        body.optional.audio.newWords.push(...this.newAudioGameWords);
       }
       this.updateUserStatista(body);
     });
@@ -114,8 +121,6 @@ export class UserService {
   updateUserStatista(body: IUserStatista) {
     const userId = this.authService.getUserId();
     const url = `users/${userId}/statistics`;
-    return this.apiService
-      .put<IUserStatista>(url, body)
-      .subscribe();
+    return this.apiService.put<IUserStatista>(url, body).subscribe();
   }
 }

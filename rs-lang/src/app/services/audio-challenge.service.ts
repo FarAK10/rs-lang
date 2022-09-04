@@ -34,20 +34,6 @@ export class AudioChallengeService {
     });
   }
 
-  getOption(): IOption[] {
-    let options = this.allWords
-      .slice(this.sliceNumber * 5, this.sliceNumber * 5 + 5)
-      .map((word: IWord, index: number) => {
-        if (index === this.sliceNumber) {
-          this.correctOption = this.setClass(word, 'correct');
-          return this.correctOption;
-        } else {
-          return this.setClass(word, 'wrong');
-        }
-      });
-    return shuffle(options);
-  }
-
   getOptions(): IOption[] {
     const options = [];
     const indexes = [];
