@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { Router } from '@angular/router';
-import { HardWords } from 'src/app/interfaces/interfaces';
+import { HardWords, IUserStatista } from 'src/app/interfaces/interfaces';
 import { take } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthorizationService } from 'src/app/services/authorization.service';
@@ -35,27 +35,26 @@ export class StatisticsComponent implements OnInit {
     this.apiService.getStat(idUser).subscribe((userWords) => {
       console.log(userWords);
       this.userWords = userWords;
-      this.learnWords = this.userWords.filter((e) => e.difficulty == 'ease').length;
+      this.learnWords = this.userWords.filter((e) => e.difficulty == 'ease').length || 0;
       this.allLearnedWords = this.learnWords / 36;
 
       console.log(this.allLearnedWords.toFixed(2));
     });
-    this.apiService.getGameStats(idUser).subscribe((gameStats) => {
-      this.arrSprintWords = gameStats.optional.sprint.newWords;
-      this.arrSprintPercent = gameStats.optional.sprint.correctPercents;
-      this.arrSprintSeries = gameStats.optional.sprint.series;
-      this.sprintWords = this.arrSprintWords.length;
-      this.sprintPercent =
-        this.arrSprintPercent.reduce((a, b) => a + b) / this.arrSprintPercent.length;
-      this.sprintSeries = Math.max.apply(null, this.arrSprintSeries);
+    const lastDateStatista = this.authService.getLastDateStatista();
+    this.arrSprintWords = lastDateStatista.sprint.newWords;
+    this.arrSprintPercent = lastDateStatista.sprint.correctPercents;
+    this.arrSprintSeries = lastDateStatista.sprint.series;
+    this.sprintWords = this.arrSprintWords.length;
+    this.sprintPercent =
+      this.arrSprintPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length;
+    this.sprintSeries = Math.max.apply(null, this.arrSprintSeries) || 0;
 
-      this.arrAudioWords = gameStats.optional.audio.newWords;
-      this.arrAudioPercent = gameStats.optional.audio.correctPercents;
-      this.arrAudioSeries = gameStats.optional.audio.series;
-      this.audioWords = this.arrAudioWords.length;
-      this.audioPercent =
-        this.arrAudioPercent.reduce((a, b) => a + b) / this.arrSprintPercent.length;
-      this.audioSeries = Math.max.apply(null, this.arrAudioSeries);
-    });
+    this.arrAudioWords = lastDateStatista.audio.newWords;
+    this.arrAudioPercent = lastDateStatista.audio.correctPercents;
+    this.arrAudioSeries = lastDateStatista.audio.series;
+    this.audioWords = this.arrAudioWords.length;
+    this.audioPercent =
+      this.arrAudioPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length;
+    this.audioSeries = Math.max.apply(null, this.arrAudioSeries) || 0;
   }
 }
