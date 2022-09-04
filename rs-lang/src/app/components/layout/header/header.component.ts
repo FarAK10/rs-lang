@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from '../../../services/sidebar.service';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 import { DataService } from 'src/app/services/data.service';
 
 
@@ -10,15 +11,19 @@ import { DataService } from 'src/app/services/data.service';
   
 })
 export class HeaderComponent implements OnInit {
+  name: string = 'user';
+  email: string = '';
+
 
   constructor(
     public sidebarService: SidebarService,
     public data: DataService,
+    public authorizationService: AuthorizationService
     ) { 
     
   }
-
   ngOnInit(): void {
+  this.name = this.authorizationService.currentUser.name;
+    
   }
-
 }

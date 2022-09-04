@@ -4,11 +4,13 @@
     </button>
     <span>RS-Lang</span>
     <span class="example-spacer"></span>
-    <div class="langs">
-      <span class="lang" (click)="data.setLanguage('ru')" [class.active]="data.lang === 'ru'">{{ 'languages.russian' | translate }}</span> /
-      <span class="lang" (click)="data.setLanguage('en')" [class.active]="data.lang === 'en'">{{ 'languages.english' | translate }}</span>
-    </div>
+      <div class="langs">
+        <span class="lang" (click)="data.setLanguage('ru')" [class.active]="data.lang === 'ru'">{{ 'languages.russian' | translate }}</span> /
+        <span class="lang" (click)="data.setLanguage('en')" [class.active]="data.lang === 'en'">{{ 'languages.english' | translate }}</span>
+      </div>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="/autorization/login">
       <mat-icon>account_circle</mat-icon>
     </button>
+    <div>{{name}}</div>
+
 </mat-toolbar>

@@ -86,7 +86,7 @@ export interface IOption {
   class: string;
 }
 
-interface gameStatista {
+export interface GameStatista {
   newWords: HardWords[];
   correctPercents: number[];
   series: number[];
@@ -96,7 +96,8 @@ export interface IUserStatista {
   id?: number;
   learnedWords: number;
   optional: {
-    sprint: gameStatista;
-    audio: gameStatista;
+    sprint: GameStatista;
+    audio: GameStatista;
   };
 }
+

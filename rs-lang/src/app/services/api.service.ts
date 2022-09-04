@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HardWords, Parameters } from '../interfaces/interfaces';
+import { HardWords, IUserStatista, Parameters } from '../interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataService } from './data.service';
@@ -80,6 +80,12 @@ export class ApiService {
     });
   }
 
+  getStat(idUser: string){
+    return this.http.get<[]>(`${this.baseUrl}/users/${idUser}/words`)
+  }
+  getGameStats(idUser: string){
+    return this.http.get<IUserStatista>(`${this.baseUrl}/users/${idUser}/statistics`)
+  }
   setSessionStorage(obj: Parameters): void {
     localStorage.setItem('parameters', JSON.stringify(obj));
   }

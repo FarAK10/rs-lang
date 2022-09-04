@@ -42,6 +42,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 
 import { AudioChallengeComponent } from './components/audio-challenge/audio-challenge.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
@@ -82,6 +83,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CardsComponent,
     GamesComponent,
     AudioChallengeComponent,
+    StatisticsComponent,
   ],
 
   imports: [
