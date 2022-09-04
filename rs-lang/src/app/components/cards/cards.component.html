@@ -2,12 +2,22 @@
     <div class="container">
         <ul class="cards__menu">
             <img src="./../../../assets/img/flower-left.png" alt="flower" class="flower-left">
-            <li class="cards__menu-item" routerLink="/tutorial">Tutorial</li>
+            <li class="cards__menu-item" *ngIf="this.data.parameters.currentLevel === 6" (click)="backTutorial()">
+                <i class="fa-solid fa-arrow-left-long"></i> {{ 'button.back' | translate }}
+            </li>
             <li class="cards__menu-item" routerLink="/tutorial/words" (click)="onTutorial()"
-                *ngIf="this.data.user.isAuth === true">Hard Words</li>
-            <li class="cards__menu-item" routerLink="/game/english-level">Sprint</li>
-            <li class="cards__menu-item">Audio battle</li>
-            <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
+                *ngIf="this.data.user.isAuth === true && this.data.parameters.currentLevel !== 6">
+                <i class="fa-solid fa-lightbulb"></i> {{ 'button.hardWords' | translate }}
+            </li>
+            <li class="cards__menu-item" routerLink="/tutorial"><i class="fa-solid fa-graduation-cap"></i>
+                {{ 'button.main' | translate }}
+            </li>
+            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('sprint')">
+                <i class="fa-solid fa-person-running"></i> {{ 'button.sprint' | translate }}
+            </li>
+            <li class="cards__menu-item" routerLink="/game/english-level" (click)="setGame('audio')">
+                <i class="fa-solid fa-headphones-simple"></i> {{ 'button.audioBattle' | translate }}
+                <img src="./../../../assets/img/flower-right.png" alt="flower" class="flower-right">
         </ul>
         <ul class="cards__pagination">
             <span class="cards__pagination-text">English is my heart</span>
@@ -17,8 +27,8 @@
             <li class="cards__pagination-prev btn"
                 [class.disabled]="this.data.parameters.page === 0 || this.data.parameters.currentLevel === 6"
                 (click)="changePage('-1')"><i class="fa-solid fa-chevron-left"></i></li>
-            <li class="cards__pagination-page btn disabled" 
-                  [ngStyle]="{backgroundColor: data.allEase === true ? 'pink' : 'white'}">
+            <li class="cards__pagination-page btn disabled"
+                [ngStyle]="{backgroundColor: data.allEase === true ? 'pink' : 'white'}">
                 {{this.data.parameters.page + 1}}
             </li>
             <li class="cards__pagination-next btn"
@@ -62,22 +72,22 @@
                         </div>
                         <div class="card__info-right">
                             <span class="card__img-name">{{word.wordTranslate}}</span>
-                            <a class="btn-icon" href="#" title="Записать в трудные"
+                            <a class="btn-icon" href="#" title="{{ 'title.inHard' | translate }}"
                                 [class.active]="data.user.isAuth === true" (click)="checkWord($event, word, 'hard')"
                                 *ngIf="!data.parameters.hardWords?.includes(word.id)">
                                 <i class="fa-solid fa-pencil"></i>
                             </a>
-                            <a class="btn-icon" href="#" title="Больше не трудное"
+                            <a class="btn-icon" href="#" title="{{ 'title.outHard' | translate }}"
                                 [class.active]="data.user.isAuth === true" (click)="removeWord($event, word.id, 'hard')"
                                 *ngIf="data.parameters.hardWords?.includes(word.id)">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a>
-                            <a class="btn-icon" href="#" title="Записать в изученное"
+                            <a class="btn-icon" href="#" title="{{ 'title.inEase' | translate }}"
                                 [class.active]="data.user.isAuth === true" (click)="checkWord($event, word, 'ease')"
                                 *ngIf="!data.parameters.easeWords?.includes(word.id)">
                                 <i class="fa-solid fa-check"></i>
                             </a>
-                            <a class="btn-icon" href="#" title="Изучать снова"
+                            <a class="btn-icon" href="#" title="{{ 'title.outEase' | translate }}"
                                 [class.active]="data.user.isAuth === true" (click)="removeWord($event, word.id, 'ease')"
                                 *ngIf="data.parameters.easeWords?.includes(word.id)">
                                 <i class="fa-solid fa-xmark"></i>
@@ -94,7 +104,7 @@
             </div>
 
             <ul class="cards__levels">
-                <h4 class="cards__level-title">levels</h4>
+                <h4 class="cards__level-title">{{ 'info.levels' | translate }}</h4>
                 <li class="cards__levels-level" id={{level.id}} *ngFor="let level of data.levels"
                     [class.active]="level.id === data.parameters.currentLevel" [ngStyle]="{background: level.color}"
                     (click)="onCheck($event)">

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { TutorialComponent } from '../tutorial/tutorial.component';
 
 @Component({
   selector: 'app-games',
@@ -7,27 +9,28 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./games.component.scss'],
 })
 export class GamesComponent {
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService, private localStorageService: LocalStorageService) {}
   card = [
     {
       icon: 'directions_run',
-      title: 'Спринт',
+      title: 'games.sprint',
       game: 'sprint',
-      description:
-        'Проверьте, сколько очков вы можете получить за одну минуту, делая обоснованные предположения о том, что правильно, а что нет.',
+      description: 'games.descSprint',
       link: '/game/english-level',
     },
     {
       icon: 'queue_music',
-      title: 'Аудио-вызов',
+      title: 'games.audioBattle',
       game: 'audio',
-      description:
-        'Проверьте свои навыки слушания, пытаясь подобрать правильное значение после услышанного слова. У вас есть только одна попытка.',
+      description: 'games.descAudio',
       link: '/game/english-level',
     },
   ];
 
   setRoute(game: string) {
+    this.gameService.isLaunchedFromMenu = true;
+    this.localStorageService.setLocalStorage('isLaunchedFromMenu', JSON.stringify(true));
     this.gameService.setCurrentGame(game);
+    console.log('games', game);
   }
 }

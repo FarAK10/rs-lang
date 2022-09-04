@@ -9,10 +9,7 @@ export default class HeaderInterceptor implements HttpInterceptor {
   content = 'Content-Type';
   type = 'application/json';
 
-  constructor(
-    private authorizationService: AuthorizationService,
-    private data: DataService
-    ) {}
+  constructor(private authorizationService: AuthorizationService, private data: DataService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.authorizationService.getToken();

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IOption, IWord } from 'src/app/interfaces/interfaces';
 import { AudioChallengeService } from 'src/app/services/audio-challenge.service';
 import { GameService } from 'src/app/services/game.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { Subscribable, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-audio-challenge',
   templateUrl: './audio-challenge.component.html',
   styleUrls: ['./audio-challenge.component.scss'],
 })
-export class AudioChallengeComponent implements OnInit {
+export class AudioChallengeComponent implements OnInit, OnDestroy {
   gameName: string = 'Audio-Challenge';
 
   level!: string;
@@ -37,9 +38,17 @@ export class AudioChallengeComponent implements OnInit {
 
   isAnswerShown: boolean = false;
 
-  showBtnText: string = 'Show Answer';
+  showBtnText: string = 'audio.showAnswer';
 
   baseUrl!: string;
+
+  correctInRow: number = 0;
+
+  optionsSub$!: Subscription;
+
+  isResoursesLoaded: boolean = false;
+
+  wordsSub!: Subscription;
 
   lives: Array<string> = [
     'favorite',
@@ -57,15 +66,28 @@ export class AudioChallengeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.gameService.reset();
     this.audioGameService.getWords();
-    this.audioGameService.options$.subscribe((options: IOption[]) => {
+    this.wordsSub = this.gameService.isWordsLoaded$.subscribe((isLoaded: boolean) => {
+      if (isLoaded) {
+        this.isResoursesLoaded = true;
+      }
+    });
+    this.optionsSub$ = this.audioGameService.options$.subscribe((options: IOption[]) => {
       this.options = options;
+      console.log(options);
       if (this.options.length) {
         this.correctWord = this.audioGameService.getCorrectWord();
         this.playPronunciation();
       }
     });
+
     this.baseUrl = this.apiService.getBaseUrl();
+  }
+
+  ngOnDestroy(): void {
+    this.optionsSub$.unsubscribe();
+    this.wordsSub.unsubscribe();
   }
 
   onMute(isMute: boolean) {
@@ -83,9 +105,12 @@ export class AudioChallengeComponent implements OnInit {
   checkAnswer(translation: string) {
     const correctTranslation = this.correctWord.wordTranslate;
     if (correctTranslation === translation) {
+      this.correctInRow++;
       this.playSound('correct.mp3');
       this.onRightAnswer();
     } else {
+      this.gameService.addToSeries(this.correctInRow);
+      this.correctInRow = 0;
       this.playSound('wrong.mp3');
       this.onIncorrectAnswer();
     }
@@ -93,23 +118,28 @@ export class AudioChallengeComponent implements OnInit {
 
   toggle() {
     if (this.isAnswerShown) {
-      this.showBtnText = 'next question';
+      this.isTheLastLive();
       this.imgLink = `${this.baseUrl}/${this.correctWord.image}`;
       this.currentEnglishWord = this.correctWord.word;
     } else {
-      this.showBtnText = 'Show answer';
+      this.showBtnText = 'audio.showAnswer';
       this.imgLink = this.defaultImgLink;
       this.currentEnglishWord = '';
     }
   }
 
-  reduceNumberOfAttempts() {
+  isTheLastLive() {
     if (this.livesLeft === -1) {
-      this.router.navigate([`game/result`]);
+      this.showBtnText = 'show results';
+      this.gameService.addToSeries(this.correctInRow);
     } else {
-      this.lives.splice(this.livesLeft, 1, 'favorite_border');
-      this.livesLeft--;
+      this.showBtnText = 'next question';
     }
+  }
+
+  reduceNumberOfAttempts() {
+    this.lives.splice(this.livesLeft, 1, 'favorite_border');
+    this.livesLeft--;
   }
   isWrong(className: string) {
     if (this.isAnswerShown) {
@@ -154,7 +184,11 @@ export class AudioChallengeComponent implements OnInit {
   }
 
   onNextQuestion() {
-    this.audioGameService.checkPage();
-    this.isAnswerShown = false;
+    if (this.livesLeft === -1) {
+      this.router.navigate([`game/result`]);
+    } else {
+      this.audioGameService.nextQuestion();
+      this.isAnswerShown = false;
+    }
   }
 }

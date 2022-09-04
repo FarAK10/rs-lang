@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ContentObserver } from '@angular/cdk/observers';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { IWord } from 'src/app/interfaces/interfaces';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 import { GameService } from 'src/app/services/game.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-game-result',
@@ -10,7 +14,12 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./game-result.component.scss'],
 })
 export class GameResultComponent implements OnInit {
-  constructor(private gameService: GameService, private router: Router) {}
+  constructor(
+    private gameService: GameService,
+    private authService: AuthorizationService,
+    private userService: UserService,
+    private router: Router,
+  ) {}
 
   persentCorrect = 40;
 
@@ -24,17 +33,26 @@ export class GameResultComponent implements OnInit {
 
   incorrectAnswers: IWord[] = [];
 
-  currentGame: string = '';
+  currentGameName: string = '';
+
+  correctInRow!: number;
+
+  gameServiceSub!: Subscription;
 
   ngOnInit(): void {
     this.correctAnswers = this.gameService.correctAnswers;
     this.incorrectAnswers = this.gameService.incorrectAnswers;
     this.setValues();
-    this.gameService.currentGame$.pipe(take(1)).subscribe((gameName: string) => {
-      this.currentGame = gameName;
-    });
+    this.currentGameName = this.gameService.getGameName();
+    this.setSeries();
+    if (this.authService.isAuth) {
+      this.userService.setGameStatistics(
+        this.currentGameName,
+        this.persentCorrect,
+        this.correctInRow,
+      );
+    }
   }
-
   setValues(): void {
     this.mistakesNumber = this.incorrectAnswers.length;
     this.correctAnswersNumber = this.correctAnswers.length;
@@ -45,7 +63,20 @@ export class GameResultComponent implements OnInit {
     this.persentCorrect = Math.floor((this.correctAnswersNumber / this.totalWordsNumber) * 100);
   }
 
+  setSeries(): void {
+    let series: number[];
+    console.log(this.currentGameName);
+    if (this.currentGameName === 'sprint') {
+      series = this.gameService.sprintCorrectSeries;
+      console.log(series);
+    } else {
+      series = this.gameService.audioCorrectSerices;
+    }
+    this.correctInRow = Math.max(...series);
+  }
+
   navigate(): void {
-    this.router.navigate([`./game/${this.currentGame}`]);
+    console.log(this.currentGameName);
+    this.router.navigate([`./game/${this.currentGameName}`]);
   }
 }

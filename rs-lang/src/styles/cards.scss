@@ -29,7 +29,7 @@
         }
 
         .cards__menu-item {
-            width: 150px;
+            width: 160px;
             padding: 10px;
             background: white;
             box-shadow: 0 0 10px $light-grey;
@@ -37,7 +37,7 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all .2s ease;
-            @include font(18px, $pink, "Post Human", 100);
+            @include font(18px, $pink, "Five-Italic", 700, );
 
             &:hover {
                 box-shadow: 0 0 15px $pink;
@@ -262,7 +262,7 @@
             }
 
             .cards__level-title {
-                @include font(22px, $pink, "Post Human", 100);
+                @include font(22px, $pink, "Five-Italic", 100);
             }
 
             .cards__levels-level {
@@ -321,3 +321,4 @@
         display: block;
     }
 }
+

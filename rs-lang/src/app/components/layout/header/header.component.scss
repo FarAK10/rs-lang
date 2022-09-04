@@ -10,3 +10,24 @@ mat-icon:hover{
     transition: all 0.2s ease-in-out;
 }
 
+.langs {
+    margin-right: 20px;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .lang {
+        cursor: pointer;
+        @include font(24px, black, "Five-Italic", 400);
+        transition: all .3s ease;
+        border-bottom: 2px solid transparent;
+        &:hover {
+            text-shadow: 0 0 5px white;
+        }
+        &.active {
+            text-shadow: 0 0 5px white;
+            border-bottom: 2px solid black;
+            cursor: default;
+        }
+    }
+}

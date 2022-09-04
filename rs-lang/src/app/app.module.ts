@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CustomModule } from 'src/app/modules/custom/materials.module'
+import { CustomModule } from 'src/app/modules/custom/materials.module';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { LayoutComponent } from './components/layout/layout/layout.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
@@ -37,6 +37,9 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { WordComponent } from './shared/components/word/word.component';
 import { ApiService } from './services/api.service';
 import { GamesComponent } from './components/games/games.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 import { AudioChallengeComponent } from './components/audio-challenge/audio-challenge.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
@@ -53,6 +56,10 @@ const angularMaterailModules = [
   MatSlideToggleModule,
   MatBadgeModule,
 ];
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -81,6 +88,14 @@ const angularMaterailModules = [
 
   imports: [
     BrowserModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     AppRoutingModule,
     BrowserAnimationsModule,
     CustomModule,
@@ -92,14 +107,14 @@ const angularMaterailModules = [
     ...formsModules,
     NgCircleProgressModule.forRoot({}),
   ],
-  
+
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptor,
       multi: true,
     },
-    SidebarService
+    SidebarService,
   ],
   bootstrap: [AppComponent],
 })

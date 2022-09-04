@@ -1,12 +1,12 @@
 <div class="advantages">
-    <h2>Преимущества</h2>
+    <h2>{{ 'layout.card' | translate }}</h2>
     <div class="cards__container">
       <div class="card" *ngFor="let post of card">
         <div class="icons">
           <mat-icon aria-hidden="false" aria-label="Example home icon">{{post.icon}}</mat-icon>
         </div>
-        <h3>{{post.title}}</h3>
-        <p class="description">{{post.description}}</p>
+        <h3>{{post.title | translate}}</h3>
+        <p class="description">{{post.description | translate}}</p>
       </div>
     </div>
 </div>    

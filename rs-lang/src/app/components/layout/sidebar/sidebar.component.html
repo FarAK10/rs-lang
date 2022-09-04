@@ -2,25 +2,25 @@
     <li>
       <a class="underline-one" routerLink="" (click)="sidebarService.open()">
         <mat-icon aria-hidden="false" aria-label="Example home icon" class="text_dec">home</mat-icon>
-        Главная
+        {{ 'menu.main' | translate }}
       </a>
     </li>
     <li>
       <a class="underline-one" routerLink="/tutorial" (click)="sidebarService.open()">
         <mat-icon aria-hidden="false" aria-label="Example home icon">format_color_text</mat-icon>
-        Эпектронный учебник
+        {{ 'menu.tutorial' | translate }}
       </a>
     </li>
     <li>
       <a class="underline-one" routerLink="/games" (click)="sidebarService.open()">
         <mat-icon aria-hidden="false" aria-label="Example home icon">games</mat-icon>
-        Мини-игры
+        {{ 'menu.games' | translate }}
       </a>
     </li>
     <li>
       <a class="underline-one" routerLink="/statistics" (click)="sidebarService.open()">
         <mat-icon aria-hidden="false" aria-label="Example home icon">bar_chart</mat-icon>
-        Статистика
+        {{ 'menu.statistics' | translate }}
       </a>
     </li>
   </ul>

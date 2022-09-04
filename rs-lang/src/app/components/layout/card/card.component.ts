@@ -7,9 +7,9 @@ import { Component} from '@angular/core';
 })
 export class CardComponent {
   card = [
-    {icon: 'format_color_text', title: 'Эпектронный учебник', description: 'Электронный учебник состоит из шести разделов. В каждом разделе 30 страниц по 20 слов. Представлены перевод слова, тематическое изображение, а также произношение как слова отдельно, так и в составе словосочетания.'},
-    {icon: 'g_translate', title: 'Словарь', description: 'Словарь содержит списки изучаемых слов, слов, которые не нужно учить, а также тех, которые вызывают затруднения. В словаре отражена статистика по каждому разделу и успеваемость учащихся.'},
-    {icon: 'bar_chart', title: 'Статистика', description: 'Весь прогресс обучения можно посмотреть в статистике, где представлены данные как за текущий день, так и за весь период обучения. Информация представлена ​​как в виде таблицы, так и в виде графиков, что очень удобно.'},
-    {icon: 'games', title: 'Мини-игры', description: 'Для изучения слов и закрепления запоминания в приложении есть 4 игры: игра1, игра2, игра3 и игра4, которые помогут вам в игровой форме «прокачать» словарный запас.'}
+    {icon: 'format_color_text', title: 'card.titleTexbook', description: 'card.descTexbook'},
+    {icon: 'g_translate', title: 'card.titleTutorial', description: 'card.descTutorial'},
+    {icon: 'bar_chart', title: 'card.titleStat', description: 'card.descStat'},
+    {icon: 'games', title: 'card.titleGames', description: 'card.descGames'}
   ]
 }

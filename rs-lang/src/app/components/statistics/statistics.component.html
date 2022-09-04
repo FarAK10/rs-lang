@@ -9,8 +9,8 @@
         <div class="sts">
             <div class="description">Изучено: {{this.learnWords}} слов</div>
             <div class="circle">
-              <circle-progress class="circular-bar" [percent]="learnedWords" [radius]="55" [outerStrokeWidth]="8"
-                [innerStrokeWidth]="6" [outerStrokeColor]="' #3f51b5'" [innerStrokeColor]="'#ff4081'" [animation]="true"
+              <circle-progress class="circular-bar" [percent]="allLearnedWords" [radius]="55" [outerStrokeWidth]="6"
+                [innerStrokeWidth]="3" [outerStrokeColor]="' #3f51b5'" [innerStrokeColor]="'#ff4081'" [animation]="true"
                 [animationDuration]="300">
               </circle-progress>
             </div>
@@ -22,9 +22,9 @@
         </div>
         <h3>Спринт</h3>
         <div class="sts">
-            <div class="description">Изучено: 0 слов</div>
-            <div class="description">Правильных ответов: 0%</div>
-            <div class="description">Самая длинная серия правильных ответов: 0</div>
+            <div class="description">Изучено: {{this.sprintWords}} слов</div>
+            <div class="description">Правильных ответов: {{this.sprintPercent}}%</div>
+            <div class="description">Самая длинная серия правильных ответов: {{this.sprintSeries}}</div>
         </div>
       </div>
       <div class="card">
@@ -33,9 +33,9 @@
         </div>
         <h3>Аудио-вызов</h3>
         <div class="sts">
-            <div class="description">Изучено: 0 слов</div>
-            <div class="description">Правильных ответов: 000%</div>
-            <div class="description">Самая длинная серия правильных ответов: 0</div>
+            <div class="description">Изучено: {{this.audioWords}} слов</div>
+            <div class="description">Правильных ответов: {{this.audioPercent}}%</div>
+            <div class="description">Самая длинная серия правильных ответов: {{this.audioSeries}}</div>
         </div>
       </div>
     </div>
