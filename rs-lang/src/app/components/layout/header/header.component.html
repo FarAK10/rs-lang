@@ -2,7 +2,7 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="sidebarService.open()">
       <mat-icon aria-hidden="false" aria-label="Example home icon">dashboard</mat-icon>
     </button>
-    <span>RS-Lang</span>
+    <span class="rslang">RS-Lang</span>
     <span class="example-spacer"></span>
       <div class="langs">
         <span class="lang" (click)="data.setLanguage('ru')" [class.active]="data.lang === 'ru'">{{ 'languages.russian' | translate }}</span> /

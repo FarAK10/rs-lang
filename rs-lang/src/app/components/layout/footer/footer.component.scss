@@ -1,6 +1,15 @@
 @import '../../../../styles/constants.scss';
 
-.rss{
+mat-toolbar {
+    @media (max-width: 380px) {
+        padding: 10px;
+    }
+    @media (max-width: 360px) {
+        padding: 5px;
+    }
+}
+
+.rss {
     display: flex;
     text-decoration: none;
     background-image: url(../../../../assets/icons/rs__logo.svg);
@@ -8,22 +17,56 @@
     background-position: center;
     width: 4rem;
     height: 4rem;
+
+    @media (max-width: 380px) {
+        width: 3rem;
+        height: 3rem;
+    }
+    @media (max-width: 340px) {
+        display: none;
+    }
+    
 }
-a{
+
+a {
     text-decoration: none;
     color: black;
 }
-.authors{
+
+.year {
+    font-size: 20px;
+
+    @media (max-width: 470px) {
+        font-size: 16px;
+    }
+}
+
+.authors {
     display: flex;
     gap: 1rem;
     font-size: 1rem;
     text-decoration-color: black;
-    :hover{
+
+    @media (max-width: 470px) {
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    @media (max-width: 420px) {
+        gap: 5px;
+        font-size: 14px;
+    }
+    @media (max-width: 340px) {
+        gap: 10px;
+    }
+
+    :hover {
         color: white;
         transition: all 0.2s ease-in-out;
     }
 }
-mat-toolbar{
+
+mat-toolbar {
     width: 100%;
     display: flex;
     justify-content: space-between;

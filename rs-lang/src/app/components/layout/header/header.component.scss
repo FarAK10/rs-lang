@@ -31,3 +31,9 @@ mat-icon:hover{
         }
     }
 }
+
+.rslang {
+    @media (max-width: 360px) {
+        display: none;
+    }
+}

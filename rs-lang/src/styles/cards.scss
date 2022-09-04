@@ -3,6 +3,15 @@
 .cards {
     padding: 70px 0 50px 0;
     width: 100%;
+    @media (max-width: 700px) {
+        padding: 50px 0 20px 0;
+    }
+    @media (max-width: 550px) {
+        padding: 30px 0 20px 0;
+    }
+    @media (max-width: 430px) {
+        padding: 20px 0 20px 0;
+    }
 
     .cards__menu {
         width: 100%;
@@ -13,6 +22,36 @@
         display: flex;
         justify-content: space-around;
         position: relative;
+        @media (max-width: 1150px) {
+            padding: 20px 100px;
+        }
+        @media (max-width: 1050px) {
+            padding: 20px 50px;
+        }
+        @media (max-width: 950px) {
+            padding: 20px 0;
+            justify-content: space-around;
+        }
+        @media (max-width: 650px) {
+            padding: 10px 0;
+        }
+        @media (max-width: 550px) {
+            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 200px);
+            gap: 10px;
+        }
+        @media (max-width: 530px) {
+            grid-template-columns: repeat(auto-fill, 150px);
+        }
+        @media (max-width: 430px) {
+            grid-template-columns: repeat(auto-fill, 120px);
+            padding: 10px 0;
+        }
+        @media (max-width: 350px) {
+            grid-template-columns: repeat(auto-fill, 100px);
+            padding: 10px 0;
+        }
 
         .flower-left,
         .flower-right {
@@ -21,6 +60,9 @@
             bottom: 0;
             left: -80px;
             z-index: -1;
+            @media (max-width: 1220px) {
+                display: none;
+            }
         }
 
         .flower-right {
@@ -37,7 +79,36 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all .2s ease;
-            @include font(18px, $pink, "Five-Italic", 700, );
+            @include font(18px, $pink, "Five-Italic", 700);
+            @media (max-width: 850px) {
+                width: 120px;
+                @include font(16px, $pink, "Five-Italic", 700);
+            }
+            @media (max-width: 650px) {
+                width: 110px;
+                padding: 5px;
+                @include font(16px, $pink, "Five-Italic", 700);
+            }
+            @media (max-width: 620px) {
+                width: 100px;
+                padding: 5px;
+                @include font(14px, $pink, "Five-Italic", 700);
+            }
+            @media (max-width: 550px) {
+                justify-self: center;
+                width: 100%;
+                padding: 10px;
+                @include font(18px, $pink, "Five-Italic", 700);
+            }
+            @media (max-width: 530px) {
+                width: 150px;
+                @include font(16px, $pink, "Five-Italic", 700);
+            }
+            @media (max-width: 430px) {
+                width: 100px;
+                padding: 5px;
+                @include font(14px, $pink, "Five-Italic", 700);
+            }
 
             &:hover {
                 box-shadow: 0 0 15px $pink;
@@ -67,6 +138,13 @@
         background: white;
         z-index: 2;
         transition: all .3s ease;
+        @media (max-width: 550px) {
+            margin-top: 10px;
+            gap: 10px;
+        }
+        @media (max-width: 400px) {
+            margin-top: 0px;
+        }
 
         &.enable {
             box-shadow: 0 5px 5px -5px $pink;
@@ -77,6 +155,21 @@
             justify-content: center;
             align-items: center;
             @include font(52px, $pink, "Ludvig van Bethoveen", 100);
+            @media (max-width: 1180px) {
+                @include font(45px, $pink, "Ludvig van Bethoveen", 100);
+            }
+            @media (max-width: 1120px) {
+                @include font(36px, $pink, "Ludvig van Bethoveen", 100);
+            }
+            @media (max-width: 1050px) {
+                @include font(30px, $pink, "Ludvig van Bethoveen", 100);
+            }
+            @media (max-width: 980px) {
+                @include font(26px, $pink, "Ludvig van Bethoveen", 100);
+            }
+            @media (max-width: 940px) {
+                display: none;
+            }
         }
 
         .btn {
@@ -115,6 +208,12 @@
         display: flex;
         justify-content: space-between;
         position: relative;
+        @media (max-width: 700px) {
+            justify-content: center;
+        }
+        @media (max-width: 400px) {
+            margin-top: 5px;
+        }
 
         .example-margin {
             position: absolute;
@@ -138,6 +237,9 @@
                 top: 200px;
                 left: 50%;
                 transform: translate(-50%, 0);
+                @media (max-width: 700px) {
+                    width: 100%;
+                }
             }
 
             .card__container {
@@ -149,6 +251,24 @@
                 justify-content: space-around;
                 display: grid;
                 grid-template-columns: repeat(auto-fill, 450px);
+                @media (max-width: 1160px) {
+                    grid-template-columns: repeat(auto-fill, 400px); 
+                }
+                @media (max-width: 1060px) {
+                    grid-template-columns: repeat(auto-fill, 350px); 
+                }
+                @media (max-width: 960px) {
+                    grid-template-columns: repeat(auto-fill, 450px); 
+                }
+                @media (max-width: 550px) {
+                    grid-template-columns: repeat(auto-fill, 400px); 
+                }
+                @media (max-width: 510px) {
+                    grid-template-columns: repeat(auto-fill, 350px); 
+                }
+                @media (max-width: 400px) {
+                    grid-template-columns: repeat(auto-fill, 275px); 
+                }
             }
 
             .card {
@@ -166,6 +286,32 @@
                 position: relative;
                 overflow: hidden;
                 margin-bottom: 150px;
+                @media (max-width: 1160px) {
+                    height: 250px;
+                    margin-bottom: 120px;
+                }
+                @media (max-width: 1060px) {
+                    height: 220px;
+                    margin-bottom: 70px;
+                }
+                @media (max-width: 960px) {
+                    height: 300px;
+                    margin-bottom: 100px;
+                    transform: none;
+                    margin-top: 0;
+                }
+                @media (max-width: 550px) {
+                    height: 250px;
+                    margin-bottom: 120px;
+                }
+                @media (max-width: 510px) {
+                    height: 220px;
+                    margin-bottom: 70px;
+                }
+                @media (max-width: 400px) {
+                    height: 190px;
+                    margin-bottom: 40px;
+                }
 
                 .black {
                     box-shadow: 0 2px 7px 0px black !important;
@@ -189,6 +335,30 @@
                         z-index: -1;
                         border-radius: 10px;
                         overflow: hidden;
+                        @media (max-width: 1160px) {
+                            top: 57%;
+                            height: 80%;
+                        }
+                        @media (max-width: 1060px) {
+                            top: 58.5%;
+                            height: 77%;
+                        }
+                        @media (max-width: 960px) {
+                            top: 55.5%;
+                            height: 84%;
+                        }
+                        @media (max-width: 550px) {
+                            top: 57%;
+                            height: 80%;
+                        }
+                        @media (max-width: 510px) {
+                            top: 58.5%;
+                            height: 77%;
+                        }
+                        @media (max-width: 400px) {
+                            top: 59%;
+                            height: 75%;
+                        }
                     }
                 }
 
@@ -202,11 +372,47 @@
 
                     .card__img-name {
                         @include font(18px, white, "Noto Sans Display Condensed", 100);
+                        @media (max-width: 1160px) {
+                            @include font(16px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 1060px) {
+                            @include font(14px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 960px) {
+                            @include font(18px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 550px) {
+                            @include font(16px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 510px) {
+                            @include font(14px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 400px) {
+                            @include font(10px, white, "Noto Sans Display Condensed", 100);
+                        }
                     }
 
                     .card__info-words {
                         align-self: center;
                         @include font(18px, white, "Noto Sans Display Condensed", 100);
+                        @media (max-width: 1160px) {
+                            @include font(16px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 1060px) {
+                            @include font(14px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 960px) {
+                            @include font(18px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 550px) {
+                            @include font(16px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 510px) {
+                            @include font(14px, white, "Noto Sans Display Condensed", 100);
+                        }
+                        @media (max-width: 400px) {
+                            @include font(10px, white, "Noto Sans Display Condensed", 100);
+                        }
                     }
 
                     .card__info-left,
@@ -232,6 +438,37 @@
                     height: max-content;
                     white-space: pre-wrap;
                     @include font(16px, black, "Noto Sans Display Condensed", 100);
+                    @media (max-width: 1160px) {
+                        max-width: 370px;
+                        line-height: 15px;
+                        padding: 12px 7px 7px 5px;  
+                    }
+                    @media (max-width: 1060px) {
+                        max-width: 320px;
+                        margin-top: 0;
+                        margin-left: -2px;
+                    }
+                    @media (max-width: 960px) {
+                        max-width: 420px;
+                        margin: -1px;
+                    }
+                    @media (max-width: 550px) {
+                        max-width: 370px;
+                        line-height: 15px;
+                        padding: 12px 7px 7px 5px; 
+                    }
+                    @media (max-width: 510px) {
+                        max-width: 320px;
+                        margin-top: 0;
+                        margin-left: -2px;
+                        @include font(14px, black, "Noto Sans Display Condensed", 100, 14px);
+                    }
+                    @media (max-width: 400px) {
+                        max-width: 270px;
+                        margin-top: 0;
+                        margin-left: -2px;
+                        @include font(10px, black, "Noto Sans Display Condensed", 100, 14px);
+                    }
 
                     .card__info-ru,
                     .card__info-en {
@@ -253,6 +490,36 @@
                     padding: 0 5px;
                     bottom: 20px;
                     @include font(16px, black, "Noto Sans Display Condensed", 100);
+                    @media (max-width: 1160px) {
+                        max-width: 387px;
+                    }
+                    @media (max-width: 1060px) {
+                        max-width: 340px;
+                        margin-left: -2px;
+                    }
+                    @media (max-width: 960px) {
+                        width: 1000px;
+                        left: 10px;
+                        margin-left: -4px;
+                        min-width: 437px;
+                    }
+                    @media (max-width: 550px) {
+                        max-width: 387px;
+                        min-width: 387px;
+                        width: 387px;
+                    }
+                    @media (max-width: 510px) {
+                        max-width: 340px;
+                        min-width: 340px;
+                        width: 340px;
+                        margin-left: -5px;
+                    }
+                    @media (max-width: 400px) {
+                        max-width: 266px;
+                        min-width: 266px;
+                        width: 266px;
+                        margin-left: -6px;
+                    }
 
                     .card__info-en {
                         font-style: italic;
@@ -281,6 +548,9 @@
             align-items: center;
             gap: 20px;
             transition: all .3s ease;
+            @media (max-width: 700px) {
+                display: none;
+            }
 
             &.enable {
                 opacity: .3;

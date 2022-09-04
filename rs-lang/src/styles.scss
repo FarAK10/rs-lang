@@ -3,6 +3,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -81,7 +82,7 @@ img {
 }
 
 /* Указываем понятную периодичность в потоке данных у article*/
-article > * + * {
+article>*+* {
   margin-top: 1em;
 }
 
@@ -97,9 +98,16 @@ select {
   margin: auto;
   max-width: 1200px;
   padding: 0 70px;
+
+  @media (max-width: 599.9px) {
+    padding: 0 50px;
+  }
+  @media (max-width: 400px) {
+    padding: 0 20px;
+  }
 }
 
-/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+/* Удаляем все анимации и переходы для людей, которые предпочитают их не использовать */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
