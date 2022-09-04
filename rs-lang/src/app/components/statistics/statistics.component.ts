@@ -47,7 +47,7 @@ export class StatisticsComponent implements OnInit {
     this.sprintWords = this.arrSprintWords.length;
     this.sprintPercent =
       this.arrSprintPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length;
-    this.sprintSeries = Math.max.apply(null, this.arrSprintSeries);
+    this.sprintSeries = Math.max.apply(null, this.arrSprintSeries) || 0;
 
     this.arrAudioWords = lastDateStatista.audio.newWords;
     this.arrAudioPercent = lastDateStatista.audio.correctPercents;
@@ -55,6 +55,6 @@ export class StatisticsComponent implements OnInit {
     this.audioWords = this.arrAudioWords.length;
     this.audioPercent =
       this.arrAudioPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length;
-    this.audioSeries = Math.max.apply(null, this.arrAudioSeries);
+    this.audioSeries = Math.max.apply(null, this.arrAudioSeries) || 0;
   }
 }

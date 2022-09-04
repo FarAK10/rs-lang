@@ -148,6 +148,10 @@ export class AuthorizationService {
   }
 
   setInitialStatista() {
+    this.localStorageService.setLocalStorage(
+      'userStatistics',
+      JSON.stringify(this.currentUserStatista),
+    );
     const body: IUserStatista = {
       learnedWords: 0,
       optional: {
@@ -172,9 +176,8 @@ export class AuthorizationService {
     const datesLength = res.optional.dates.length;
     const lastDateStatista = res.optional.dates[datesLength - 1];
     const lastDate = (lastDateStatista as IDayStatista).date;
-    const penultDateStatista = res.optional.dates[datesLength - 2];
-    const penultDate = (penultDateStatista as IDayStatista).date;
-    const hoursDiff = this.timeDiff(lastDate, penultDate);
+    const todaysDate = new Date();
+    const hoursDiff = this.timeDiff(lastDate, todaysDate);
     if (hoursDiff >= 24) {
       console.log('hours', hoursDiff);
       (res.optional.dates as IDayStatista[]).push(this.defaultDateStatista);
