@@ -26,7 +26,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   coefficient: number = 1;
 
-  timeLeft: number = 60;
+  timeLeft: number = 10;
 
   aggregatedWords: Array<IWord> = [];
 
