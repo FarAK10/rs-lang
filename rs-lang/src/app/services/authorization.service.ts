@@ -34,6 +34,8 @@ export class AuthorizationService {
 
   userWords!: HardWords[];
 
+  isReshResh: boolean = false;
+
   defaultDateStatista: IDayStatista = {
     date: new Date(),
     sprint: {
@@ -47,7 +49,6 @@ export class AuthorizationService {
       series: [],
     },
   };
-
   currentUserStatista: IUserStatista = {
     learnedWords: 0,
     optional: {
@@ -81,7 +82,9 @@ export class AuthorizationService {
       .subscribe(
         (res: ICurrentUser) => {
           this.currentUser = res;
-          localStorage.clear();
+          if (!this.isReshResh) {
+            localStorage.clear();
+          }
           this.localStorageService.setLocalStorage('newUser', JSON.stringify(newUser));
           this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
           this.resoursesLoaded$.next(true);
@@ -161,7 +164,7 @@ export class AuthorizationService {
     const body: IUserStatista = {
       learnedWords: 0,
       optional: {
-        dates: JSON.stringify([this.defaultDateStatista]),
+        dates: [this.defaultDateStatista],
       },
     };
     this.putStatista(body);
@@ -173,7 +176,7 @@ export class AuthorizationService {
     const { id, ...body } = res;
     body.optional.dates = JSON.stringify(body.optional.dates);
     this.apiService.put<IUserStatista>(url, body).subscribe(() => {
-      body.optional.dates = JSON.parse(body.optional.dates as string);
+      res.optional.dates = JSON.parse(body.optional.dates as string);
     });
   }
 
@@ -199,5 +202,9 @@ export class AuthorizationService {
     const datesLength = this.currentUserStatista.optional.dates.length;
     const lastDateStatista = this.currentUserStatista.optional.dates[datesLength - 1];
     return lastDateStatista as IDayStatista;
+  }
+
+  onRefreshPage(isRefesh: boolean) {
+    this.isReshResh = isRefesh;
   }
 }

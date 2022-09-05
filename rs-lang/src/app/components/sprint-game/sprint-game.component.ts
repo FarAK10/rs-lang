@@ -93,7 +93,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
   }
 
   setWordIndex() {
-    this.index = this.gameService.gameWords.length;
+    this.index = this.aggregatedWords.length;
   }
 
   onFullScreen(isFullScreen: boolean) {

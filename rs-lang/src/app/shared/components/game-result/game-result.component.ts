@@ -74,6 +74,10 @@ export class GameResultComponent implements OnInit {
   }
 
   navigate(): void {
-    this.router.navigate([`./game/${this.currentGameName}`]);
+    if (this.gameService.isLaunchedFromMenu) {
+      this.router.navigate([`./game/${this.currentGameName}`]);
+    } else {
+      this.router.navigate([`./tutorial/words`]);
+    }
   }
 }

@@ -55,6 +55,18 @@ export class StatisticsComponent implements OnInit {
     this.audioPercent = Math.round(
       this.arrAudioPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length,
     );
-    this.audioSeries = Math.max.apply(null, this.arrAudioSeries) || 0;
+    this.audioSeries = Math.max.apply(null, this.arrAudioSeries);
+    if (this.audioSeries === -Infinity) {
+      this.audioSeries = 0;
+    }
+    if (this.sprintSeries === -Infinity) {
+      this.sprintSeries = 0;
+    }
+    if (!this.audioPercent) {
+      this.audioPercent = 0;
+    }
+    if (!this.sprintPercent) {
+      this.sprintPercent = 0;
+    }
   }
 }

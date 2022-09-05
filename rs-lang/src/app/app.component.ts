@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
     ) as INewUser;
     if (newUser) {
       this.authSerice.singIn(newUser);
+      this.authSerice.onRefreshPage(true);
     }
   }
 
