@@ -11,12 +11,12 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'tutorial', component: TutorialComponent },
   { path: 'tutorial/words', component: CardsComponent },
-  { path: 'games', component: GamesComponent, canActivate: [AuthGuard] },
+  { path: 'games', component: GamesComponent },
   {
     path: 'game',
     loadChildren: () => import('./routings/game/game.module').then((mod) => mod.GameModule),
   },
-  { path: 'statistics', component: StatisticsComponent}
+  { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard]}
 ]
 
 
