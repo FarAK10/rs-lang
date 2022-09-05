@@ -43,6 +43,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { AudioChallengeComponent } from './components/audio-challenge/audio-challenge.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
+import { ChartsComponent } from './components/charts/charts.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
@@ -84,6 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GamesComponent,
     AudioChallengeComponent,
     StatisticsComponent,
+    ChartsComponent,
   ],
 
   imports: [
@@ -106,6 +109,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ...angularMaterailModules,
     ...formsModules,
     NgCircleProgressModule.forRoot({}),
+    NgxChartsModule,
   ],
 
   providers: [
