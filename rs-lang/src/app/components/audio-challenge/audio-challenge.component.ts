@@ -133,7 +133,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
       this.showBtnText = 'show results';
       this.gameService.addToSeries(this.correctInRow);
     } else {
-      this.showBtnText = 'next question';
+      this.showBtnText = 'audio.next';
     }
   }
 
