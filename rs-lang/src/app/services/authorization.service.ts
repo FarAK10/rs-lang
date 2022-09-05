@@ -16,6 +16,8 @@ import { ERROR_CODES } from '../shared/enums';
 import { DataService } from './data.service';
 import { identifierModuleUrl } from 'angular-html-parser/lib/compiler/src/compile_metadata';
 import { BoundElementProperty, ThisReceiver } from '@angular/compiler';
+import { ContentObserver } from '@angular/cdk/observers';
+import { type } from 'os';
 @Injectable({
   providedIn: 'root',
 })
@@ -80,6 +82,7 @@ export class AuthorizationService {
         (res: ICurrentUser) => {
           this.currentUser = res;
           localStorage.clear();
+          this.localStorageService.setLocalStorage('newUser', JSON.stringify(newUser));
           this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
           this.resoursesLoaded$.next(true);
           this.isAuth = true;
@@ -135,8 +138,11 @@ export class AuthorizationService {
     const url = `users/${userId}/statistics`;
     this.apiService.get<IUserStatista>(url).subscribe({
       next: (res: IUserStatista) => {
+        let firtlyParsedDates = res.optional.dates;
+        // firtlyParsedDates = JSON.parse(firtlyParsedDates as string);
+        const secondlyParsedDates = JSON.parse(firtlyParsedDates as string);
         this.currentUserStatista = res;
-        res.optional.dates = JSON.parse(res.optional.dates as string);
+        this.currentUserStatista.optional.dates = secondlyParsedDates;
         this.checkDate(this.currentUserStatista);
       },
       error: (err) => {
@@ -166,7 +172,6 @@ export class AuthorizationService {
     const url = `users/${userId}/statistics`;
     const { id, ...body } = res;
     body.optional.dates = JSON.stringify(body.optional.dates);
-    console.log(url, body);
     this.apiService.put<IUserStatista>(url, body).subscribe(() => {
       body.optional.dates = JSON.parse(body.optional.dates as string);
     });
@@ -175,11 +180,10 @@ export class AuthorizationService {
   checkDate(res: IUserStatista) {
     const datesLength = res.optional.dates.length;
     const lastDateStatista = res.optional.dates[datesLength - 1];
-    const lastDate = (lastDateStatista as IDayStatista).date;
+    const lastDate = new Date((lastDateStatista as IDayStatista).date);
     const todaysDate = new Date();
     const hoursDiff = this.timeDiff(lastDate, todaysDate);
     if (hoursDiff >= 24) {
-      console.log('hours', hoursDiff);
       (res.optional.dates as IDayStatista[]).push(this.defaultDateStatista);
       this.putStatista(res);
     }
