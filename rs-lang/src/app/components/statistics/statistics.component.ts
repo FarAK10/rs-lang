@@ -33,7 +33,6 @@ export class StatisticsComponent implements OnInit {
   ngOnInit(): void {
     const idUser = this.authService.getUserId();
     this.apiService.getStat(idUser).subscribe((userWords) => {
-      // console.log(userWords);
       this.userWords = userWords;
       this.learnWords = this.userWords.filter((e) => e.difficulty == 'ease').length || 0;
       this.allLearnedWords = this.learnWords / 36;
@@ -43,16 +42,30 @@ export class StatisticsComponent implements OnInit {
     this.arrSprintPercent = lastDateStatista.sprint.correctPercents;
     this.arrSprintSeries = lastDateStatista.sprint.series;
     this.sprintWords = this.arrSprintWords.length;
-    this.sprintPercent =
-      Math.round(this.arrSprintPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length);
+    this.sprintPercent = Math.round(
+      this.arrSprintPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length,
+    );
     this.sprintSeries = Math.max.apply(null, this.arrSprintSeries) || 0;
 
     this.arrAudioWords = lastDateStatista.audio.newWords;
     this.arrAudioPercent = lastDateStatista.audio.correctPercents;
     this.arrAudioSeries = lastDateStatista.audio.series;
     this.audioWords = this.arrAudioWords.length;
-    this.audioPercent =
-      Math.round(this.arrAudioPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length);
-    this.audioSeries = Math.max.apply(null, this.arrAudioSeries) || 0;
+    this.audioPercent = Math.round(
+      this.arrAudioPercent.reduce((a, b) => a + b, 0) / this.arrSprintPercent.length,
+    );
+    this.audioSeries = Math.max.apply(null, this.arrAudioSeries);
+    if (this.audioSeries === -Infinity) {
+      this.audioSeries = 0;
+    }
+    if (this.sprintSeries === -Infinity) {
+      this.sprintSeries = 0;
+    }
+    if (!this.audioPercent) {
+      this.audioPercent = 0;
+    }
+    if (!this.sprintPercent) {
+      this.sprintPercent = 0;
+    }
   }
 }

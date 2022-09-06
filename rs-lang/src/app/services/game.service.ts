@@ -106,14 +106,19 @@ export class GameService {
         .get<[IAggregatedResp]>(url)
         .pipe(take(1))
         .subscribe((words: IAggregatedResp[]) => {
+          console.log(words[0].paginatedResults);
+
           this.gameWords = shuffle(words[0].paginatedResults);
           this.isWordsLoaded$.next(true);
         });
     } else {
       this.gameWords = [];
       const urls = [];
+      console.log(this.currentPage);
       for (let i = this.currentPage; i >= 0; i--) {
-        const url = `users/${userId}/aggregatedWords?page=${i}&group=${this.englishLevel}&wordsPerPage=20`;
+        const url = `users/${userId}/aggregatedWords?filter={ "$and": [{ "page": ${i} }, {"group": ${this.englishLevel}}] }&wordsPerPage=20`;
+        // const url = `users/${userId}/aggregatedWords?page=${i}&group=${this.englishLevel}&wordsPerPage=20`;
+        console.log(url);
         urls.push(url);
       }
       of(...urls)
@@ -123,6 +128,7 @@ export class GameService {
         )
         .subscribe({
           next: (words: [IAggregatedResp]) => {
+            console.log(words[0].paginatedResults);
             const filtered = filterLearnedWords(words[0].paginatedResults);
             this.gameWords.push(...filtered);
           },

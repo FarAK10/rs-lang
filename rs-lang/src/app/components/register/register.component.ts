@@ -88,6 +88,7 @@ export class RegisterComponent implements OnInit {
       password: passwordValue,
     };
     this.resoursesLoaded = false;
+    this.authorizationService.onRefreshPage(false);
     this.authorizationService.register(newUser);
   }
 }
