@@ -95,6 +95,5 @@ export class ChartsComponent implements OnInit {
         };
       },
     );
-    console.log('daystatista', this.dayStatistas);
   }
 }
