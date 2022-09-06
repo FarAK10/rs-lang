@@ -26,7 +26,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   coefficient: number = 1;
 
-  timeLeft: number = 10;
+  timeLeft: number = 60;
 
   aggregatedWords: Array<IWord> = [];
 
@@ -93,7 +93,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
   }
 
   setWordIndex() {
-    this.index = this.aggregatedWords.length;
+    this.index = this.aggregatedWords.length - 1;
   }
 
   onFullScreen(isFullScreen: boolean) {
@@ -123,6 +123,8 @@ export class SprintGameComponent implements OnInit, OnDestroy {
     }
   }
   next() {
+    console.log(this.aggregatedWords);
+    console.log(this.index);
     if (this.index > 0) {
       this.index--;
       this.setEnglishWord();

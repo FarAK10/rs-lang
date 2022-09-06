@@ -72,6 +72,7 @@ export class AuthorizationService {
   }
 
   singIn(newUser: INewUser): void {
+    console.log(newUser);
     this.apiService
       .post('signin', newUser)
       .pipe(
@@ -93,6 +94,7 @@ export class AuthorizationService {
           this.getInitialStatista();
         },
         (err) => {
+          console.log(newUser);
           alert('incorrect password or token is experid');
           this.resoursesLoaded$.next(true);
         },
@@ -142,7 +144,6 @@ export class AuthorizationService {
     this.apiService.get<IUserStatista>(url).subscribe({
       next: (res: IUserStatista) => {
         let firtlyParsedDates = res.optional.dates;
-        // firtlyParsedDates = JSON.parse(firtlyParsedDates as string);
         const secondlyParsedDates = JSON.parse(firtlyParsedDates as string);
         this.currentUserStatista = res;
         this.currentUserStatista.optional.dates = secondlyParsedDates;
@@ -175,6 +176,7 @@ export class AuthorizationService {
     const url = `users/${userId}/statistics`;
     const { id, ...body } = res;
     body.optional.dates = JSON.stringify(body.optional.dates);
+    console.log(typeof body.optional.dates);
     this.apiService.put<IUserStatista>(url, body).subscribe(() => {
       res.optional.dates = JSON.parse(body.optional.dates as string);
     });

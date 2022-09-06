@@ -138,7 +138,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   }
 
   reduceNumberOfAttempts() {
-    this.lives.splice(this.livesLeft, 1, 'favorite_border');
+    this.lives.splice(this.livesLeft - 1, 1, 'favorite_border');
     this.livesLeft--;
   }
   isWrong(className: string) {

@@ -176,6 +176,7 @@ export class CardsComponent implements OnInit {
   }
 
   setPage(): void {
+    console.log(this.data.parameters.page);
     const currentPage = this.data.parameters.page;
     this.gameService.setCurrentPage(currentPage);
   }

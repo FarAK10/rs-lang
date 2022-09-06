@@ -33,7 +33,6 @@ export class StatisticsComponent implements OnInit {
   ngOnInit(): void {
     const idUser = this.authService.getUserId();
     this.apiService.getStat(idUser).subscribe((userWords) => {
-      // console.log(userWords);
       this.userWords = userWords;
       this.learnWords = this.userWords.filter((e) => e.difficulty == 'ease').length || 0;
       this.allLearnedWords = this.learnWords / 36;
