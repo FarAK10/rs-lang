@@ -123,8 +123,6 @@ export class SprintGameComponent implements OnInit, OnDestroy {
     }
   }
   next() {
-    console.log(this.aggregatedWords);
-    console.log(this.index);
     if (this.index > 0) {
       this.index--;
       this.setEnglishWord();
