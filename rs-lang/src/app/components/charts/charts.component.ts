@@ -88,7 +88,7 @@ export class ChartsComponent implements OnInit {
     this.dayStatistas = (this.authService.currentUserStatista.optional.dates as IDayStatista[]).map(
       (day) => {
         const date = new Date(day.date);
-        const dateNumber = `${date.getDate()} ${date.getMonth()}`;
+        const dateNumber = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
         return {
           name: dateNumber,
           value: day.audio.newWords.length + day.sprint.newWords.length,
