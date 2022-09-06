@@ -57,7 +57,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.authorizationService.resoursesLoaded$.subscribe((value) => {
-      console.log('true');
       this.resoursesLoaded = value;
     });
   }

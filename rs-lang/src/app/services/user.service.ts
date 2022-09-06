@@ -82,7 +82,6 @@ export class UserService {
   }
 
   setNewWord(word: HardWords) {
-    console.log(word);
     const gameName = this.localStorageService.getLocalStorage('gameName');
     if (gameName === 'sprint') {
       this.newSprintGameWords.push(word);
@@ -94,23 +93,18 @@ export class UserService {
   setGameStatistics(gameName: string, correctPercent: number, correctSeries: number) {
     const currentUserStatista = this.authService.currentUserStatista;
     if (gameName === 'sprint') {
-      console.log('newWords', this.newSprintGameWords);
       const newWordsNumber = this.newSprintGameWords.length;
-      console.log(newWordsNumber);
       this.authService.currentUserStatista.learnedWords += newWordsNumber;
       this.authService.getLastDateStatista().sprint.correctPercents.push(correctPercent);
       this.authService.getLastDateStatista().sprint.series.push(correctSeries);
       this.authService.getLastDateStatista().sprint.newWords.push(...this.newSprintGameWords);
     } else {
-      console.log('audio game set game statistics');
       const newWordsNumber = this.newAudioGameWords.length;
       this.authService.currentUserStatista.learnedWords += newWordsNumber;
       this.authService.getLastDateStatista().audio.correctPercents.push(correctPercent);
       this.authService.getLastDateStatista().audio.series.push(correctSeries);
       this.authService.getLastDateStatista().audio.newWords.push(...this.newAudioGameWords);
     }
-    console.log(this.authService.getLastDateStatista());
-    console.log(this.authService.currentUser);
     this.localStorageService.setLocalStorage(
       'userStatistics',
       JSON.stringify(this.authService.currentUserStatista),

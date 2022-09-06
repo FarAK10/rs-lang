@@ -127,10 +127,10 @@
     "dimitrianderiName": "Dmitry",
     "jahaName": "Jahongir",
     "position1": "Frontend-captain",
-    "position2": "Frontend-navigator",
-    "position3": "Frontend-boatswain",
-    "farak": "As a child, he was a well-bred boy, but he began to play \"Sprint\" and \"Audio Challenge\", contacted the programmers and rolled ... The character is sociable. Not married.",
-    "dimitrianderi": "Owner of over 3000 <span class='cross'>devils</span> cards with English words, some of which he doesn't know himself. But he knows how to write Hindu code, which makes him feel ashamed. Bad character. Not married.",
-    "jaha": "He is Jaho. He is Joha. The ideological inspirer of the team. Knows a lot about statistics. He speaks little, but sweetly. Fulfills his duty without fail. Nordic character. Not married."
+    "position2": "Frontend-developer",
+    "position3": "Frontend-developer",
+    "farak": "Responsible for the implementation of Sprint and Audio Challenge mini-games. I was engaged in deploying the repository and setting up the project configuration. Created a registration and authorization window.",
+    "dimitrianderi": "He was engaged in the development of a textbook and a dictionary with cards, including a section with compound words. Raised and configured the backend. Implemented additional functionality in the form of multilingualism and adaptability of pages. Recorded a video presentation.",
+    "jaha": "Designed the main page of the application, including the pop-up menu. Set the direction for the design. Implemented a section with statistics."
   }
 }
