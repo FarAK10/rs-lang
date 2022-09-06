@@ -26,7 +26,7 @@ export class AuthorizationService {
     private apiService: ApiService,
     private localStorageService: LocalStorageService,
     private data: DataService,
-  ) {}
+  ) { }
   isAuth = false;
   currentUser!: ICurrentUser;
 
@@ -35,6 +35,8 @@ export class AuthorizationService {
   userWords!: HardWords[];
 
   isReshResh: boolean = false;
+
+  userName = 'info.user';
 
   defaultDateStatista: IDayStatista = {
     date: new Date(),
@@ -89,6 +91,7 @@ export class AuthorizationService {
           this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
           this.resoursesLoaded$.next(true);
           this.isAuth = true;
+          this.userName = res.name;
           this.setHardWords();
           this.getInitialStatista();
         },
@@ -97,6 +100,15 @@ export class AuthorizationService {
           this.resoursesLoaded$.next(true);
         },
       );
+  }
+
+  logout() {
+    this.isAuth = false;
+    localStorage.removeItem('user');
+    localStorage.removeItem('newUser');
+    localStorage.removeItem('parameters');
+    this.data.user.isAuth = false;
+    this.data.parameters = JSON.parse(JSON.stringify(this.data.defaultParameters));
   }
 
   setCurrentUser(user: ICurrentUser) {

@@ -6,7 +6,8 @@
     "skills": "What can you do when you reach this level:",
     "levels": "levels",
     "res": "Result",
-    "nowords": "No more words :("
+    "nowords": "No more words :(",
+    "user": "guest"
   },
   "languages": {
     "english": "Eng",
@@ -130,7 +131,7 @@
     "position2": "Frontend-developer",
     "position3": "Frontend-developer",
     "farak": "Responsible for the implementation of Sprint and Audio Challenge mini-games. I was engaged in deploying the repository and setting up the project configuration. Created a registration and authorization window.",
-    "dimitrianderi": "He was engaged in the development of a textbook and a dictionary with cards, including a section with compound words. Raised and configured the backend. Implemented additional functionality in the form of multilingualism and adaptability of pages. Recorded a video presentation.",
+    "dimitrianderi": "He was engaged in the development of a textbook and a dictionary with cards, including a section with compound words. Raised and configured the backend. Implemented additional functionality in the form of multilingualism and adaptability of pages. Recorded a video presentation. I also made a logout button :)",
     "jaha": "Designed the main page of the application, including the pop-up menu. Set the direction for the design. Implemented a section with statistics."
   }
 }
