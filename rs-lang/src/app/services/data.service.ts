@@ -18,7 +18,6 @@ export class DataService {
   lang: string | null = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'ru';
   isLoaded: boolean = true;
   userName: string = 'info.user';
-  loginLink: string = '/autorization/login';
 
   levels: Level[] = [
     {
