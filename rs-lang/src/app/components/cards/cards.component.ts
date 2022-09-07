@@ -56,9 +56,10 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  play(e: Event, Meaning: string, Example: string): void {
+  play(e: Event, Word: string, Meaning: string, Example: string): void {
     e.preventDefault();
     let audio = [
+      Word,
       Meaning,
       Example,
     ];
