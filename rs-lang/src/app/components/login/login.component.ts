@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthorizationService } from 'src/app/services/authorization.service';
+import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +21,10 @@ export class LoginComponent implements OnInit {
 
   resoursesLoaded = true;
 
-  constructor(private authorizationService: AuthorizationService) {}
+  constructor(
+    private authorizationService: AuthorizationService,
+    public data: DataService
+    ) {}
 
   ngOnInit(): void {
     this.authorizationService.resoursesLoaded$.subscribe((value) => {
@@ -44,6 +48,7 @@ export class LoginComponent implements OnInit {
       password: passwordValue,
     };
     this.resoursesLoaded = false;
+    this.authorizationService.onRefreshPage(false);
     this.authorizationService.singIn(newUser);
   }
 }

@@ -30,7 +30,7 @@
 
     <div class="center">
       <button [disabled]="!signUpForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit"
-        (click)="submit()">{{ 'button.sign' | translate }}</button>
+        (click)="submit()" routerLink="{{this.data.loginLink}}">{{ 'button.sign' | translate }}</button>
     </div>
   </form>
 </div>

@@ -75,7 +75,6 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     });
     this.optionsSub$ = this.audioGameService.options$.subscribe((options: IOption[]) => {
       this.options = options;
-      console.log(options);
       if (this.options.length) {
         this.correctWord = this.audioGameService.getCorrectWord();
         this.playPronunciation();
@@ -138,7 +137,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   }
 
   reduceNumberOfAttempts() {
-    this.lives.splice(this.livesLeft, 1, 'favorite_border');
+    this.lives.splice(this.livesLeft - 1, 1, 'favorite_border');
     this.livesLeft--;
   }
   isWrong(className: string) {

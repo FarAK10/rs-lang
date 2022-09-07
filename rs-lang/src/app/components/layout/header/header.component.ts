@@ -11,9 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   
 })
 export class HeaderComponent implements OnInit {
-  name: string = 'user';
   email: string = '';
-
 
   constructor(
     public sidebarService: SidebarService,
@@ -23,7 +21,7 @@ export class HeaderComponent implements OnInit {
     
   }
   ngOnInit(): void {
-  this.name = this.authorizationService.currentUser.name;
+  this.data.userName = this.authorizationService.currentUser.name;
     
   }
 }

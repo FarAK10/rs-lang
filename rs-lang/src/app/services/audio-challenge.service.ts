@@ -25,7 +25,6 @@ export class AudioChallengeService {
     this.gameService.reset();
     this.gameService.getWords();
     this.gameService.isWordsLoaded$.pipe(take(2)).subscribe((isLoaded: boolean) => {
-      console.log('isLoaded', isLoaded);
       if (isLoaded) {
         this.allWords = shuffle(this.gameService.gameWords);
         this.index = this.allWords.length - 1;

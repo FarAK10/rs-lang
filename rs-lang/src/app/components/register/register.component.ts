@@ -13,6 +13,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { INewUser } from 'src/app/interfaces/interfaces';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { passwordMatchValidator } from 'src/app/shared/functions';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-register',
@@ -53,11 +54,13 @@ export class RegisterComponent implements OnInit {
 
   resoursesLoaded = true;
 
-  constructor(private authorizationService: AuthorizationService) {}
+  constructor(
+    private authorizationService: AuthorizationService,
+    public data: DataService
+    ) {}
 
   ngOnInit(): void {
     this.authorizationService.resoursesLoaded$.subscribe((value) => {
-      console.log('true');
       this.resoursesLoaded = value;
     });
   }
@@ -88,6 +91,7 @@ export class RegisterComponent implements OnInit {
       password: passwordValue,
     };
     this.resoursesLoaded = false;
+    this.authorizationService.onRefreshPage(false);
     this.authorizationService.register(newUser);
   }
 }

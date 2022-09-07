@@ -7,14 +7,15 @@
       <mat-error *ngIf="email?.errors?.['email']">{{ 'login.correctEmail' | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field class="input-field" color="accent">
-      <input type="password" matInput placeholder="{{ 'login.pass' | translate }}" formControlName="password" autocomplete="on">
+      <input type="password" matInput placeholder="{{ 'login.pass' | translate }}" formControlName="password"
+        autocomplete="on">
       <mat-error *ngIf="password?.errors?.['required']">{{ 'login.pass' | translate }}</mat-error>
       <mat-error *ngIf="password?.errors?.['minlength']">{{ 'login.passMin' | translate }}
       </mat-error>
     </mat-form-field>
     <div class="center">
       <button [disabled]="!loginForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit"
-        (click)="signIn()">{{ 'button.submit' | translate }}</button>
+        (click)="signIn()" routerLink="{{this.data.loginLink}}">{{ 'button.submit' | translate }}</button>
     </div>
   </form>
 </div>

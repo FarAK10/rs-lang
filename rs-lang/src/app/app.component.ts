@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { AuthorizationService } from './services/authorization.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { OnInit } from '@angular/core';
-import { IUserStatista, IWord } from './interfaces/interfaces';
+import { INewUser, IUserStatista, IWord } from './interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { DataService } from './services/data.service';
 import { GameService } from './services/game.service';
 import { TranslateService } from '@ngx-translate/core';
+import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUser();
+    this.setNewUser();
     this.setCorrectAnswers();
     this.setWrongAnswers();
     this.setGameName();
@@ -40,6 +42,16 @@ export class AppComponent implements OnInit {
     const user = JSON.parse(this.localStorageService.getLocalStorage('user') as string);
     if (user) {
       this.authSerice.setCurrentUser(user);
+    }
+  }
+
+  setNewUser() {
+    const newUser = JSON.parse(
+      this.localStorageService.getLocalStorage('newUser') as string,
+    ) as INewUser;
+    if (newUser) {
+      this.authSerice.singIn(newUser);
+      this.authSerice.onRefreshPage(true);
     }
   }
 
