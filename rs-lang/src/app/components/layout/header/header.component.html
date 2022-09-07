@@ -12,13 +12,13 @@
       translate }}</span>
   </div>
   <div class="loginfo">
-    <div class="name">{{name | translate}}</div>
+    <div class="name">{{ this.data.userName | translate }}</div>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
       routerLink="/autorization/login" *ngIf="!this.authorizationService.isAuth">
       <mat-icon>account_circle</mat-icon>
     </button>
     <button class="logout" title="Выйти" routerLink="/autorization/login" *ngIf="this.authorizationService.isAuth"
-      (click)="logout()">
+      (click)="this.authorizationService.logout()">
       <i class="fa-sharp fa-solid fa-right-from-bracket logout-icon"></i>
     </button>
   </div>

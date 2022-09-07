@@ -17,6 +17,7 @@ export class DataService {
   allEase: boolean = false;
   lang: string | null = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'ru';
   isLoaded: boolean = true;
+  userName = 'info.user';
 
   levels: Level[] = [
     {

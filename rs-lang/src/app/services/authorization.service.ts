@@ -36,8 +36,6 @@ export class AuthorizationService {
 
   isReshResh: boolean = false;
 
-  userName = 'info.user';
-
   defaultDateStatista: IDayStatista = {
     date: new Date(),
     sprint: {
@@ -91,7 +89,7 @@ export class AuthorizationService {
           this.localStorageService.setLocalStorage('user', JSON.stringify(this.currentUser));
           this.resoursesLoaded$.next(true);
           this.isAuth = true;
-          this.userName = res.name;
+          this.data.userName = this.currentUser.name;
           this.setHardWords();
           this.getInitialStatista();
         },
@@ -109,6 +107,7 @@ export class AuthorizationService {
     localStorage.removeItem('parameters');
     this.data.user.isAuth = false;
     this.data.parameters = JSON.parse(JSON.stringify(this.data.defaultParameters));
+    this.data.userName = 'info.user';
   }
 
   setCurrentUser(user: ICurrentUser) {
