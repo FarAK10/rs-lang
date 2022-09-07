@@ -105,6 +105,12 @@ export class AuthorizationService {
     localStorage.removeItem('user');
     localStorage.removeItem('newUser');
     localStorage.removeItem('parameters');
+    localStorage.removeItem('userStatistics');
+    localStorage.removeItem('wrongAnswers');
+    localStorage.removeItem('gameName');
+    localStorage.removeItem('correctAnswers');
+    localStorage.removeItem('sprintCorrectSeries');
+    localStorage.removeItem('isLaunchedFromMenu');
     this.data.user.isAuth = false;
     this.data.parameters = JSON.parse(JSON.stringify(this.data.defaultParameters));
     this.data.userName = 'info.user';
