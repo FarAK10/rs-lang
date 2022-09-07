@@ -3,7 +3,7 @@
         <td>
             <ngx-charts-bar-vertical [results]="dayStatistas" [view]="view" [xAxis]="xAxis" [yAxis]="yAxis"
                 [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle"
+                [xAxisLabel]="xAxisLabel | translate" [yAxisLabel]="yAxisLabel | translate" [legendTitle]="legendTitle"
                 [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks"
                 [trimYAxisTicks]="trimYAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
                 [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength"

@@ -23,8 +23,8 @@ export class ChartsComponent implements OnInit {
   xAxis: boolean = true;
   yAxis: boolean = true;
 
-  yAxisLabel: string = 'Words';
-  xAxisLabel: string = 'Dates';
+  yAxisLabel: string = 'stata.new';
+  xAxisLabel: string = 'stata.date';
   showXAxisLabel: boolean = true;
   showYAxisLabel: boolean = true;
 
