@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  signIn() {
+  signIn(login: string) {
     const emailValue = this.email?.value as string;
     const passwordValue = this.password?.value as string;
     const newUser = {
@@ -49,6 +49,6 @@ export class LoginComponent implements OnInit {
     };
     this.resoursesLoaded = false;
     this.authorizationService.onRefreshPage(false);
-    this.authorizationService.singIn(newUser);
+    this.authorizationService.singIn(newUser, login);
   }
 }

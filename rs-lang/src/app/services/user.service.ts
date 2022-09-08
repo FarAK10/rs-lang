@@ -105,7 +105,6 @@ export class UserService {
       this.authService.getLastDateStatista().audio.series.push(correctSeries);
       this.authService.getLastDateStatista().audio.newWords.push(...this.newAudioGameWords);
     }
-    console.log(this.authService.getLastDateStatista());
     this.localStorageService.setLocalStorage(
       'userStatistics',
       JSON.stringify(this.authService.currentUserStatista),

@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit {
     return this.signUpForm.get('confirmPassword');
   }
 
-  submit(): void {
+  submit(login?: string): void {
     const emailValue = this.email?.value as string;
     const passwordValue = this.password?.value as string;
     const nameValue = this.name?.value as string;
@@ -92,6 +92,6 @@ export class RegisterComponent implements OnInit {
     };
     this.resoursesLoaded = false;
     this.authorizationService.onRefreshPage(false);
-    this.authorizationService.register(newUser);
+    this.authorizationService.register(newUser, login);
   }
 }

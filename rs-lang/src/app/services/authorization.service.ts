@@ -60,10 +60,10 @@ export class AuthorizationService {
     },
   };
 
-  register(newUser: INewUser): void {
+  register(newUser: INewUser, login?: string): void {
     this.apiService.post('users', newUser).subscribe({
       next: () => {
-        this.singIn(newUser);
+        this.singIn(newUser, login);
         this.resoursesLoaded$.next(true);
       },
       error: (err) => {
@@ -75,7 +75,7 @@ export class AuthorizationService {
     });
   }
 
-  singIn(newUser: INewUser): void {
+  singIn(newUser: INewUser, login?: string): void {
     this.apiService
       .post('signin', newUser)
       .pipe(
@@ -96,7 +96,9 @@ export class AuthorizationService {
           this.data.userName = this.currentUser.name;
           this.setHardWords();
           this.getInitialStatista();
-          this.router.navigate(['/']);
+          if (login) {
+            this.router.navigate(['/']);
+          }
         },
         (err) => {
           alert('incorrect password or token is experid');
@@ -166,7 +168,6 @@ export class AuthorizationService {
         this.currentUserStatista = res;
         this.currentUserStatista.optional.dates = secondlyParsedDates;
         this.checkDate(this.currentUserStatista);
-        console.log(this.currentUserStatista);
       },
       error: (err) => {
         if (err.status === 404) {

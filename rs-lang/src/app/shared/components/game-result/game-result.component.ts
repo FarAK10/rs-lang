@@ -67,7 +67,6 @@ export class GameResultComponent implements OnInit {
     let series: number[];
     if (this.currentGameName === 'sprint') {
       series = this.gameService.sprintCorrectSeries;
-      console.log(series);
     } else {
       series = this.gameService.audioCorrectSerices;
     }

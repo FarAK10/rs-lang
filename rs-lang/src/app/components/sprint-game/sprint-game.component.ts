@@ -121,13 +121,14 @@ export class SprintGameComponent implements OnInit, OnDestroy {
       let randomIndex;
 
       if (this.aggregatedWords.length === 1) {
-        randomIndex = Math.random() * this.optionalWords.length;
+        randomIndex = Math.floor(Math.random() * this.optionalWords.length);
       } else {
-        randomIndex = Math.random() * this.aggregatedWords.length;
+        randomIndex = Math.floor(Math.random() * this.aggregatedWords.length);
+        while (Number(randomIndex) === this.index) {
+          randomIndex = Math.floor(Math.random() * this.aggregatedWords.length);
+        }
       }
-      while (randomIndex === this.index) {
-        randomIndex = Math.random() * this.aggregatedWords.length;
-      }
+
       this.translation = this.aggregatedWords[Math.floor(randomIndex)].wordTranslate;
     }
   }
