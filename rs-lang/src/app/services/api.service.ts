@@ -8,7 +8,7 @@ import { DataService } from './data.service';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient, private dataService: DataService) {}
+  constructor(private http: HttpClient) {}
 
   baseUrl = 'https://app-rs-lang.herokuapp.com';
   // baseUrl = 'http://localhost:8088';

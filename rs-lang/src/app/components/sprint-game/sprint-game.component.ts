@@ -26,7 +26,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   coefficient: number = 1;
 
-  timeLeft: number = 60;
+  timeLeft: number = 20;
 
   aggregatedWords: Array<IWord> = [];
 
@@ -111,6 +111,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
     this.currentWord = this.aggregatedWords[this.index];
     this.englishWord = this.currentWord.word;
   }
+
   setTranslation() {
     if (Math.random() >= 0.5) {
       this.isCorrect = true;
@@ -127,15 +128,15 @@ export class SprintGameComponent implements OnInit, OnDestroy {
       while (randomIndex === this.index) {
         randomIndex = Math.random() * this.aggregatedWords.length;
       }
-
       this.translation = this.aggregatedWords[Math.floor(randomIndex)].wordTranslate;
     }
   }
+
   next() {
     if (this.index > 0) {
-      this.index--;
       this.setEnglishWord();
       this.setTranslation();
+      this.index--;
     } else {
       this.stopGame();
     }
@@ -152,6 +153,7 @@ export class SprintGameComponent implements OnInit, OnDestroy {
       this.playSound('wrong.mp3');
       this.gameService.pushWrong(this.currentWord);
       this.resetCoefficient();
+      this.correctSerries = 0;
     }
     this.next();
   }
@@ -192,5 +194,6 @@ export class SprintGameComponent implements OnInit, OnDestroy {
     clearInterval(this.timer);
     this.gameService.addToSeries(this.correctSerries);
     this.router.navigate([`game/result`]);
+    this.correctSerries = 0;
   }
 }

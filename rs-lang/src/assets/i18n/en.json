@@ -95,7 +95,7 @@
     "acc": "Accuracy",
     "right": "Right answers:",
     "wrong": "Wrong answers:",
-    "total": "Total words repeated:",
+    "total": "There were words in total:",
     "mistakes": "Mistakes:",
     "series": "Right in a row",
     "correct": "Correct answers:"
@@ -133,5 +133,16 @@
     "farak": "Responsible for the implementation of Sprint and Audio Challenge mini-games. I was engaged in deploying the repository and setting up the project configuration. Created a registration and authorization window.",
     "dimitrianderi": "He was engaged in the development of a textbook and a dictionary with cards, including a section with compound words. Raised and configured the backend. Implemented additional functionality in the form of multilingualism and adaptability of pages. Recorded a video presentation. I also made a logout button :)",
     "jaha": "Designed the main page of the application, including the pop-up menu. Set the direction for the design. Implemented a section with statistics."
+  },
+  "stata": {
+    "today": "Statistics for today",
+    "words": "Learned words",
+    "learn": "Studied: ",
+    "word": "words",
+    "true": "Correct answers: ",
+    "long": "Longest series of correct answers: ",
+    "total": "Passed NEW words by day (these words are not necessarily learned)",
+    "date": "The date",
+    "new": "New words"
   }
 }

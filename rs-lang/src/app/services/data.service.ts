@@ -21,6 +21,7 @@ export class DataService {
   userName: string = 'info.user';
   loginLink: string = '/autorization/login';
   name$ = new BehaviorSubject('user');
+  percent: number = 0;
 
   levels: Level[] = [
     {
@@ -118,6 +119,11 @@ export class DataService {
     this.allEase = this.parameters.words?.every((el) => this.parameters.easeWords?.includes(el.id))
       ? true
       : false;
+    if (this.parameters.words) {
+      this.percent =
+        this.parameters.words!.filter((el) => this.parameters.easeWords?.includes(el.id)).length *
+        5;
+    }
   }
 
   setLanguage(languageCode: string) {

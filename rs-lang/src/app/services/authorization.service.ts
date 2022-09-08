@@ -18,6 +18,7 @@ import { identifierModuleUrl } from 'angular-html-parser/lib/compiler/src/compil
 import { BoundElementProperty, ThisReceiver } from '@angular/compiler';
 import { ContentObserver } from '@angular/cdk/observers';
 import { type } from 'os';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,6 +27,7 @@ export class AuthorizationService {
     private apiService: ApiService,
     private localStorageService: LocalStorageService,
     private data: DataService,
+    private http: HttpClient,
   ) {}
   isAuth = false;
   currentUser!: ICurrentUser;
@@ -132,7 +134,6 @@ export class AuthorizationService {
   }
 
   setHardWords() {
-    this.data.parameters = JSON.parse(JSON.stringify(this.data.defaultParameters));
     this.apiService.getHardWords(this.getUserId()).subscribe((value) => {
       this.userWords = value;
       const arr = value.filter((el) => el.difficulty === 'hard');
@@ -191,7 +192,8 @@ export class AuthorizationService {
     const url = `users/${userId}/statistics`;
     const { id, ...body } = res;
     body.optional.dates = JSON.stringify(body.optional.dates);
-    this.apiService.put<IUserStatista>(url, body).subscribe(() => {
+    this.apiService.put<IUserStatista>(url, body);
+    this.http.put(this.apiService.generateUrl(url), body).subscribe(() => {
       res.optional.dates = JSON.parse(body.optional.dates as string);
     });
   }
