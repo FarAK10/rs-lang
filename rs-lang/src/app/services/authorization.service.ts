@@ -19,6 +19,7 @@ import { BoundElementProperty, ThisReceiver } from '@angular/compiler';
 import { ContentObserver } from '@angular/cdk/observers';
 import { type } from 'os';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +28,8 @@ export class AuthorizationService {
     private apiService: ApiService,
     private localStorageService: LocalStorageService,
     private data: DataService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
   isAuth = false;
   currentUser!: ICurrentUser;
@@ -94,6 +96,7 @@ export class AuthorizationService {
           this.data.userName = this.currentUser.name;
           this.setHardWords();
           this.getInitialStatista();
+          this.router.navigate(['/']);
         },
         (err) => {
           alert('incorrect password or token is experid');
