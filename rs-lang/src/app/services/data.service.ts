@@ -115,7 +115,9 @@ export class DataService {
     this.allEase = this.parameters.words?.every((el) => this.parameters.easeWords?.includes(el.id))
       ? true
       : false;
-      this.percent = (this.parameters.words!.filter((el) => this.parameters.easeWords?.includes(el.id)).length * 5);
+      if (this.parameters.words) {
+        this.percent = (this.parameters.words!.filter((el) => this.parameters.easeWords?.includes(el.id)).length * 5);
+      }
   }
 
   setLanguage(languageCode: string) {
