@@ -1,6 +1,6 @@
 import { ContentObserver } from '@angular/cdk/observers';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, take, TimeInterval, windowWhen } from 'rxjs';
+import { BehaviorSubject, Subscription, take, TimeInterval, windowWhen } from 'rxjs';
 import { IAggregatedResp, IWord } from 'src/app/interfaces/interfaces';
 import { GameService } from 'src/app/services/game.service';
 import { shuffle } from 'src/app/shared/functions';

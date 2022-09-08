@@ -11,6 +11,8 @@ export class AudioChallengeService {
   constructor(private gameService: GameService) {}
   allWords: Array<IWord> = [];
 
+  optionalAnswers: Array<IWord> = [];
+
   currentPage: number = this.gameService.getCurrentPage();
 
   sliceNumber: number = 0;
@@ -21,36 +23,59 @@ export class AudioChallengeService {
 
   options$ = new BehaviorSubject<IOption[]>([]);
 
+  isFinished$ = new BehaviorSubject(20);
+
   getWords() {
     this.gameService.reset();
     this.gameService.getWords();
     this.gameService.isWordsLoaded$.pipe(take(2)).subscribe((isLoaded: boolean) => {
       if (isLoaded) {
         this.allWords = shuffle(this.gameService.gameWords);
+        this.optionalAnswers = this.gameService.optionalAnswers;
         this.index = this.allWords.length - 1;
+
         this.options$.next(this.getOptions());
       }
     });
   }
 
   getOptions(): IOption[] {
+    this.isFinished$.next(this.index);
     const options = [];
     const indexes = [];
     const correctWord = this.allWords[this.index];
     this.correctOption = this.setClass(correctWord, 'correct');
     indexes.push(this.index);
     options.push(this.correctOption);
+    console.log(indexes, 'indexes');
     for (let i = 0; i < 4; i++) {
-      let randomNumber = Math.floor(Math.random() * this.allWords.length);
-      while (indexes.includes(randomNumber)) {
+      let randomNumber;
+      if (this.allWords.length > 5) {
         randomNumber = Math.floor(Math.random() * this.allWords.length);
+      } else {
+        randomNumber = Math.floor(Math.random() * this.optionalAnswers.length);
+      }
+      while (indexes.includes(randomNumber)) {
+        // randomNumber = Math.floor(Math.random() * this.allWords.length);
+        if (this.allWords.length > 5) {
+          randomNumber = Math.floor(Math.random() * this.allWords.length);
+        } else {
+          randomNumber = Math.floor(Math.random() * this.optionalAnswers.length);
+        }
       }
       indexes.push(randomNumber);
-      const randomWord = this.allWords[randomNumber];
+      let randomWord;
+      if (this.allWords.length > 5) {
+        randomWord = this.allWords[randomNumber];
+      } else {
+        randomWord = this.optionalAnswers[randomNumber];
+      }
       const option = this.setClass(randomWord, 'wrong');
       options.push(option);
     }
+    console.log(this.index);
     this.index--;
+    console.log(options);
     return shuffle(options);
   }
 

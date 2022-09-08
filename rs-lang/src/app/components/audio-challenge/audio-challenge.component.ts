@@ -50,6 +50,8 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
 
   wordsSub!: Subscription;
 
+  numberOfWords = 20;
+
   lives: Array<string> = [
     'favorite',
     'favorite',
@@ -71,6 +73,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
     this.wordsSub = this.gameService.isWordsLoaded$.subscribe((isLoaded: boolean) => {
       if (isLoaded) {
         this.isResoursesLoaded = true;
+        this.numberOfWords = this.audioGameService.allWords.length - 1;
       }
     });
     this.optionsSub$ = this.audioGameService.options$.subscribe((options: IOption[]) => {
@@ -80,7 +83,6 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
         this.playPronunciation();
       }
     });
-
     this.baseUrl = this.apiService.getBaseUrl();
   }
 
@@ -132,7 +134,7 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
       this.showBtnText = 'show results';
       this.gameService.addToSeries(this.correctInRow);
     } else {
-      this.showBtnText = 'audio.next';
+      this.showBtnText = 'next question';
     }
   }
 
@@ -183,9 +185,13 @@ export class AudioChallengeComponent implements OnInit, OnDestroy {
   }
 
   onNextQuestion() {
-    if (this.livesLeft === -1) {
+    console.log(this.numberOfWords, 'numberOf words');
+    if (this.livesLeft === -1 || this.numberOfWords <= 0) {
+      this.gameService.addToSeries(this.correctInRow);
+
       this.router.navigate([`game/result`]);
     } else {
+      this.numberOfWords--;
       this.audioGameService.nextQuestion();
       this.isAnswerShown = false;
     }

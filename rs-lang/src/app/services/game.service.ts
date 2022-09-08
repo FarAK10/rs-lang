@@ -216,9 +216,11 @@ export class GameService {
     this.correctAnswers.length = 0;
     this.incorrectAnswers.length = 0;
     if (this.gameName === 'sprint') {
+      this.sprintCorrectSeries = [];
       this.sprintCorrectSeries.length = 0;
       this.userService.newSprintGameWords.length = 0;
     } else {
+      this.audioCorrectSerices = [];
       this.audioCorrectSerices.length = 0;
       this.userService.newAudioGameWords.length = 0;
     }
