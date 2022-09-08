@@ -61,6 +61,10 @@
                 <mat-progress-spinner ngClass="spinner" *ngIf="!this.data.isLoaded" class="example-margin"
                     color="accent" mode="indeterminate" [value]="50">
                 </mat-progress-spinner>
+                <div class="card__progress" *ngIf="this.data.parameters.currentLevel !== 6 && data.user.isAuth === true && this.data.isLoaded">
+                    <h6 class="progress-text">Прогресс изученных слов:</h6>
+                    <progress class="progress" value="{{this.data.percent}}" max="100"></progress>
+                </div>
                 <div class="card__container" *ngIf="this.data.isLoaded">
                     <div class="card" *ngFor="let word of data.parameters.words" [ngStyle]="{boxShadow: 
                         data.parameters.currentLevel === 6 || data.parameters.hardWords?.includes(word.id) 
