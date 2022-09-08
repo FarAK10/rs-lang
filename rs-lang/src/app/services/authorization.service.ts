@@ -222,7 +222,6 @@ export class AuthorizationService {
     }
     const datesLength = this.currentUserStatista.optional.dates.length;
     const lastDateStatista = this.currentUserStatista.optional.dates[datesLength - 1];
-    console.log(lastDateStatista)
     return lastDateStatista as IDayStatista;
   }
 
