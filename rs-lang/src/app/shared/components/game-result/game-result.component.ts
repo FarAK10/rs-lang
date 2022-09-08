@@ -35,7 +35,7 @@ export class GameResultComponent implements OnInit {
 
   currentGameName: string = '';
 
-  correctInRow!: number;
+  correctInRow: number = 0;
 
   gameServiceSub!: Subscription;
 

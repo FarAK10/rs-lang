@@ -211,14 +211,14 @@ export class GameService {
   }
 
   reset(): void {
-    this.correctAnswers = [];
-    this.incorrectAnswers = [];
+    this.correctAnswers.length = 0;
+    this.incorrectAnswers.length = 0;
     if (this.gameName === 'sprint') {
-      this.sprintCorrectSeries = [];
-      this.userService.newSprintGameWords = [];
+      this.sprintCorrectSeries.length = 0;
+      this.userService.newSprintGameWords.length = 0;
     } else {
-      this.audioCorrectSerices = [];
-      this.userService.newAudioGameWords = [];
+      this.audioCorrectSerices.length = 0;
+      this.userService.newAudioGameWords.length = 0;
     }
   }
 
