@@ -7,7 +7,8 @@
       </div>
       <h3>{{ 'stata.words' | translate }}</h3>
       <div class="sts">
-        <div class="description">{{ 'stata.learn' | translate }} {{this.learnWords}} {{ 'stata.word' | translate }}</div>
+        <div class="description">{{ 'stata.learn' | translate }} {{this.learnWords}} {{ 'stata.word' | translate }}
+        </div>
         <div class="circle">
           <circle-progress class="circular-bar" [percent]="allLearnedWords" [radius]="55" [outerStrokeWidth]="6"
             [innerStrokeWidth]="3" [outerStrokeColor]="' #3f51b5'" [innerStrokeColor]="'#ff4081'" [animation]="true"
@@ -22,7 +23,8 @@
       </div>
       <h3>{{ 'games.sprint' | translate }}</h3>
       <div class="sts">
-        <div class="description">{{ 'stata.learn' | translate }} {{this.sprintWords}} {{ 'stata.word' | translate }}</div>
+        <div class="description">{{ 'stata.learn' | translate }} {{this.sprintWords}} {{ 'stata.word' | translate }}
+        </div>
         <div class="description">{{ 'stata.true' | translate }} {{this.sprintPercent}}%</div>
         <div class="description">{{ 'stata.long' | translate }} {{this.sprintSeries}}</div>
       </div>
@@ -33,7 +35,8 @@
       </div>
       <h3>{{ 'games.audioBattle' | translate }}</h3>
       <div class="sts">
-        <div class="description">{{ 'stata.learn' | translate }} {{this.audioWords}} {{ 'stata.word' | translate }}</div>
+        <div class="description">{{ 'stata.learn' | translate }} {{this.audioWords}} {{ 'stata.word' | translate }}
+        </div>
         <div class="description">{{ 'stata.true' | translate }} {{this.audioPercent}}%</div>
         <div class="description">{{ 'stata.long' | translate }} {{this.audioSeries}}</div>
       </div>
@@ -43,5 +46,4 @@
   <div class="card" style="margin-top:20px ;">
     <app-charts></app-charts>
   </div>
-
 </div>

@@ -45,6 +45,8 @@ import { AudioChallengeComponent } from './components/audio-challenge/audio-chal
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxLineChartModule } from 'ngx-line-chart';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 const formsModules = [
   MatButtonModule,
   MatFormFieldModule,
@@ -87,6 +89,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AudioChallengeComponent,
     StatisticsComponent,
     ChartsComponent,
+    LineChartComponent,
   ],
 
   imports: [
@@ -110,6 +113,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ...formsModules,
     NgCircleProgressModule.forRoot({}),
     NgxChartsModule,
+    NgxLineChartModule,
   ],
 
   providers: [

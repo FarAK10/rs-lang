@@ -3,6 +3,7 @@ import { IOption, IWord } from '../interfaces/interfaces';
 import { shuffle } from '../shared/functions';
 import { BehaviorSubject, take } from 'rxjs';
 import { GameService } from './game.service';
+import { resourceUsage } from 'process';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,18 @@ export class AudioChallengeService {
     this.gameService.isWordsLoaded$.pipe(take(2)).subscribe((isLoaded: boolean) => {
       if (isLoaded) {
         this.allWords = shuffle(this.gameService.gameWords);
-        this.optionalAnswers = this.gameService.optionalAnswers;
+        this.optionalAnswers = this.gameService.optionalAnswers.filter((n1) => {
+          console.log(n1);
+          let result = true;
+          this.allWords.forEach((n2) => {
+            console.log(n2._id);
+            if (n1._id === n2._id) {
+              result = false;
+            }
+          });
+          return result;
+        });
+        console.log(this.optionalAnswers);
         this.index = this.allWords.length - 1;
 
         this.options$.next(this.getOptions());
@@ -56,7 +68,6 @@ export class AudioChallengeService {
         randomNumber = Math.floor(Math.random() * this.optionalAnswers.length);
       }
       while (indexes.includes(randomNumber)) {
-        // randomNumber = Math.floor(Math.random() * this.allWords.length);
         if (this.allWords.length > 5) {
           randomNumber = Math.floor(Math.random() * this.allWords.length);
         } else {
@@ -91,5 +102,14 @@ export class AudioChallengeService {
   }
   getCorrectWord(): IWord {
     return this.correctOption.word;
+  }
+
+  isExist(word: IWord) {
+    let exist = false;
+    this.optionalAnswers.forEach((n) => {
+      if (word._id === n._id) {
+        exist = true;
+      }
+    });
   }
 }

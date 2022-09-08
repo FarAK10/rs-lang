@@ -38,6 +38,7 @@
     "angular-html-parser": "^1.8.0",
     "ionicons": "^6.0.2",
     "ng-circle-progress": "^1.6.0",
+    "ngx-line-chart": "^1.0.0",
     "prettier-plugin-multiline-arrays": "^1.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
