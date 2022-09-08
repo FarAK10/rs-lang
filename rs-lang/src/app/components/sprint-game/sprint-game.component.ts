@@ -56,12 +56,15 @@ export class SprintGameComponent implements OnInit, OnDestroy {
 
   isResoursesLoaded = false;
 
+  optionalWords: IWord[] = [];
+
   ngOnInit(): void {
     this.gameService.reset();
     this.gameService.getWords();
     this.wordsSub = this.gameService.isWordsLoaded$.subscribe((isLoaded: boolean) => {
       if (isLoaded) {
         this.isResoursesLoaded = isLoaded;
+        this.optionalWords = this.gameService.optionalAnswers;
         this.aggregatedWords = shuffle(this.gameService.gameWords);
         this.setEnglishWord();
         this.setTranslation();
@@ -114,7 +117,13 @@ export class SprintGameComponent implements OnInit, OnDestroy {
       this.translation = this.aggregatedWords[this.index].wordTranslate;
     } else {
       this.isCorrect = false;
-      let randomIndex = Math.random() * this.aggregatedWords.length;
+      let randomIndex;
+
+      if (this.aggregatedWords.length === 1) {
+        randomIndex = Math.random() * this.optionalWords.length;
+      } else {
+        randomIndex = Math.random() * this.aggregatedWords.length;
+      }
       while (randomIndex === this.index) {
         randomIndex = Math.random() * this.aggregatedWords.length;
       }

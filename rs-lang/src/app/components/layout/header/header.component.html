@@ -12,7 +12,7 @@
       translate }}</span>
   </div>
   <div class="loginfo">
-    <div class="name">{{ this.data.userName | translate }}</div>
+    <div class="name">{{ name| translate }}</div>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
       routerLink="/autorization/login" *ngIf="!this.authorizationService.isAuth">
       <mat-icon>account_circle</mat-icon>

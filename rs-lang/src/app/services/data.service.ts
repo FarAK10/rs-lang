@@ -1,5 +1,6 @@
 import { Injectable, OnChanges, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
 import { ICurrentUser, Level, Parameters } from '../interfaces/interfaces';
 
 @Injectable({
@@ -19,6 +20,7 @@ export class DataService {
   isLoaded: boolean = true;
   userName: string = 'info.user';
   loginLink: string = '/autorization/login';
+  name$ = new BehaviorSubject('user');
 
   levels: Level[] = [
     {
@@ -108,6 +110,7 @@ export class DataService {
     if (localStorage.getItem('user')) {
       this.user = JSON.parse(localStorage.getItem('user')!);
       this.user.isAuth = true;
+      this.name$.next(this.user.name);
     }
   }
 

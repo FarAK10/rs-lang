@@ -55,6 +55,8 @@ export class GameService {
 
   isWordsLoaded$ = new BehaviorSubject(true);
 
+  optionalAnswers: IWord[] = [];
+
   constructor(
     private apiService: ApiService,
     private authService: AuthorizationService,
@@ -114,7 +116,6 @@ export class GameService {
       const urls = [];
       for (let i = this.currentPage; i >= 0; i--) {
         const url = `users/${userId}/aggregatedWords?filter={ "$and": [{ "page": ${i} }, {"group": ${this.englishLevel}}] }&wordsPerPage=20`;
-        // const url = `users/${userId}/aggregatedWords?page=${i}&group=${this.englishLevel}&wordsPerPage=20`;
         urls.push(url);
       }
       of(...urls)
@@ -124,6 +125,7 @@ export class GameService {
         )
         .subscribe({
           next: (words: [IAggregatedResp]) => {
+            this.optionalAnswers.push(...shuffle(words[0].paginatedResults));
             const filtered = filterLearnedWords(words[0].paginatedResults);
             this.gameWords.push(...filtered);
           },

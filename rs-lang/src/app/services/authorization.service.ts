@@ -26,7 +26,7 @@ export class AuthorizationService {
     private apiService: ApiService,
     private localStorageService: LocalStorageService,
     private data: DataService,
-  ) { }
+  ) {}
   isAuth = false;
   currentUser!: ICurrentUser;
 
@@ -102,12 +102,17 @@ export class AuthorizationService {
 
   logout() {
     this.isAuth = false;
-    localStorage.removeItem('user');
-    localStorage.removeItem('newUser');
-    localStorage.removeItem('parameters');
+    localStorage.clear();
     this.data.user.isAuth = false;
     this.data.parameters = JSON.parse(JSON.stringify(this.data.defaultParameters));
     this.data.userName = 'info.user';
+    this.currentUserStatista = {
+      learnedWords: 0,
+      id: 0,
+      optional: {
+        dates: [this.defaultDateStatista],
+      },
+    };
   }
 
   setCurrentUser(user: ICurrentUser) {
@@ -157,6 +162,7 @@ export class AuthorizationService {
         this.currentUserStatista = res;
         this.currentUserStatista.optional.dates = secondlyParsedDates;
         this.checkDate(this.currentUserStatista);
+        console.log(this.currentUserStatista);
       },
       error: (err) => {
         if (err.status === 404) {
@@ -209,9 +215,16 @@ export class AuthorizationService {
   }
 
   getLastDateStatista() {
+    if (typeof this.currentUserStatista.optional.dates === 'string') {
+      this.currentUserStatista.optional.dates = JSON.parse(this.currentUserStatista.optional.dates);
+    }
     const datesLength = this.currentUserStatista.optional.dates.length;
     const lastDateStatista = this.currentUserStatista.optional.dates[datesLength - 1];
     return lastDateStatista as IDayStatista;
+  }
+
+  getRefreshToken() {
+    return this.currentUser.refreshToken;
   }
 
   onRefreshPage(isRefesh: boolean) {
