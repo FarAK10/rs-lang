@@ -16,6 +16,8 @@ export class DataService {
   }
 
   allEase: boolean = false;
+  isHard: boolean = false;
+  isEase: boolean = false;
   lang: string | null = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'ru';
   isLoaded: boolean = true;
   userName: string = 'info.user';
@@ -116,9 +118,13 @@ export class DataService {
   }
 
   checkArrEase() {
-    this.allEase = this.parameters.words?.every((el) => this.parameters.easeWords?.includes(el.id))
+    this.isEase = this.parameters.words?.some((el) => this.parameters.easeWords?.includes(el.id))
       ? true
       : false;
+    this.isHard = this.parameters.words?.every((el) => this.parameters.hardWords?.includes(el.id) || this.parameters.easeWords?.includes(el.id))
+      ? true
+      : false;
+    this.allEase = this.isEase && this.isHard;
     if (this.parameters.words) {
       this.percent =
         this.parameters.words!.filter((el) => this.parameters.easeWords?.includes(el.id)).length *
