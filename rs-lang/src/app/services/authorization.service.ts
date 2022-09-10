@@ -120,6 +120,7 @@ export class AuthorizationService {
         dates: [this.defaultDateStatista],
       },
     };
+    this.data.name$.next('user1');
   }
 
   setCurrentUser(user: ICurrentUser) {
