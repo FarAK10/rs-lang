@@ -121,7 +121,10 @@ export class DataService {
     this.isEase = this.parameters.words?.some((el) => this.parameters.easeWords?.includes(el.id))
       ? true
       : false;
-    this.isHard = this.parameters.words?.every((el) => this.parameters.hardWords?.includes(el.id) || this.parameters.easeWords?.includes(el.id))
+    this.isHard = this.parameters.words?.every(
+      (el) =>
+        this.parameters.hardWords?.includes(el.id) || this.parameters.easeWords?.includes(el.id),
+    )
       ? true
       : false;
     this.allEase = this.isEase && this.isHard;
