@@ -1,0 +1,38 @@
+<div class="form-container mat-elevation-z5">
+  <h1>{{ 'register.title' | translate }}</h1>
+  <form [formGroup]="signUpForm">
+
+    <mat-form-field class="input-field" color="accent">
+      <input matInput placeholder="{{ 'register.name' | translate }}" formControlName="name">
+      <mat-error *ngIf="name?.errors?.['required']">{{ 'register.nameR' | translate }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" color="accent">
+      <input matInput placeholder="{{ 'register.email' | translate }}" formControlName="email">
+      <mat-error *ngIf="email?.errors?.['required']">{{ 'register.emailR' | translate }}</mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">{{ 'register.correctEmail' | translate }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" color="accent">
+      <input type="password" matInput placeholder="{{ 'register.pass' | translate }}" formControlName="password" autocomplete="on">
+      <mat-error *ngIf="password?.errors?.['required']">{{ 'register.passR' | translate }}</mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">{{ 'register.passMin' | translate }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" color="accent">
+      <input type="password" matInput placeholder="{{ 'register.confirmPass' | translate }}" formControlName="confirmPassword"
+        autocomplete="on">
+      <mat-error *ngIf="confirmPassword?.errors?.['required']">{{ 'register.confirm' | translate }}</mat-error>
+      <mat-error *ngIf="confirmPassword?.errors?.['minlength']">{{ 'register.passMin' | translate }}</mat-error>
+    </mat-form-field>
+
+    <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">{{ 'register.equal' | translate }}</mat-error>
+
+    <div class="center">
+      <button [disabled]="!signUpForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit"
+        (click)="submit('login')" routerLink="/autorization/login">{{ 'button.sign' | translate }}</button>
+    </div>
+  </form>
+</div>
+<mat-progress-spinner ngClass="spinner" *ngIf="!resoursesLoaded" class="example-margin" color="accent"
+  mode="indeterminate" [value]="50">

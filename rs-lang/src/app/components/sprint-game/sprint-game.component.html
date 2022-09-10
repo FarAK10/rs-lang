@@ -1,0 +1,29 @@
+<div class="sprint__wrapper" *ngIf="isResoursesLoaded">
+  <app-game-settings (muteChange)="onMute($event)" (screenSizeChange)="onFullScreen($event)"></app-game-settings>
+  <div class="center">
+    <div class="timer">
+      <mat-icon class="timer__clock" color="primary">alarm</mat-icon>
+      <h3 class="timer__time">{{timeLeft}} {{ 'sprint.sec' | translate }}</h3>
+    </div>
+    <div class="score">
+      <div class="score__coefficient">{{ 'sprint.cef' | translate }}{{coefficient}} +{{coefficient*10}}</div>
+      <div class="score__points">{{ 'sprint.points' | translate }}: {{totalPoints}}</div>
+    </div>
+    <div class="right-in-row">
+      <mat-icon color="primary" class="right-in-row__icon" [matBadge]="rightInRow" matBadgePosition="after"
+        matBadgeColor="accent">
+        check_circle_outline
+      </mat-icon>
+    </div>
+    <h2 class="question">
+      {{englishWord}} <span class="word">{{ 'sprint.this' | translate }}</span> {{translation}}?
+    </h2>
+    <div class="buttons">
+      <button mat-raised-button color="primary" (click)="check(true)">{{ 'button.correct' | translate }}</button>
+      <button mat-raised-button color="accent" (click)="check(false)">{{ 'button.wrong' | translate }}</button>
+    </div>
+  </div>
+</div>
+<mat-progress-spinner ngClass="spinner" *ngIf="!isResoursesLoaded" class="example-margin" color="accent"
+  mode="indeterminate" [value]="50">
+</mat-progress-spinner>

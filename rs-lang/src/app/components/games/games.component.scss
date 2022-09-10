@@ -1,0 +1,100 @@
+@import '../../../styles/constants.scss';
+.games__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: calc(50vh - 232px);
+    padding-bottom: calc(50vh - 232px);    
+    background-image: 
+        url(../../../assets/icons/Vector.svg),
+        url(../../../assets/icons/Bloobs.svg),
+        url(../../../assets/icons/MessageSent.svg),
+         ;
+    background-position: 
+        right 0 top 0, 
+        left 0 top 0, 
+        left 0 top 40vh, ;
+    background-repeat: no-repeat;
+}
+
+.cards__container{
+    display: flex;
+    max-width: 44rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 20rem;
+    min-width: 18rem;
+    min-height: 21rem;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    box-shadow: $darkBlue 0 0 1rem;
+}
+
+
+h3{
+    font-weight: 500;
+}
+mat-icon{
+    font-size: 3rem;
+    color: $lightPink;
+    width: 100%;
+    height: 100%;
+}
+.description{
+    padding: 1rem;
+    text-align: center;
+    margin: 0;
+}
+.play{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    :hover{
+        color: $pink;
+        transition: all 0.2s ease-in-out;
+    }
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+a:after {
+	content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.4s; 
+}
+
+a:hover:after {
+    width: 100%;
+    left: 0;
+    background-color: $pink;
+    transition: width 0.4s;
+}

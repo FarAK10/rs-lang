@@ -1,0 +1,43 @@
+@import './fonts.scss';
+
+$pink: #ff4081;
+$light-pink: #ffc7d9;
+$grey: #f0f0f0;
+$light-grey: #f6f6f6;
+$black: #000000;
+$lightPink: #F78CB6;
+$darkBlue: #56597A;
+$lightBlue: aliceblue;
+$blue: #3f51b5;
+
+@mixin font($size: 24px, $color: #000000, $family: 'Areal', $weight: 300, $height: 20px) {
+  font-size: $size;
+  font-weight: $weight;
+  font-family: $family;
+  color: $color;
+  line-height: $height;
+}
+
+@mixin btn($width: 100px, $height: 50px, $radius: 0px, $background: white) {
+  width: $width;
+  height: $height;
+  border-radius: $radius;
+  background-color: $background;
+  cursor: pointer;
+}
+
+@mixin bordered {
+  border: 3px solid;
+  border-radius: 30px;
+  line-height: 25px;
+  font-size: 20px;
+}
+
+@mixin icon-size {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+}
+
+
+

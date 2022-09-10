@@ -1,0 +1,148 @@
+{
+  "info": {
+    "tutorial": "Choose the difficulty level",
+    "vocabulary": "Vocabulary",
+    "words": "words",
+    "skills": "What can you do when you reach this level:",
+    "levels": "levels",
+    "res": "Result",
+    "nowords": "No more words :(",
+    "user": "guest"
+  },
+  "languages": {
+    "english": "Eng",
+    "russian": "Rus"
+  },
+  "login": {
+    "registration": "Registration",
+    "pass": "Password",
+    "email": "Email addres",
+    "emailR": "Email is required",
+    "correctEmail": "Please enter valid email",
+    "passR": "Password is required",
+    "passMin": "Min length of the password should be 8 symbols"
+  },
+  "register": {
+    "title": "Sign Up a New User!",
+    "name": "Name",
+    "nameR": "Name is required",
+    "email": "Email addres",
+    "emailR": "Email is required",
+    "correctEmail": "Please enter valid email",
+    "pass": "Password",
+    "passR": "Password is required",
+    "passMin": "Min length of the password should be 8 symbols",
+    "confirmPass": "Confirm Password",
+    "confirm": "Confirming Password is required",
+    "equal": "Passwords should match"
+  },
+  "button": {
+    "back": "Back tutorial",
+    "hardWords": "Hard words",
+    "main": "Main menu",
+    "sprint": "Sprint",
+    "audioBattle": "Audiobattle",
+    "play": "Play",
+    "backHome": "Back home",
+    "correct": "Correct",
+    "wrong": "Wrong",
+    "again": "play again",
+    "submit": "Submit",
+    "login": "Login",
+    "sign": "Sign up"
+  },
+  "title": {
+    "inHard": "Make it difficult",
+    "outHard": "No more difficult",
+    "inEase": "Make it ease",
+    "outEase": "No more ease",
+    "photo": "Do not look at me"
+  },
+  "menu": {
+    "main": "Main",
+    "tutorial": "Electronic textbook",
+    "games": "Mini-games",
+    "statistics": "Statistics"
+  },
+  "levels": {
+    "titleA1": "Beginner",
+    "titleA2": "Elementary",
+    "titleB1": "Pre-Intermediate",
+    "titleB2": "Intermediate",
+    "titleC1": "Upper-Intermediate",
+    "titleC2": "Advanced",
+    "textA1": "Understand the intonation and gestures of the interlocutor. Be able to say: \"London is the capital of Great Britain\"",
+    "textA2": "Talk to children. Listen to English-language music, pretending to understand something.",
+    "textB1": "Take an English language test to get a job as a front-end developer.",
+    "textB2": "Use English words in your speech. Where it is necessary and not necessary.",
+    "textC1": "Mimic under an ordinary resident of the outskirts of Brighton Beach.",
+    "textC2": "To relax. Because no one knows as many English words as the Queen of Great Britain."
+  },
+  "games": {
+    "sprint": "Sprint",
+    "audioBattle": "Audio battle",
+    "descSprint": "Check how many points you can get in one minute by making educated guesses about what is right and wrong.",
+    "descAudio": "Test your listening skills by trying to guess the correct meaning after the word you hear. You only have one try."
+  },
+  "sprint": {
+    "name": "sprint",
+    "title": "Choose level",
+    "text": "P.S. You can choose correct answer by clicking the mouse or use &#x2190; and &#x2192; on your keyboard",
+    "sec": "seconds",
+    "cef": "coefficent X",
+    "points": "Points",
+    "this": "is",
+    "acc": "Accuracy",
+    "right": "Right answers:",
+    "wrong": "Wrong answers:",
+    "total": "There were words in total:",
+    "mistakes": "Mistakes:",
+    "series": "Right in a row",
+    "correct": "Correct answers:"
+  },
+  "audio": {
+    "name": "Audio Battle",
+    "showAnswer": "Show Answer",
+    "next": "next question"
+  },
+  "layout": {
+    "title": "Learning English has never been so easy",
+    "text": "Memorizing English words can be fun and challenging. Play games, listen to pronunciation, improve your knowledge. With our app, learning becomes a joy.",
+    "intro": "Introduction to the application",
+    "card": "Advantages",
+    "titleTutorial": ""
+  },
+  "card": {
+    "titleTexbook": "Electronic textbook",
+    "titleTutorial": "Dictionary",
+    "titleStat": "Statistics",
+    "titleGames": "Mini-games",
+    "descTexbook": "The electronic textbook consists of six sections. Each section has 30 pages of 20 words. The translation of the word, thematic image, as well as the pronunciation of the word both separately and as part of a phrase are presented.",
+    "descTutorial": "The dictionary contains lists of learned words, words that do not need to be learned, as well as those that cause difficulties. The dictionary reflects statistics for each section and student performance.",
+    "descStat": "The entire learning progress can be viewed in the statistics, which presents data both for the current day and for the entire training period. The information is presented both in the form of a table and in the form of graphs, which is very convenient.",
+    "descGames": "There are 4 games in the application to study words and consolidate memorization: game1, game2, game3 and game4, which will help you “pump” your vocabulary in a playful way."
+  },
+  "team": {
+    "title": "Our team",
+    "farakName": "Farkhod",
+    "dimitrianderiName": "Dmitry",
+    "jahaName": "Jahongir",
+    "position1": "Frontend-captain",
+    "position2": "Frontend-developer",
+    "position3": "Frontend-developer",
+    "farak": "Responsible for the implementation of Sprint and Audio Challenge mini-games. I was engaged in deploying the repository and setting up the project configuration. Created a registration and authorization window.",
+    "dimitrianderi": "He was engaged in the development of a textbook and a dictionary with cards, including a section with compound words. Raised and configured the backend. Implemented additional functionality in the form of multilingualism and adaptability of pages. Recorded a video presentation. I also made a logout button :)",
+    "jaha": "Designed the main page of the application, including the pop-up menu. Set the direction for the design. Implemented a section with statistics."
+  },
+  "stata": {
+    "today": "Statistics for today",
+    "words": "Learned words",
+    "learn": "Studied: ",
+    "word": "words",
+    "true": "Correct answers: ",
+    "long": "Longest series of correct answers: ",
+    "total": "Passed NEW words by day (these words are not necessarily learned)",
+    "date": "The date",
+    "new": "New words"
+  }
+}

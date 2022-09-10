@@ -1,0 +1,23 @@
+@import '../../../styles/constants.scss';
+.authorization__container{
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
+.authorization {
+  width: 420px;
+  margin: auto auto;
+  background-color: $grey;
+  min-height: calc(80vh - 128px);
+
+
+
+  .auth-nav {
+    display: flex;
+    justify-content: space-between;
+
+    .btn-active {
+      background-color: $pink;
+      color: white;
+    }
+  }
+}

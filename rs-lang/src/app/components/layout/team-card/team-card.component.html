@@ -1,0 +1,14 @@
+<div class="team">
+    <h2>{{ 'team.title' | translate }}</h2>
+    <div class="team__container">
+        <div class="team__cards"  *ngFor="let post of teamCard" >
+            <img class="ava" src={{post.photo}} alt="ava">
+            <div class="about">
+                <h4>{{post.hero | translate}}</h4>
+                <div class="hero__position">{{post.position | translate}}</div>
+                <span [innerHtml]="post.tasks | translate"></span>
+                <a href={{post.link}}><img class="github__logo" src="../../assets/icons/gh.svg" alt="logo"></a>
+            </div>
+        </div>
+    </div>
+</div>

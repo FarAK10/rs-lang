@@ -1,0 +1,58 @@
+@import '../../../../styles/constants.scss';
+.ava{
+    width: 10rem;
+}
+.team{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.team__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.team__cards{
+    display: flex;
+    max-width: 50%;
+    width: 100%;
+    gap: 2rem;
+    box-shadow: $darkBlue 0 0 1rem;
+    border-radius: 2rem;
+    padding: 2rem;
+
+}
+.about{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+h4{
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $darkBlue;
+}
+.hero__position{
+    margin-bottom: 1rem;
+}
+.github__logo{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 2rem;
+
+
+}
+a{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    :hover{
+        width: 3.4rem;
+        height: 3.4rem;
+        transition: all 0.2s ease-in-out;
+    }
+}

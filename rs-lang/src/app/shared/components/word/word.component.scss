@@ -1,0 +1,23 @@
+@import '../../../../styles/constants.scss';
+.word {
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid $blue;
+
+  .volume {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    color: $blue;
+  }
+
+  .english-word {
+    margin: 0 auto;
+    font-size: 20px;
+    color: $pink;
+  }
+  .translation {
+    color: $blue;
+  }
+}

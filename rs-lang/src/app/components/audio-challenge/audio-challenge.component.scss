@@ -1,0 +1,56 @@
+@import '../../../styles/constants.scss';
+.game-wrapper {
+  max-width: 700px;
+  height: 600px;
+  margin: 0 auto;
+
+  .game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .lives {
+      align-self: flex-start;
+    }
+
+    .img-wrapper {
+      cursor: pointer;
+      width: 200px;
+      border-radius: 50%;
+
+      .img {
+        border-radius: 50%;
+      }
+    }
+
+    .current-word {
+      margin: 20px 0;
+      color: $blue;
+    }
+
+    .buttons {
+      display: flex;
+      width: 550px;
+      justify-content: space-between;
+
+      .correct {
+        background-color: green;
+      }
+
+      .wrong {
+        background-color: red;
+      }
+    }
+
+    .answer-button {
+      margin-top: 20px;
+    }
+  }
+}
+
+.example-margin {
+  position: absolute;
+  top: calc(50vh - 60px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

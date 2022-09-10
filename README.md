@@ -1,4 +1,5 @@
 # rs-lang
+# rs-lang
 This project was fully developed using angular framework.
 ## Libraries we used:
 1. ngx-traslate:

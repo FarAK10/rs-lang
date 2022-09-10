@@ -1,0 +1,20 @@
+@import '../../../../styles/constants.scss';
+mat-sidenav{
+    padding: 2rem 1rem 0 1rem;
+    background-color: white;
+    width: 20%;
+}
+
+mat-sidenav-container,
+mat-sidenav-content {
+    overflow: initial;
+    background-color: white;
+}
+
+mat-sidenav-container {
+    min-height: calc(100vh - 8rem);
+}
+
+mat-sidenav-content {
+    height: 100%;
+}

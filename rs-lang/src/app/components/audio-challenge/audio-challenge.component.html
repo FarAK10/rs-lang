@@ -1,0 +1,21 @@
+<div class="game-wrapper" *ngIf="isResoursesLoaded">
+  <app-game-settings (muteChange)="onMute($event)" (screenSizeChange)="onFullScreen($event)"></app-game-settings>
+  <div class="game">
+    <div class="lives">
+      <mat-icon *ngFor="let life of lives" color="primary">{{life}}</mat-icon>
+    </div>
+    <div class="img-wrapper" (click)="playPronunciation()">
+      <img [src]="imgLink" alt="associated img with word">
+    </div>
+    <h2 class="current-word">{{currentEnglishWord}}</h2>
+    <div class="buttons">
+      <button [disabled]="isAnswerShown" mat-raised-button color="accent" *ngFor="let option of options"
+        [ngClass]="isWrong(option.class)"
+        (click)="checkAnswer(option.word.wordTranslate)">{{option.word.wordTranslate}}</button>
+    </div>
+    <button mat-stroked-button color="primary" class="answer-button" (click)="showAnswer()">{{showBtnText | translate}}</button>
+  </div>
+</div>
+<mat-progress-spinner ngClass="spinner" *ngIf="!isResoursesLoaded" class="example-margin" color="accent"
+  mode="indeterminate" [value]="50">
+</mat-progress-spinner>

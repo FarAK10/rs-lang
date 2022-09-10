@@ -1,0 +1,51 @@
+<div class="level">
+    <div class="container">
+        <h2 class="level__header">
+            {{ 'info.tutorial' | translate }}
+        </h2>
+        <div class="level__content">
+            <div class="level__cards">
+                <div 
+                  *ngFor="let level of data.levels" 
+                  class="level__card" 
+                  [ngStyle]="{background: 'linear-gradient(30deg, white 15%, ' + level.color + ')'}" 
+                  [class.active] = "(data.parameters.currentLevel === 6 && level.id === 0) || level.id === data.parameters.currentLevel"
+                  id="{{ level.id }}"
+                  (mouseenter)="onMouseOver($event)"
+                  (click)="onCheck()"
+                  routerLink="/tutorial/words">
+                    <span>
+                        <span class="level__card-title">{{ level.title | translate}}</span>
+                        <span class="level__card-digit">{{ level.digit }}</span>
+                    </span>
+                </div>
+            </div>
+            <div class="info">
+                <h2 class="info__header">{{ setting.digit }}</h2>
+                <span class="info__title">{{ setting.title | translate}}</span>
+                <div class="info__words">
+                    {{ 'info.vocabulary' | translate }}: <span class="info__words-digits">{{ setting.words }}</span> {{ 'info.words' | translate }}!
+                </div>
+               <div class="info__text">
+                    <span class="info__text-desc">{{ 'info.skills' | translate }}</span>
+                    <p class="info__text-skills">{{ setting.text | translate}}</p>
+               </div>
+               <div class="tutorial" 
+                  *ngIf="this.data.user.isAuth === true"
+                  (click)="onTutorial()"
+                  routerLink="/tutorial/words">
+                  {{ 'button.hardWords' | translate }}
+                </div>
+            </div>
+            <div class="image">
+                <img class="picture" src="./../../../assets/img/image.jpg" alt="London">
+            </div>
+            <div class="image3">
+                <img class="picture" src="./../../../assets/img/image3.jpg" alt="Portrait" title="{{ 'title.photo' | translate }}">
+            </div>
+        </div>
+    </div>
+    <div class="image2">
+        <img class="picture" src="./../../../assets/img/image2.jpg" alt="Tower">
+    </div>
+</div>

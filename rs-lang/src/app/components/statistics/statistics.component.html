@@ -1,0 +1,49 @@
+<div class="statistics__container">
+  <h2>{{ 'stata.today' | translate }}</h2>
+  <div class="cards__container">
+    <div class="card">
+      <div class="icons">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">local_library</mat-icon>
+      </div>
+      <h3>{{ 'stata.words' | translate }}</h3>
+      <div class="sts">
+        <div class="description">{{ 'stata.learn' | translate }} {{this.learnWords}} {{ 'stata.word' | translate }}
+        </div>
+        <div class="circle">
+          <circle-progress class="circular-bar" [percent]="allLearnedWords" [radius]="55" [outerStrokeWidth]="6"
+            [innerStrokeWidth]="3" [outerStrokeColor]="' #3f51b5'" [innerStrokeColor]="'#ff4081'" [animation]="true"
+            [animationDuration]="300">
+          </circle-progress>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="icons">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">directions_run</mat-icon>
+      </div>
+      <h3>{{ 'games.sprint' | translate }}</h3>
+      <div class="sts">
+        <div class="description">{{ 'stata.learn' | translate }} {{this.sprintWords}} {{ 'stata.word' | translate }}
+        </div>
+        <div class="description">{{ 'stata.true' | translate }} {{this.sprintPercent}}%</div>
+        <div class="description">{{ 'stata.long' | translate }} {{this.sprintSeries}}</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="icons">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">queue_music</mat-icon>
+      </div>
+      <h3>{{ 'games.audioBattle' | translate }}</h3>
+      <div class="sts">
+        <div class="description">{{ 'stata.learn' | translate }} {{this.audioWords}} {{ 'stata.word' | translate }}
+        </div>
+        <div class="description">{{ 'stata.true' | translate }} {{this.audioPercent}}%</div>
+        <div class="description">{{ 'stata.long' | translate }} {{this.audioSeries}}</div>
+      </div>
+    </div>
+  </div>
+  <h2>{{ 'stata.total' | translate }}</h2>
+  <div class="card" style="margin-top:20px ;">
+    <app-charts></app-charts>
+  </div>
+</div>

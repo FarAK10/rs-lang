@@ -1,0 +1,24 @@
+<div class="form-container mat-elevation-z5">
+  <h1>{{ 'login.login' | translate }}</h1>
+  <form [formGroup]="loginForm">
+    <mat-form-field class="input-field" color="accent">
+      <input matInput placeholder="{{ 'login.email' | translate }}" formControlName="email">
+      <mat-error *ngIf="email?.errors?.['required']">{{ 'login.email' | translate }}</mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">{{ 'login.correctEmail' | translate }}</mat-error>
+    </mat-form-field>
+    <mat-form-field class="input-field" color="accent">
+      <input type="password" matInput placeholder="{{ 'login.pass' | translate }}" formControlName="password"
+        autocomplete="on">
+      <mat-error *ngIf="password?.errors?.['required']">{{ 'login.pass' | translate }}</mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">{{ 'login.passMin' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <div class="center">
+      <button [disabled]="!loginForm.valid" class="submit-btn" mat-raised-button color="accent" type="submit"
+        (click)="signIn('login')" routerLink="/autorization/login">{{ 'button.submit' | translate }}</button>
+    </div>
+  </form>
+</div>
+<mat-progress-spinner ngClass="spinner" *ngIf="!resoursesLoaded" class="example-margin" color="accent"
+  mode="indeterminate" [value]="50">
+</mat-progress-spinner>
