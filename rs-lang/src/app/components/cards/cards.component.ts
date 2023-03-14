@@ -113,6 +113,7 @@ export class CardsComponent implements OnInit {
     this.apiService
       .getWords(String(this.data.parameters.currentLevel), String(this.data.parameters.page))
       .subscribe((value) => {
+        console.log(value);
         this.data.isLoaded = true;
         this.data.parameters.words = JSON.parse(JSON.stringify(value));
         this.data.checkArrEase();

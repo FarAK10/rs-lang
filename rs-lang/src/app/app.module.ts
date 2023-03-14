@@ -113,7 +113,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ...formsModules,
     NgCircleProgressModule.forRoot({}),
     NgxChartsModule,
-    NgxLineChartModule,
   ],
 
   providers: [

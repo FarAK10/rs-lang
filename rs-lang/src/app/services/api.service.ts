@@ -10,8 +10,8 @@ import { DataService } from './data.service';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://app-lang.herokuapp.com';
-  // baseUrl = 'http://localhost:8088';
+  // baseUrl = 'https://rs-lang-service.onrender.com';
+  baseUrl = 'http://localhost:8088';
 
   post<T>(url: string, body: T): Observable<T> {
     return this.http.post<T>(this.generateUrl(url), body);
